@@ -1,0 +1,11 @@
+Gmail: admin@gmail.com
+Password: m,Jcm.c39wes_%%
+
+Gmail: test@gmail.com
+Password: Ga#5FyRvNbAXXaF
+
+Role: 
+	Admin
+	Manager
+	User
+ 	Member
