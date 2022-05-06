@@ -9,3 +9,11 @@ Role:
 	Manager
 	User
  	Member
+
+Note:
+create schema 
+CREATE TABLE geeks_sch.Geektab(
+G_id INT PRIMARY KEY IDENTITY, 
+Name VARCHAR(200), 
+DOJ DATETIME2 NOT NULL
+); 
