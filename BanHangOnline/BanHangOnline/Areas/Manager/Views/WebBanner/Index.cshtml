@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BanHangOnline.ViewModels.WebBannerViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content wrapper scroll start -->
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <div class="col-12 mb-2">
+            <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
+        </div>
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table id="copy-print-csv" class="table v-middle">
+                                <thead>
+                                    <tr>
+                                        <th>@Html.DisplayNameFor(model => model.BannerImage)</th>
+                                        <th>@Html.DisplayNameFor(model => model.BannerTitle)</th>
+                                        <th>@Html.DisplayNameFor(model => model.BannerGroupId)</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="media-box">
+                                                    <img src="@item.BannerImage" class="media-avatar" alt="@item.BannerAlt">
+                                                </div>
+                                            </td>
+                                            <td>@Html.DisplayFor(modelItem => item.BannerTitle)</td>
+
+                                            @if(item.WebBannerGroup != null){
+                                                @foreach (var bannergroup in item.WebBannerGroup)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => bannergroup.BannerGroupName)</td>
+                                                }
+                                            }else{
+                                                 <td>@Html.DisplayFor(modelItem => item.BannerGroupId)</td>
+                                            }
+
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="WebBanner/Edit/@item.BannerId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                        <i class="icon-edit1 text-info"></i>
+                                                    </a>
+                                                    <a href="WebBanner/Details/@item.BannerId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
+                                                        <i class="icon-menu text-info"></i>
+                                                    </a>
+                                                    <a href="WebBanner/Delete/@item.BannerId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                        <i class="icon-x-circle text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+</div>
+<!-- Content wrapper scroll end -->

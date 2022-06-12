@@ -31,6 +31,7 @@ namespace BanHangOnline
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment environment;
         // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -83,14 +84,19 @@ namespace BanHangOnline
                 //           name: "Managers",
                 //           areaName: "ManagerCategorys",
                 //           pattern: "Managers/{controller=Category}/{action=Index}/{id?}");
+                //endpoints.MapAreaControllerRoute(
+                //             name: "WebBannerGroup",
+                //             areaName: "Manages",
+                //             pattern: "Manages/{controller=WebBannerGroup}/{action=Index}"
+                //         );
 
+                endpoints.MapAreaControllerRoute(
+                       name: "Manager",
+                       areaName: "Manager",
+                      pattern: "Manager/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
-                          name: "Area",
-                          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                          name: "default",
-                          pattern: "{controller=Home}/{action=Index}/{id?}");
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

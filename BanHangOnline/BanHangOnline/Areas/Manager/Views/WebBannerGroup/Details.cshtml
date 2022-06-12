@@ -1,0 +1,57 @@
+﻿@model BanHangOnline.ViewModels.WebBannerGroupViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper-scroll">
+
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Chi tiết nhóm banner</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div>
+                                <form asp-action="Index">
+                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" asp-for="BannerGroupID" />
+                                    <h6 class="h-0 m-0">&nbsp;</h6>
+                                    <div class="row gutters">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+
+                                                <input asp-for="BannerGroupName" class="form-control" readonly/>
+                                                 <span asp-validation-for="BannerGroupName" class="text-danger"></span>
+                                                <div class="field-placeholder">Tên nhóm banner</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper text-start">
+                                                <input style=" width:20px;margin-left:12px" asp-for="BannerGroupEnable" />
+                                                <span asp-validation-for="BannerGroupName" class="text-danger"></span>
+                                                <div class="field-placeholder">Trạng thái hoạt động</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-start">
+                                            <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-controller="WebBannerGroup" asp-action="Index">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+        </div>
+        <!-- Content wrapper end -->
+    </div>
+</div>

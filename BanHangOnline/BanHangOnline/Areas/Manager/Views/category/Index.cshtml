@@ -1,0 +1,114 @@
+﻿@model IEnumerable<BanHangOnline.ViewModels.categoryViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryImages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategorySeoKeywords)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryShowHome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryEnable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryImages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategorySeoKeywords)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryShowHome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryEnable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

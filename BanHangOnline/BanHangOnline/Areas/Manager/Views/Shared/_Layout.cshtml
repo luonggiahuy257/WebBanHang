@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap4 Dashboard Template">
+    <meta name="author" content="ParkerThemes">
+    <link rel="shortcut icon" href="~/Content/Admin/img/fav.png">
+
+    <!-- Title -->
+    <title>Admin Dashboard</title>
+
+
+    <!-- *************
+        ************ Common Css Files *************
+    ************ -->
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="~/Content/Admin/css/bootstrap.min.css">
+
+    <!-- Icomoon Font Icons css -->
+    <link rel="stylesheet" href="~/Content/Admin/fonts/style.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/Content/Admin/css/main.css">
+
+
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <!-- Mega Menu -->
+    <link rel="stylesheet" href="~/Content/Admin/vendor/megamenu/css/megamenu.css">
+
+    <!-- Search Filter JS -->
+    <link rel="stylesheet" href="~/Content/Admin/vendor/search-filter/search-filter.css">
+    <link rel="stylesheet" href="~/Content/Admin/vendor/search-filter/custom-search-filter.css">
+
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="~/Content/Admin/vendor/datatables/dataTables.bs4.css" />
+    <link rel="stylesheet" href="~/Content/Admin/vendor/datatables/dataTables.bs4-custom.css" />
+    <link href="~/Content/Admin/vendor/datatables/buttons.bs.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+    <!-- Loading wrapper start -->
+    <div id="loading-wrapper">
+        <div class="spinner-border"></div>
+        Loading...
+    </div>
+    <!-- Loading wrapper end -->
+    <!-- Page wrapper start -->
+    <div class="page-wrapper">
+
+        @Html.Partial("_MenuLeftAdmin")
+
+        <!-- *************
+            ************ Main container start *************
+        ************* -->
+        <div class="main-container">
+
+            @Html.Partial("_MenuTopAdmin")
+
+            <!-- Content wrapper scroll start -->
+            <div class="content-wrapper-scroll">
+
+                @RenderBody()
+
+                <!-- App footer start -->
+                <div class="app-footer">© Uni Pro Admin 2021</div>
+                <!-- App footer end -->
+
+            </div>
+            <!-- Content wrapper scroll end -->
+
+        </div>
+        <!-- *************
+            ************ Main container end *************
+        ************* -->
+    </div>
+    <!-- Page wrapper end -->
+    <!-- *************
+        ************ Required JavaScript Files *************
+    ************* -->
+    <!-- Required jQuery first, then Bootstrap Bundle JS -->
+    <script src="~/Content/Admin/js/jquery.min.js"></script>
+    <script src="~/Content/Admin/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Admin/js/modernizr.js"></script>
+    <script src="~/Content/Admin/js/moment.js"></script>
+
+    <!-- *************
+        ************ Vendor Js Files *************
+    ************* -->
+    <!-- Megamenu JS -->
+    <script src="~/Content/Admin/vendor/megamenu/js/megamenu.js"></script>
+    <script src="~/Content/Admin/vendor/megamenu/js/custom.js"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="~/Content/Admin/vendor/slimscroll/slimscroll.min.js"></script>
+    <script src="~/Content/Admin/vendor/slimscroll/custom-scrollbar.js"></script>
+
+    <!-- Search Filter JS -->
+    <script src="~/Content/Admin/vendor/search-filter/search-filter.js"></script>
+    <script src="~/Content/Admin/vendor/search-filter/custom-search-filter.js"></script>
+
+    @*    <!-- Apex Charts -->
+    <script src="~/Content/Admin/vendor/apex/apexcharts.min.js"></script>
+    <script src="~/Content/Admin/vendor/apex/custom/home/salesGraph.js"></script>
+    <script src="~/Content/Admin/vendor/apex/custom/home/ordersGraph.js"></script>
+    <script src="~/Content/Admin/vendor/apex/custom/home/earningsGraph.js"></script>
+    <script src="~/Content/Admin/vendor/apex/custom/home/visitorsGraph.js"></script>
+    <script src="~/Content/Admin/vendor/apex/custom/home/customersGraph.js"></script>
+    <script src="~/Content/Admin/vendor/apex/custom/home/sparkline.js"></script>*@
+
+    <!-- Circleful Charts -->
+    @*    <script src="~/Content/Admin/vendor/circliful/circliful.min.js"></script>
+    <script src="~/Content/Admin/vendor/circliful/circliful.custom.js"></script>*@
+
+    <!-- Main Js Required -->
+    <script src="~/Content/Admin/js/main.js"></script>
+
+
+    <!-- Data Tables -->
+    <script src="~/Content/Admin/vendor/datatables/dataTables.min.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/dataTables.bootstrap.min.js"></script>
+
+    <!-- Custom Data tables -->
+    <script src="~/Content/Admin/vendor/datatables/custom/custom-datatables.js"></script>
+
+    <!-- Download / CSV / Copy / Print -->
+    <script src="~/Content/Admin/vendor/datatables/buttons.min.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/jszip.min.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/html5.min.js"></script>
+    <script src="~/Content/Admin/vendor/datatables/buttons.print.min.js"></script>
+
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+
+
+
+
+
+</body>
+</html>

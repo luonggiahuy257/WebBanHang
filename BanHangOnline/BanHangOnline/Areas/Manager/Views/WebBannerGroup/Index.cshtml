@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BanHangOnline.ViewModels.WebBannerGroupViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content wrapper scroll start -->
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+
+        <div class="col-12 mb-2">
+              <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
+        </div>
+
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table id="copy-print-csv" class="table v-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Id nhóm banner</th>
+                                        <th>Tên nhóm banner</th>
+                                        <th>Trạng thái nhóm banner</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.BannerGroupID)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.BannerGroupName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.BannerGroupEnable)</td>
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="WebBannerGroup/Edit/@item.BannerGroupID" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                        <i class="icon-edit1 text-info"></i>
+                                                    </a>
+                                                    <a href="WebBannerGroup/Details/@item.BannerGroupID" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
+                                                        <i class="icon-menu text-info"></i>
+                                                    </a>
+                                                    <a href="WebBannerGroup/Delete/@item.BannerGroupID" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                        <i class="icon-x-circle text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+
+</div>
+<!-- Content wrapper scroll end -->

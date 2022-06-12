@@ -1,0 +1,125 @@
+﻿@model BanHangOnline.ViewModels.WebInfoViewModels
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sửa thông tin website</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <form asp-action="Edit" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <h6 class="h-0 m-0">&nbsp;</h6>
+                                <div class="row gutters">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="TitleLogo" class="form-control" />
+                                            <span asp-validation-for="TitleLogo" class="text-danger"></span>
+                                            <div class="field-placeholder">Chọn logo</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="TitleLogo" class="form-control" />
+                                            <span asp-validation-for="TitleLogo" class="text-danger"></span>
+                                            <div class="field-placeholder">Tiêu đề logo</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Slogone" class="form-control" />
+                                            <span asp-validation-for="Slogone" class="text-danger"></span>
+                                            <div class="field-placeholder">Slogone công ty</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="CompanyTitle" class="form-control" />
+                                            <span asp-validation-for="CompanyTitle" class="text-danger"></span>
+                                            <div class="field-placeholder">Tên công ty</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="ShortDescription" class="form-control" />
+                                            <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                                            <div class="field-placeholder">Mô tả ngắn công ty</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Description" class="form-control" />
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                            <div class="field-placeholder">Mô tả chi tiết công ty</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Address" class="form-control" />
+                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                            <div class="field-placeholder">Địa chỉ</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="PhoneNumber" class="form-control" />
+                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                            <div class="field-placeholder">số điện thoại</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Hotline" class="form-control" />
+                                            <span asp-validation-for="Hotline" class="text-danger"></span>
+                                            <div class="field-placeholder">Số hotline</div>
+                                        </div>
+                                    </div><div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Email" class="form-control" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                            <div class="field-placeholder">Thư điện tử</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Website" class="form-control" />
+                                            <span asp-validation-for="Website" class="text-danger"></span>
+                                            <div class="field-placeholder">Địa chỉ website</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="TitleWeb" class="form-control" />
+                                            <span asp-validation-for="TitleWeb" class="text-danger"></span>
+                                            <div class="field-placeholder">Tiêu đề website</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-start">
+                                        <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <input type="submit" value="Hoàn Tất" class="btn btn-primary mt-3 mr-2" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+        </div>
+        <!-- Content wrapper end -->
+    </div>
+</div>
