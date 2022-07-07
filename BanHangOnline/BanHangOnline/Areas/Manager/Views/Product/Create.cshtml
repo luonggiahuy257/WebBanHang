@@ -5,152 +5,208 @@
     Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<!-- Content wrapper scroll start -->
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Thêm danh mục</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div>
+                                <form enctype="multipart/form-data" asp-action="Create">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <h6 class="h-0 m-0">&nbsp;</h6>
+                                    <div class="row gutters">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input type="file" class="filetype" onchange="previewMultiple(event)" id="addFile"  data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" multiple/>
+                                               <div class="media-box" id='preview'>
+                                                    @*<img  class="media-avatar" style="max-width:100px; max-height:100px; margin-top:10px; margin-right:10px">*@
+                                                </div>
+                                                <div class="field-placeholder">Chọn hình ảnh <span class="text-danger">*</span></div>
 
-<h4>ProductViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="ProductName" class="form-control" />
+                                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                                                <div class="field-placeholder">Tên sản phẩm</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="SKU" class="form-control" />
+                                                <span asp-validation-for="SKU" class="text-danger"></span>
+                                                <div class="field-placeholder">Mã SKU (Nếu có)</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="ManufacturerId" class="form-control" />
+                                                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+                                                <div class="field-placeholder">Nhà sản xuất</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="UnitTypeId" class="form-control" />
+                                                <span asp-validation-for="UnitTypeId" class="text-danger"></span>
+                                                <div class="field-placeholder">Loại đơn vị</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="TaxRateId" class="form-control" />
+                                                <span asp-validation-for="TaxRateId" class="text-danger"></span>
+                                                <div class="field-placeholder">Thuế suất</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="SalePrice" class="form-control" />
+                                                <span asp-validation-for="SalePrice" class="text-danger"></span>
+                                                <div class="field-placeholder">Giá bán</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="RetailPrice" class="form-control" />
+                                                <span asp-validation-for="RetailPrice" class="text-danger"></span>
+                                                <div class="field-placeholder">Giá bán lẽ</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="WarehouseId" class="form-control" />
+                                                <span asp-validation-for="WarehouseId" class="text-danger"></span>
+                                                <div class="field-placeholder">Nhà cung cấp (kho)</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="ProductTypeId" class="form-control" />
+                                                <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                                                <div class="field-placeholder">Loại sản phẩm</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="QuantityInStock" class="form-control" />
+                                                <span asp-validation-for="QuantityInStock" class="text-danger"></span>
+                                                <div class="field-placeholder">Số lượng sản phẩm</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper text-start">
+                                                <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="ShowOnHomePage" />
+                                                <div class="field-placeholder">Hiển thị trang chủ</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper text-start">
+                                                <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="ShowOnSalePage" />
+                                                <div class="field-placeholder">Hiển thị trang sale</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper text-start">
+                                                <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="IsGroup" />
+                                                <div class="field-placeholder">Sản phẩm đặt biệt</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper text-start">
+                                                <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="OwenSale" />
+                                                <div class="field-placeholder">Sản phẩm được giảm giá</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper text-start">
+                                                <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="Published" checked />
+                                                <div class="field-placeholder">Trạng thái hoạt động</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <textarea asp-for="ShortDescription" class="form-control" style="height:150px"></textarea>
+                                                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                                                <div class="field-placeholder">Mô tả ngắn danh mục</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <textarea asp-for="Description" class="form-control" style="height:150px"></textarea>
+                                                <span asp-validation-for="Description" class="text-danger"></span>
+                                                <div class="field-placeholder">Mô tả chi tiết</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-start">
+                                            <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
+                                        </div>
+                                        <div class="col-md-6 text-end">
+                                            <input type="submit" value="Create" class="btn btn-primary mt-3 mr-2" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="SKU" class="control-label"></label>
-                <input asp-for="SKU" class="form-control" />
-                <span asp-validation-for="SKU" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShortDescription" class="control-label"></label>
-                <input asp-for="ShortDescription" class="form-control" />
-                <span asp-validation-for="ShortDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductSeoKeywords" class="control-label"></label>
-                <input asp-for="ProductSeoKeywords" class="form-control" />
-                <span asp-validation-for="ProductSeoKeywords" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ManufacturerId" class="control-label"></label>
-                <input asp-for="ManufacturerId" class="form-control" />
-                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnitTypeId" class="control-label"></label>
-                <input asp-for="UnitTypeId" class="form-control" />
-                <span asp-validation-for="UnitTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaxRateId" class="control-label"></label>
-                <input asp-for="TaxRateId" class="form-control" />
-                <span asp-validation-for="TaxRateId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SalePrice" class="control-label"></label>
-                <input asp-for="SalePrice" class="form-control" />
-                <span asp-validation-for="SalePrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RetailPrice" class="control-label"></label>
-                <input asp-for="RetailPrice" class="form-control" />
-                <span asp-validation-for="RetailPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Point" class="control-label"></label>
-                <input asp-for="Point" class="form-control" />
-                <span asp-validation-for="Point" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ShowOnHomePage" /> @Html.DisplayNameFor(model => model.ShowOnHomePage)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ShowOnSalePage" /> @Html.DisplayNameFor(model => model.ShowOnSalePage)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="WarehouseId" class="control-label"></label>
-                <input asp-for="WarehouseId" class="form-control" />
-                <span asp-validation-for="WarehouseId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductTypeId" class="control-label"></label>
-                <input asp-for="ProductTypeId" class="form-control" />
-                <span asp-validation-for="ProductTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsGroup" /> @Html.DisplayNameFor(model => model.IsGroup)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="OwenSale" /> @Html.DisplayNameFor(model => model.OwenSale)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="QuantityInStock" class="control-label"></label>
-                <input asp-for="QuantityInStock" class="form-control" />
-                <span asp-validation-for="QuantityInStock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DisplayOrder" class="control-label"></label>
-                <input asp-for="DisplayOrder" class="form-control" />
-                <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Published" /> @Html.DisplayNameFor(model => model.Published)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Deleted" /> @Html.DisplayNameFor(model => model.Deleted)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductTitleURL" class="control-label"></label>
-                <input asp-for="ProductTitleURL" class="form-control" />
-                <span asp-validation-for="ProductTitleURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedBy" class="control-label"></label>
-                <input asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- Row end -->
+        </div>
+        <!-- Content wrapper end -->
     </div>
 </div>
+<!-- Content wrapper scroll end -->
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+<script>
+
+function previewMultiple(event){
+        var saida = document.getElementById("addFile");
+        var quantos = saida.files.length;
+        for(i = 0; i < quantos; i++){
+            var urls = URL.createObjectURL(event.target.files[i]);
+            document.getElementById("preview").innerHTML +=  '<img  class="media-avatar" ' + urls + ' style = "max-width:100px; max-height:100px; margin-top:10px; margin-right:10px" >';
+        }
+    }
+</script>
+@*
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("output");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function() {
+        modal.style.display = "block";
+        $(".sidebar-wrapper").css("display", "none");
+        $(".field-placeholder").css("display", "none");
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+        $(".sidebar-wrapper").css("display", "block");
+        $(".field-placeholder").css("display", "block");
+
+    }
+</script>*@

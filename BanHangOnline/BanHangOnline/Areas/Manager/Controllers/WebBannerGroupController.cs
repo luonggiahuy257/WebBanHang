@@ -56,7 +56,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BannerGroupID,BannerGroupName,BannerGroupEnable")] WebBannerGroupViewModel webBannerGroupViewModel)
+        public IActionResult Create([Bind("BannerGroupID,BannerGroupName,BannerGroupEnable")] WebBannerGroupViewModel webBannerGroupViewModel)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
@@ -69,7 +69,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
                         webBannerGroupViewModels.BannerGroupEnable = webBannerGroupViewModel.BannerGroupEnable;
 
                          _context.WebBannerGroup.Add(webBannerGroupViewModels);
-                         _context.SaveChanges();
+                        _context.SaveChanges();
 
                         transaction.Commit();
 
@@ -83,7 +83,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
 
                     return View(webBannerGroupViewModel);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     transaction.Rollback();
                 }

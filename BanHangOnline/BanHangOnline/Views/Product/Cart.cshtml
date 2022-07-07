@@ -1,0 +1,138 @@
+﻿@using BanHangOnline.ViewModels
+@*@using BanHangOnline.ViewModels
+@model dynamic*@
+@model List<BanHangOnline.ViewModels.CartViewModel>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    decimal total = 0;
+    decimal totalAll = 30000;
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area  breadcrumbs_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3>Giỏ hàng</h3>
+                    <ul>
+                        <li><a href="/index">Trang chủ</a></li>
+                        <li>Giỏ hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--shopping cart area start -->
+<div class="shopping_cart_area">
+    <div class="container">
+        <form action="#">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="cart_page table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product_remove">#</th>
+                                        <th class="product_name">Tên sản phẩm</th>
+                                        <th class="product-price">Giá sản phẩm</th>
+                                        <th class="product_quantity">Số lượng</th>
+                                        <th class="product_quantity">Cập nhập Số lượng</th>
+                                        <th class="product_total">Tổng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        int stt = 1;
+                                        @foreach (CartViewModel item in Model)
+                                        {
+                                            var thanhtien = item.quantity * item.product.SalePrice;
+                                            total += thanhtien;
+                                            <tr>
+                                                <td class="product_remove">@(stt++)</td>
+                                                <td class="product_name"><a href="#">@item.product.ProductName</a></td>
+                                                <td class="product-price">@(item.product.SalePrice.ToString("n0"))</td>
+                                                <td class="product_quantity"><input asp-for="@item.quantity" id="@($"quantity-{item.product.Id}")"/></td>
+                                                <td class="product_quantity"><button  data-productid="@item.product.Id" class="btn btn-success updatecartitem" style="margin-right:10px">Cập nhập</button><button asp-route="removecart" asp-route-id="@item.product.Id" class="btn btn-danger">Xóa</button></td>
+                                                <td class="product_total">@(thanhtien.ToString("n0"))</td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart_submit">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--coupon code area start-->
+            <div class="coupon_area">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code left">
+                            <h3>Coupon</h3>
+                            <div class="coupon_inner">
+                                <p>Enter your coupon code if you have one.</p>
+                                <input placeholder="Coupon code" type="text">
+                                <button type="submit">Apply coupon</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code right">
+                            <h3>Thanh toán giỏ hàng</h3>
+                            <div class="coupon_inner">
+                                <div class="cart_subtotal">
+                                    <p>Tổng sản phẩm</p>
+                                    <p class="cart_amount">@(total.ToString("n0"))</p>
+                                </div>
+                                <div class="cart_subtotal ">
+                                    <p>Phí vận chuyển</p>
+                                    <p class="cart_amount"> 30.000(VND)</p>
+                                </div>
+                                <div class="cart_subtotal">
+                                    <p>Total</p>
+                                    <p class="cart_amount">@(totalAll.ToString("n0"))</p>
+                                </div>
+                                <div class="checkout_btn">
+                                    <a href="#">Kiểm tra thanh toán</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--coupon code area end-->
+        </form>
+    </div>
+</div>
+<!--shopping cart area end -->
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $(".updatecartitem").click(function(event) {
+                event.preventDefault();
+                var productid = $(this).attr("data-productid");
+                var quantity = $("#quantity-" + productid).val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.RouteUrl("updatecart")",
+                    data: {
+                        productid: productid,
+                        quantity: quantity
+                    },
+                    success: function(result) {
+                        window.location.href = "@Url.RouteUrl("cart")";
+                    }
+                });
+            });
+        });
+    </script>
+}

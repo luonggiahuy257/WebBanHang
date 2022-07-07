@@ -1,97 +1,142 @@
-﻿@model BanHangOnline.ViewModels.categoryViewModel
+﻿@model BanHangOnline.ViewModels.CategoryViewModel
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>categoryViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ParentId" class="control-label"></label>
-                <input asp-for="ParentId" class="form-control" />
-                <span asp-validation-for="ParentId" class="text-danger"></span>
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sửa danh mục</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <h6 class="h-0 m-0">&nbsp;</h6>
+                                <div class="row gutters">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input type="file" class="filetype" onchange="loadFile(event)" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
+                                            <div id="img-preview"></div>
+                                            <div class="field-placeholder">Chọn hình ảnh <span class="text-danger">*</span></div>
+                                            @Html.HiddenFor(model => model.CategoryImages)
+                                            @if (@Model.CategoryImages != null)
+                                            {
+                                                <div class="media-box">
+                                                    <img id="output" src="@Model.CategoryImages" class="media-avatar" style="max-width:100px; max-height:100px; margin-top:10px">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="CategoryName" class="form-control" />
+                                            <span asp-validation-for="CategoryName" class="text-danger"></span>
+                                            <div class="field-placeholder">Tên danh mục</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="CategoryURL" class="form-control" />
+                                            <span asp-validation-for="CategoryURL" class="text-danger"></span>
+                                            <div class="field-placeholder">Đường dẫn Link</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="CategoryOrder" class="form-control" />
+                                            <span asp-validation-for="CategoryOrder" class="text-danger"></span>
+                                            <div class="field-placeholder">Thứ tự sắp xếp</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper text-start">
+                                            <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="CategoryShowHome" checked />
+                                            <div class="field-placeholder">Hiển thị trang chủ</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper text-start">
+                                            <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="CategoryEnable" checked />
+                                            <div class="field-placeholder">Trạng thái hoạt động</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <textarea asp-for="ShortDescription" class="form-control" style="height:150px"></textarea>
+                                            <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                                            <div class="field-placeholder">Mô tả ngắn danh mục</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-start">
+                                        <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <input type="submit" value="Hoàn Tất" class="btn btn-primary mt-3 mr-2" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CategoryName" class="control-label"></label>
-                <input asp-for="CategoryName" class="form-control" />
-                <span asp-validation-for="CategoryName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShortDescription" class="control-label"></label>
-                <input asp-for="ShortDescription" class="form-control" />
-                <span asp-validation-for="ShortDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryImages" class="control-label"></label>
-                <input asp-for="CategoryImages" class="form-control" />
-                <span asp-validation-for="CategoryImages" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryURL" class="control-label"></label>
-                <input asp-for="CategoryURL" class="form-control" />
-                <span asp-validation-for="CategoryURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategorySeoKeywords" class="control-label"></label>
-                <input asp-for="CategorySeoKeywords" class="form-control" />
-                <span asp-validation-for="CategorySeoKeywords" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="CategoryShowHome" /> @Html.DisplayNameFor(model => model.CategoryShowHome)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="CategoryEnable" /> @Html.DisplayNameFor(model => model.CategoryEnable)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryOrder" class="control-label"></label>
-                <input asp-for="CategoryOrder" class="form-control" />
-                <span asp-validation-for="CategoryOrder" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedBy" class="control-label"></label>
-                <input asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- Row end -->
+        </div>
+        <!-- Content wrapper end -->
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01" style="max-width:400px;max-height:400px">
+    <div id="caption"></div>
 </div>
 
+<script>
+
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+</script>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("output");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function() {
+        modal.style.display = "block";
+        $(".sidebar-wrapper").css("display", "none");
+        $(".field-placeholder").css("display", "none");
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+        $(".sidebar-wrapper").css("display", "block");
+        $(".field-placeholder").css("display", "block");
+
+    }
+</script>

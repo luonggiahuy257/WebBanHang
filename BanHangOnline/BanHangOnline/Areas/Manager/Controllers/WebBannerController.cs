@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BanHangOnline.Database;
+using BanHangOnline.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BanHangOnline.Database;
-using BanHangOnline.ViewModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using static BanHangOnline.Common.WebConst;
 
 namespace BanHangOnline.Areas.Managers.Controllers
@@ -100,7 +100,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
                 List<string> uploadedFiles = new List<string>();
                 foreach (IFormFile postedFile in postedFiles)
                 {
-                    if (postedFile.Length > 2097152 )
+                    if (postedFile.Length > 2097152)
                     {
                         return View(MakeWebBanner());
                     }

@@ -11,7 +11,11 @@ namespace BanHangOnline.Database
         public DbSet<WebInfoViewModels> WebInfo { get; set; }
         public DbSet<WebBannerViewModel> WebBanner { get; set; }
         public DbSet<WebBannerGroupViewModel> WebBannerGroup { get; set; }
-
+        public DbSet<CategoryViewModel> category { get; set; }
+        public DbSet<ProductViewModel> Product { get; set; }
+        public DbSet<ProductImageViewModel> ProductImage { get; set; }
+        public DbSet<ProductCategoryViewModel> ProductCategory { get; set; }
+        public DbSet<ContactViewModel> Contact { get; set; }
         public DataContext(DbContextOptions<DataContext> options)
            : base(options)
         {
@@ -21,9 +25,7 @@ namespace BanHangOnline.Database
             base.OnModelCreating(builder);
             builder.Entity<IdentityUser>();
         }
-        public DbSet<BanHangOnline.ViewModels.categoryViewModel> categoryViewModel { get; set; }
-        public DbSet<BanHangOnline.ViewModels.ProductViewModel> ProductViewModel { get; set; }
 
-       
+
     }
 }

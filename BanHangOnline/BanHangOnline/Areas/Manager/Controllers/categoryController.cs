@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BanHangOnline.Database;
 using BanHangOnline.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using static BanHangOnline.Common.WebConst;
+using System.IO;
 
 namespace BanHangOnline.Areas.Manager.Controllers
 {
@@ -14,34 +18,35 @@ namespace BanHangOnline.Areas.Manager.Controllers
     public class categoryController : Controller
     {
         private readonly DataContext _context;
-
-        public categoryController(DataContext context)
+        private IWebHostEnvironment Environment;
+        public categoryController(DataContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            Environment = environment;
         }
 
         // GET: Manager/category
         public async Task<IActionResult> Index()
         {
-              return View(await _context.categoryViewModel.ToListAsync());
+              return View(await _context.category.ToListAsync());
         }
 
         // GET: Manager/category/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.categoryViewModel == null)
+            if (id == null || _context.category == null)
             {
                 return NotFound();
             }
 
-            var categoryViewModel = await _context.categoryViewModel
+            var CategoryViewModel = await _context.category
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryViewModel == null)
+            if (CategoryViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(categoryViewModel);
+            return View(CategoryViewModel);
         }
 
         // GET: Manager/category/Create
@@ -55,31 +60,86 @@ namespace BanHangOnline.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ParentId,CategoryName,ShortDescription,Description,CategoryImages,CategoryURL,CategorySeoKeywords,CategoryShowHome,CategoryEnable,CategoryOrder,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] categoryViewModel categoryViewModel)
+        public async Task<IActionResult> Create([Bind("Id,ParentId,CategoryName,ShortDescription,Description,CategoryImages,CategoryURL,CategorySeoKeywords,CategoryShowHome,CategoryEnable,CategoryOrder,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] CategoryViewModel CategoryViewModel, List<IFormFile> postedFiles)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoryViewModel);
+                DateTime now = System.DateTime.Now;
+
+                if (postedFiles.Count == 0)
+                {
+                    return View();
+                }
+                string[] VietNamChar = new string[]
+                {
+                    "aAeEoOuUiIdDyY",
+                    "áàạảãâấầậẩẫăắằặẳẵ",
+                    "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                    "éèẹẻẽêếềệểễ",
+                    "ÉÈẸẺẼÊẾỀỆỂỄ",
+                    "óòọỏõôốồộổỗơớờợởỡ",
+                    "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                    "úùụủũưứừựửữ",
+                    "ÚÙỤỦŨƯỨỪỰỬỮ",
+                    "íìịỉĩ",
+                    "ÍÌỊỈĨ",
+                    "đ",
+                    "Đ",
+                    "ýỳỵỷỹ",
+                    "ÝỲỴỶỸ"
+                };
+
+                char[] charsToTrim = { ' ' };
+                char[] charsToTrimg = { '-' };
+                string wwwPath = this.Environment.WebRootPath;
+                string contentPath = this.Environment.ContentRootPath;
+                string path = Path.Combine(this.Environment.WebRootPath, FileSave.PathSaveCategory);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                List<string> uploadedFiles = new List<string>();
+                foreach (IFormFile postedFile in postedFiles)
+                {
+                    if (postedFile.Length > 2097152)
+                    {
+                        return View(CategoryViewModel);
+                    }
+
+                    string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+                    string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+                    using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+                    {
+                        postedFile.CopyTo(stream);
+                        uploadedFiles.Add(flname);
+                        CategoryViewModel.CategoryImages = FileSave.PathCategory + flname;
+                    }
+                }
+
+                CategoryViewModel.CreatedAt = now;
+                CategoryViewModel.UpdatedAt = now;
+                _context.Add(CategoryViewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryViewModel);
+            return View(CategoryViewModel);
         }
 
         // GET: Manager/category/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.categoryViewModel == null)
+            if (id == null || _context.category == null)
             {
                 return NotFound();
             }
 
-            var categoryViewModel = await _context.categoryViewModel.FindAsync(id);
-            if (categoryViewModel == null)
+            var CategoryViewModel = await _context.category.FindAsync(id);
+            if (CategoryViewModel == null)
             {
                 return NotFound();
             }
-            return View(categoryViewModel);
+            return View(CategoryViewModel);
         }
 
         // POST: Manager/category/Edit/5
@@ -87,9 +147,9 @@ namespace BanHangOnline.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ParentId,CategoryName,ShortDescription,Description,CategoryImages,CategoryURL,CategorySeoKeywords,CategoryShowHome,CategoryEnable,CategoryOrder,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] categoryViewModel categoryViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ParentId,CategoryName,ShortDescription,Description,CategoryImages,CategoryURL,CategorySeoKeywords,CategoryShowHome,CategoryEnable,CategoryOrder,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] CategoryViewModel CategoryViewModel, List<IFormFile> postedFiles)
         {
-            if (id != categoryViewModel.Id)
+            if (id != CategoryViewModel.Id)
             {
                 return NotFound();
             }
@@ -98,12 +158,65 @@ namespace BanHangOnline.Areas.Manager.Controllers
             {
                 try
                 {
-                    _context.Update(categoryViewModel);
+                    
+                    DateTime now = System.DateTime.Now;
+
+                    string[] VietNamChar = new string[]
+                    {
+                    "aAeEoOuUiIdDyY",
+                    "áàạảãâấầậẩẫăắằặẳẵ",
+                    "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                    "éèẹẻẽêếềệểễ",
+                    "ÉÈẸẺẼÊẾỀỆỂỄ",
+                    "óòọỏõôốồộổỗơớờợởỡ",
+                    "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                    "úùụủũưứừựửữ",
+                    "ÚÙỤỦŨƯỨỪỰỬỮ",
+                    "íìịỉĩ",
+                    "ÍÌỊỈĨ",
+                    "đ",
+                    "Đ",
+                    "ýỳỵỷỹ",
+                    "ÝỲỴỶỸ"
+                    };
+
+                    char[] charsToTrim = { ' ' };
+                    char[] charsToTrimg = { '-' };
+                    string wwwPath = this.Environment.WebRootPath;
+                    string contentPath = this.Environment.ContentRootPath;
+                    string path = Path.Combine(this.Environment.WebRootPath, FileSave.PathSaveCategory);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    List<string> uploadedFiles = new List<string>();
+                    foreach (IFormFile postedFile in postedFiles)
+                    {
+                        if (postedFile.Length > 2097152)
+                        {
+                            
+                            return View(CategoryViewModel);
+                        }
+
+                        string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+                        string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+                        using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+                        {
+                            postedFile.CopyTo(stream);
+                            uploadedFiles.Add(flname);
+                            CategoryViewModel.CategoryImages = FileSave.PathCategory + flname;
+                        }
+                    }
+
+                    CategoryViewModel.CreatedAt = _context.category.Where(item => item.Id == CategoryViewModel.Id).Select(items => items.CreatedAt).FirstOrDefault();
+                    CategoryViewModel.UpdatedAt = now;
+                    _context.Update(CategoryViewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!categoryViewModelExists(categoryViewModel.Id))
+                    if (!CategoryViewModelExists(CategoryViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -114,25 +227,25 @@ namespace BanHangOnline.Areas.Manager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryViewModel);
+            return View(CategoryViewModel);
         }
 
         // GET: Manager/category/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.categoryViewModel == null)
+            if (id == null || _context.category == null)
             {
                 return NotFound();
             }
 
-            var categoryViewModel = await _context.categoryViewModel
+            var CategoryViewModel = await _context.category
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryViewModel == null)
+            if (CategoryViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(categoryViewModel);
+            return View(CategoryViewModel);
         }
 
         // POST: Manager/category/Delete/5
@@ -140,23 +253,23 @@ namespace BanHangOnline.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.categoryViewModel == null)
+            if (_context.category == null)
             {
-                return Problem("Entity set 'DataContext.categoryViewModel'  is null.");
+                return Problem("Entity set 'DataContext.CategoryViewModel'  is null.");
             }
-            var categoryViewModel = await _context.categoryViewModel.FindAsync(id);
-            if (categoryViewModel != null)
+            var CategoryViewModel = await _context.category.FindAsync(id);
+            if (CategoryViewModel != null)
             {
-                _context.categoryViewModel.Remove(categoryViewModel);
+                _context.category.Remove(CategoryViewModel);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool categoryViewModelExists(int id)
+        private bool CategoryViewModelExists(int id)
         {
-          return _context.categoryViewModel.Any(e => e.Id == id);
+          return _context.category.Any(e => e.Id == id);
         }
     }
 }

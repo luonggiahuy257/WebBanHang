@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BanHangOnline.ViewModels
 {
+    [Table("Cart")]
     public class CartViewModel
     {
         [Key]
@@ -11,6 +13,7 @@ namespace BanHangOnline.ViewModels
         public string SessionId { get; set; }
         public string Token{ get; set; }
         public bool Status { get; set; }
+        public int quantity { get; set; }
         public string Contents{ get; set; }
         public string FirstName{ get; set; }
         public string LastName{ get; set; }
@@ -26,5 +29,7 @@ namespace BanHangOnline.ViewModels
         public int GenderId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public ProductViewModel product { set; get; }
     }
 }

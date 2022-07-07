@@ -245,12 +245,7 @@ D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win-x6
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win-arm\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
-D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\obj\Debug\net6.0\BanHangOnline.csproj.AssemblyReference.cache
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\obj\Debug\net6.0\BanHangOnline.GeneratedMSBuildEditorConfig.editorconfig
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\obj\Debug\net6.0\BanHangOnline.AssemblyInfoInputs.cache
@@ -269,3 +264,14 @@ D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\obj\Debug\net6.0\refint\BanHangO
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\obj\Debug\net6.0\BanHangOnline.pdb
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\obj\Debug\net6.0\BanHangOnline.genruntimeconfig.cache
 D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\obj\Debug\net6.0\ref\BanHangOnline.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline\bin\Debug\net6.0\libman.json

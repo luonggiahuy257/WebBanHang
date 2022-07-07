@@ -1,0 +1,367 @@
+﻿<!--header area start-->
+<!--offcanvas menu area start-->
+<div class="off_canvars_overlay">
+</div>
+<div class="offcanvas_menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="offcanvas_menu_wrapper">
+                    <div class="canvas_close">
+                        <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
+                    </div>
+                    <div class="header_search_box">
+                        <form asp-controller="Search" asp-action="Index">
+                            <input placeholder="Tìm kiếm" name="SearchString" type="text">
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                    <div id="menu" class="text-left ">
+                        <ul class="offcanvas_main_menu">
+                            <li class="menu-item-has-children active">
+                                <a href="#">Home</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/Home">Trang chủ</a></li>
+                                </ul>
+                            </li>
+                         @*   <li class="menu-item-has-children">
+                                <a href="#">Danh mục</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item-has-children">
+                                        <a href="#">Danh mục sản phẩm</a>
+                                        <ul class="sub-menu">
+
+
+                                            <li><a href="shop-fullwidth.html">Full Width</a></li>
+                                            <li><a href="shop-fullwidth-list.html">Full Width list</a></li>
+                                            <li><a href="shop-right-sidebar.html">Right Sidebar </a></li>
+                                            <li><a href="shop-right-sidebar-list.html"> Right Sidebar list</a></li>
+                                            <li><a href="shop-list.html">List View</a></li>
+                                            <li><a href="shop-list.html">List View</a></li>
+                                            <li><a href="shop-list.html">List View</a></li>
+                                            <li><a href="shop-list.html">List View</a></li>
+                                            <li><a href="shop-list.html">List View</a></li>
+                                            <li><a href="shop-list.html">List View</a></li>
+
+                                        </ul>
+                                    </li>
+                                      <li class="menu-item-has-children">
+                                    <a href="#">danh mục blog</a>
+                                    <ul class="sub-menu">
+                                    <li><a href="cart.html">cart</a></li>
+                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="my-account.html">my account</a></li>
+                                    <li><a href="404.html">Error 404</a></li>
+                                    </ul>
+                                    </li>
+                                     <li class="menu-item-has-children">
+                                    <a href="#">Product Types</a>
+                                    <ul class="sub-menu">
+                                    <li><a href="product-details.html">product details</a></li>
+                                    <li><a href="product-sidebar.html">product sidebar</a></li>
+                                    <li><a href="product-grouped.html">product grouped</a></li>
+                                    <li><a href="variable-product.html">product variable</a></li>
+                                    </ul>
+                                    </li>
+                                </ul>
+                            </li>*@
+                            <li class="menu-item-has-children">
+                                <a href="#">Danh mục sản phẩm</a>
+                                <ul class="sub-menu" id="listCategoryHeader1">
+                                </ul>
+                            </li>
+                             <li class="menu-item-has-children">
+                                <a href="#">Tin tức</a>
+                                <ul class="sub-menu">
+                                    <li><a href="blog.html">blog</a></li>
+                                    <li><a href="blog-details.html">blog details</a></li>
+                                    <li><a href="blog-fullwidth.html">blog fullwidth</a></li>
+                                    <li><a href="blog-sidebar.html">blog sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="#">pages </a>
+                                <ul class="sub-menu">
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="services.html">services</a></li>
+                                    <li><a href="faq.html">Frequently Questions</a></li>
+                                    <li><a href="contact.html">contact</a></li>
+                                    <li><a href="login.html">login</a></li>
+                                    <li><a href="404.html">Error 404</a></li>
+                                </ul>
+                            </li>
+                            
+                            <li class="menu-item-has-children">
+                                <a asp-controller="Home" asp-action="About">Giới Thiệu</a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a asp-controller="Home" asp-action="Contact">Liên hệ</a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="#">Tài Khoản</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="offcanvas_footer">
+                        <span><a href="#"><i class="fa fa-envelope-o"></i> <span id="email"></span></a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--offcanvas menu area end-->
+
+<header>
+    <div class="main_header">
+        <div class="header_top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="header_contact_us">
+                            <ul>
+                                <li><span><i class="fa fa-phone"></i> Sdt: </span> <a href="tel:(+800)123456789"><i class="icon-call-in"></i> (+800)123456789</a></li>
+                                <li><span><i class="fa fa-envelope-o"></i>Email: </span> <a href=""><i class="icon-envelope"></i> <span id="email2"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="header_account_area">
+                            <ul>
+                                <li><a href="wishlist.html">Yêu thích</a></li>
+                                <li><a href="checkout.html">Thanh toán</a></li>
+                                <li><a href="login.html">Đăng nhập</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header_middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-3 col_canvas">
+                        <div class="canvas_open">
+                            <a href="javascript:void(0)"><i class="ion-navicon-round"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-5">
+                        <div class="logo">
+                            <a href="index.html"><img src="~/Content/Shop/assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col_search">
+                        <div class="header_search_box">
+                            <form asp-controller="Search" asp-action="Index">
+                                <input placeholder="Tìm Kiếm" name="SearchString" type="text">
+                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-5 col-4">
+                        <div class="cart_wishlist_area">
+                            <div class="header_wishlist">
+                                <a href="wishlist.html">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                    <span class="item_count">3</span>
+                                </a>
+                            </div>
+                            <div class="mini_cart_wrapper">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="cartitems"> Cart Items</span>
+                                    <span class="item_count">2</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header_bottom sticky-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1">
+                        <!--main menu start-->
+                        <div class="main_menu menu_position">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a class="active" href="/Home">Trang chủ<i class="fa fa-angle-down"></i></a>
+
+                                    </li>
+                                    @*<li class="mega_items">
+                                        <a href="/danh-muc-san-pham">Sản phẩm<i class="fa fa-angle-down"></i></a>
+                                        <a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
+                                        <div class="mega_menu">
+                                            <ul class="mega_menu_inner">
+                                                <li>
+                                                    <a href="#">Danh mục sản phẩm</a>
+                                                    <ul id="listCategoryHeader">
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">other Pages</a>
+                                                <ul>
+                                                <li><a href="cart.html">cart</a></li>
+                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="checkout.html">Checkout</a></li>
+                                                <li><a href="my-account.html">my account</a></li>
+                                                <li><a href="404.html">Error 404</a></li>
+                                                </ul>
+                                                </li>
+                                                <li><a href="#">Product Types</a>
+                                                <ul>
+                                                <li><a href="product-details.html">product details</a></li>
+                                                <li><a href="product-sidebar.html">product sidebar</a></li>
+                                                <li><a href="product-grouped.html">product grouped</a></li>
+                                                <li><a href="variable-product.html">product variable</a></li>
+
+                                                </ul>
+                                                </li>
+                                                <li><a href="#">Clothing</a>
+                                                <ul>
+                                                <li><a href="shop.html">T-Shirts</a></li>
+                                                <li><a href="shop.html">Coats</a></li>
+                                                <li><a href="shop.html">Jackets</a></li>
+                                                <li><a href="shop.html">Jeans</a></li>
+                                                </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>*@
+                                    <li>
+                                        <a href="/danh-muc-san-pham">Danh mục sản phẩm<i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub_menu pages" id="listCategoryHeader">
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub_menu pages">
+                                            <li><a href="blog-details.html">blog details</a></li>
+                                            <li><a href="blog-fullwidth.html">blog fullwidth</a></li>
+                                            <li><a href="blog-sidebar.html">blog sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a asp-controller="Home" asp-action="Contact"> Liên hệ</a></li>
+                                    <li><a asp-controller="Home" asp-action="About"> Giới thiệu</a></li>
+                                    <li>
+                                        <a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub_menu pages">
+                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a href="services.html">services</a></li>
+                                            <li><a href="faq.html">Frequently Questions</a></li>
+                                            <li><a href="contact.html">contact</a></li>
+                                            <li><a href="login.html">login</a></li>
+                                            <li><a href="404.html">Error 404</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--main menu end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--mini cart-->
+    <div class="mini_cart">
+        <div class="cart_gallery">
+            <div class="cart_close">
+                <div class="cart_text">
+                    <h3>cart</h3>
+                </div>
+                <div class="mini_cart_close">
+                    <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
+                </div>
+            </div>
+            <div class="cart_item">
+                <div class="cart_img">
+                    <a href="#"><img src="~/Content/Shop/assets/img/s-product/product.png" alt=""></a>
+                </div>
+                <div class="cart_info">
+                    <a href="#">Juicy Couture Tricot</a>
+                    <p>1 x <span> $30.00 </span></p>
+                </div>
+                <div class="cart_remove">
+                    <a href="#"><i class="ion-ios-close-outline"></i></a>
+                </div>
+            </div>
+            <div class="cart_item">
+                <div class="cart_img">
+                    <a href="#"><img src="~/Content/Shop/assets/img/s-product/product2.png" alt=""></a>
+                </div>
+                <div class="cart_info">
+                    <a href="#">Juicy Couture Juicy</a>
+                    <p>1 x <span> $29.00 </span></p>
+                </div>
+                <div class="cart_remove">
+                    <a href="#"><i class="ion-ios-close-outline"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mini_cart_table">
+            <div class="cart_table_border">
+                <div class="cart_total">
+                    <span>Sub total:</span>
+                    <span class="price">$125.00</span>
+                </div>
+                <div class="cart_total mt-10">
+                    <span>total:</span>
+                    <span class="price">$125.00</span>
+                </div>
+            </div>
+        </div>
+        <div class="mini_cart_footer">
+            <div class="cart_button">
+                <a href="cart.html"><i class="fa fa-shopping-cart"></i> View cart</a>
+            </div>
+            <div class="cart_button">
+                <a class="active" href="checkout.html"><i class="fa fa-sign-in"></i> Checkout</a>
+            </div>
+
+        </div>
+    </div>
+    <!--mini cart end-->
+</header>
+<!--header area end-->
+@await Html.PartialAsync("_CartPartial")
+
+<script type="text/javascript">
+    setTimeout($(document).ready(function() {
+        var txt = "";
+        var sdt ="";
+        var email ="";
+        $.ajax({
+            url: '/DbResultJson/GetCategorys',
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                $.each(data, function(i, result) {
+                  var  txt += "<li><a href=" + result.categoryURL + ">" + result.categoryName + "</a></li>";
+                    $("#listCategoryHeader").html(txt)
+                    $("#listCategoryHeader1").html(txt)
+                });
+            }
+        });
+         $.ajax({
+            url: '/DbResultJson/Getuser',
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                 sdt = data.phoneNumber;
+                    email = data.email;
+                //$("#email").html(email);
+                $("#email").html(email);
+                $("#email2").html(email);
+             
+            }
+        });
+    }), 500);
+
+</script>
+
+

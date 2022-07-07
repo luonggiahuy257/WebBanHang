@@ -1,4 +1,4 @@
-using BanHangOnline.Database;
+﻿using BanHangOnline.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +34,12 @@ namespace BanHangOnline
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
+            services.AddSession(cfg =>
+            {                    // Đăng ký dịch vụ Session
+                cfg.Cookie.Name = "ShopBanHang";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
+                cfg.IdleTimeout = new TimeSpan(0, 30, 0);    // Thời gian tồn tại của Session
+            });
             services.AddControllersWithViews();
             services.AddDbContext<DataContext>(
              options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
@@ -68,6 +74,7 @@ namespace BanHangOnline
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors();
@@ -75,28 +82,63 @@ namespace BanHangOnline
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapAreaControllerRoute(
-                //           name: "Managers",
-                //           areaName: "ManagerHomes",
-                //           pattern: "Managers/{controller=Home}/{action=Index}/{id?}");
-
-                //endpoints.MapAreaControllerRoute(
-                //           name: "Managers",
-                //           areaName: "ManagerCategorys",
-                //           pattern: "Managers/{controller=Category}/{action=Index}/{id?}");
-                //endpoints.MapAreaControllerRoute(
-                //             name: "WebBannerGroup",
-                //             areaName: "Manages",
-                //             pattern: "Manages/{controller=WebBannerGroup}/{action=Index}"
-                //         );
-
+                // Router manager
                 endpoints.MapAreaControllerRoute(
-                       name: "Manager",
-                       areaName: "Manager",
-                      pattern: "Manager/{controller=Home}/{action=Index}/{id?}");
+                    name: "Manager",
+                    areaName: "Manager",
+                    pattern: "Manager/{controller=Home}/{action=Index}/{id?}");
+
+                // Router mặc định
                 endpoints.MapControllerRoute(
-                        name: "default",
-                        pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                // Router trang lỗi
+                endpoints.MapControllerRoute(
+                    name: "error",
+                    pattern: "error",
+                    defaults: new { controller = "Home", action = "Error" });
+
+                // Router danh mục sản phẩm
+                endpoints.MapControllerRoute(
+                    name: "danh-muc-san-pham",
+                    pattern: "{controller=Home}/{action=Index}/{page?}");
+
+                // Router danh mục sản phẩm
+                endpoints.MapControllerRoute(
+                    name: "CategoryProduct",
+                    pattern: "danh-muc-san-pham/{CurrentPageIndex:int?}",
+                    defaults: new { controller = "Product", action = "ProductCategory" });
+
+                // Router chi tiết sản phẩm
+                endpoints.MapControllerRoute(
+                    name: "Product-Detail",
+                    pattern: "chi-tiet-san-pham/{ProductDetailUrl?}",
+                    defaults: new { controller = "Product", action = "ProductDetail" });
+
+                // Router danh mục yêu thích
+                endpoints.MapControllerRoute(
+                    name: "WishList",
+                    pattern: "danh-muc-yeu-thich",
+                    defaults: new { controller = "Product", action = "WishList" });
+
+                // Router add to card
+                endpoints.MapControllerRoute(
+                    name: "addcart",
+                    pattern: "addcart/{Id?}",
+                    defaults: new { controller = "Product", action = "AddToCart" });
+
+                // Router update cart
+                endpoints.MapControllerRoute(
+                    name: "updatecart",
+                    pattern: "updatecart",
+                    defaults: new { controller = "Product", action = "UpdateCart" });
+
+                // Router xóa cart
+                endpoints.MapControllerRoute(
+                    name: "removecart",
+                    pattern: "removecart/{Id?}",
+                    defaults: new { controller = "Product", action = "Removecart" });
             });
         }
     }

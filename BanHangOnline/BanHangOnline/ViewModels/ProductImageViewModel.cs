@@ -10,7 +10,7 @@ namespace BanHangOnline.ViewModels
         public string ImageName { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
-        public int DisplayOrder { get; set; }
+        public int? DisplayOrder { get; set; }
         public bool Published { get; set; }
     }
 }

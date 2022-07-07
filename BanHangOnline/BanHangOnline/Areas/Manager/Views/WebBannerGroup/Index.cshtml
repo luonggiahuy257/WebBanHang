@@ -11,7 +11,7 @@
     <div class="content-wrapper">
 
         <div class="col-12 mb-2">
-              <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
+            <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
         </div>
 
         <!-- Row start -->
@@ -40,13 +40,13 @@
                                             <td>@Html.DisplayFor(modelItem => item.BannerGroupEnable)</td>
                                             <td>
                                                 <div class="actions">
-                                                    <a href="WebBannerGroup/Edit/@item.BannerGroupID" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                    <a href="@Url.Action("Edit", new { id = @item.BannerGroupID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                                                         <i class="icon-edit1 text-info"></i>
                                                     </a>
-                                                    <a href="WebBannerGroup/Details/@item.BannerGroupID" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
+                                                    <a href="@Url.Action("Details", new { id = @item.BannerGroupID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
                                                         <i class="icon-menu text-info"></i>
                                                     </a>
-                                                    <a href="WebBannerGroup/Delete/@item.BannerGroupID" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                    <a href="@Url.Action("Delete", new { id = @item.BannerGroupID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                                         <i class="icon-x-circle text-danger"></i>
                                                     </a>
                                                 </div>

@@ -1,106 +1,105 @@
-﻿@model BanHangOnline.ViewModels.categoryViewModel
+﻿@model BanHangOnline.ViewModels.CategoryViewModel
 
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>categoryViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParentId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ParentId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShortDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryImages)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryImages)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryURL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategorySeoKeywords)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategorySeoKeywords)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryShowHome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryShowHome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryEnable)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryEnable)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryOrder)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryOrder)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdatedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdatedBy)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Delete">
+                            <div class="table-responsive">
+                                <table id="copy-print-csv" class="table v-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>@Html.DisplayNameFor(model => model.CategoryImages)</th>
+                                            <th>@Html.DisplayNameFor(model => model.ParentId)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+                                            <th>@Html.DisplayNameFor(model => model.ShortDescription)</th>
+                                            <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CategoryURL)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CategorySeoKeywords)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CategoryShowHome)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CategoryEnable)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CategoryOrder)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                                            <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
+                                            <th>@Html.DisplayNameFor(model => model.UpdatedAt)</th>
+                                            <th>@Html.DisplayNameFor(model => model.UpdatedBy)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-sm-10">
+                                                <div class="media-box">
+                                                    <img src="@Model.CategoryImages" class="media-avatar" alt="@Model.CategoryName">
+                                                </div>
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.ParentId)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CategoryName)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.ShortDescription)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.Description)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CategoryURL)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CategorySeoKeywords)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CategoryShowHome)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CategoryEnable)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CategoryOrder)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CreatedAt)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.CreatedBy)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.UpdatedAt)
+                                            </td>
+                                            <td class="col-sm-10">
+                                                @Html.DisplayFor(model => model.UpdatedBy)
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-start">
+                                    <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <input type="submit" value="Xóa" class="btn btn-primary mt-3 mr-2" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
 </div>
+
+
