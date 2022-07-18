@@ -13,7 +13,7 @@ namespace BanHangOnline.ViewModels
         public string SessionId { get; set; }
         public string Token{ get; set; }
         public bool Status { get; set; }
-        public int quantity { get; set; }
+        public int Quantity { get; set; }
         public string Contents{ get; set; }
         public string FirstName{ get; set; }
         public string LastName{ get; set; }

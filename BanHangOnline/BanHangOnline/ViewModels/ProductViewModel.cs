@@ -18,6 +18,10 @@ namespace BanHangOnline.ViewModels
         
         [DisplayName("Id của danh mục cha")]
         public int CategoryId { get; set; }
+        [DisplayName("Size của sản phẩm")]
+        public string Size { get; set; }
+        [DisplayName("Màu của sản phẩm")]
+        public string Color { get; set; }
 
         [DisplayName("Mã sku")]
         public string SKU { get; set; }

@@ -47,14 +47,18 @@
                                     {
                                         @foreach (ProductImageViewModel itemImages in Model.productImages)
                                         {
-                                            <tr>
-                                                <td class="product_remove"><a href="#">X</a></td>
+                                            @if (item.Id == itemImages.ProductId)
+                                            {
+                                                <tr>
+                                                <td class="product_remove"><a asp-controller="Product" asp-action="RemoveWishList" asp-route-Id="@item.Id">X</a></td>
                                                 <td class="product_thumb"><a href="#"><img src="@itemImages.FilePath" alt="@item.ProductName"></a></td>
                                                 <td class="product_name"><a href="#">@item.ProductName</a></td>
-                                                <td class="product-price">@item.SalePrice</td>
+                                                <td class="product-price">@item.SalePrice.ToString("n0") đ</td>
                                                 <td class="product_quantity">@item.QuantityInStock</td>
                                                 <td class="product_total"><a href="#">Add To Cart</a></td>
-                                            </tr>
+                                            </tr> 
+                                            }
+                                           
                                         }
                                     }
                                 </tbody>

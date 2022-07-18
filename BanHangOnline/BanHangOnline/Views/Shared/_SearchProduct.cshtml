@@ -1,0 +1,98 @@
+﻿@using BanHangOnline.ViewModels
+@model dynamic
+
+@{
+    ViewData["Title"] = "SearchProduct";
+}
+
+<div class="col-lg-3 col-md-12">
+    <!--sidebar widget start-->
+    <aside class="sidebar_widget">
+        <div class="widget_inner">
+            <div class="widget_list widget_categories">
+                <h3>Danh mục sản phẩm</h3>
+                <ul id="listCategory">
+                    @* @foreach (CategoryViewModel item in Model.Categorys)
+                    {
+                    @* if (item.ParentId == null)
+                    {
+                    <li class="widget_sub_categories sub_categories1">
+                    <a href="javascript:void(0)" class="">@item.CategoryName</a>
+                    <ul class="widget_dropdown_categories dropdown_categories1" style="display: none;">
+                    @if (item.ParentId == item.Id)
+                    {
+                    <li><a href="#">@item.CategoryName</a></li>
+                    }
+                    </ul>
+                    </li>
+                    }*@
+
+
+                    @*   <li class="widget_sub_categories sub_categories2">
+                    <a href="#" class="">Bags</a>
+                    <ul class="widget_dropdown_categories dropdown_categories2" style="display: none;">
+                    <li><a href="#">Flickr</a></li>
+                    <li><a href="#">Flip Box</a></li>
+                    <li><a href="#">Cocktail</a></li>
+                    <li><a href="#">Frame</a></li>
+                    <li><a href="#">Flickrq</a></li>
+                    </ul>
+                    </li>*@
+
+                    @*
+                    <li class="widget_sub_categories sub_categories3">
+                    <a href="javascript:void(0)" class="">Clothing</a>
+                    <ul class="widget_dropdown_categories dropdown_categories3" style="display: none;">
+                    <li><a href="#">Platform Beds</a></li>
+                    <li><a href="#">Storage Beds</a></li>
+                    <li><a href="#">Regular Beds</a></li>
+                    <li><a href="#">Sleigh Beds</a></li>
+                    <li><a href="#">Laundry</a></li>
+                    </ul>
+                    </li>*@
+                </ul>
+            </div>
+            <div class="widget_list widget_filter">
+                <h3>Filter by price</h3>
+                <form asp-controller="Search" asp-action="SearchProduct" method="post">
+                    <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                        <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span>
+                    </div>
+                    <button type="submit">Filter</button>
+                    <input type="text" name="SearchPrice" id="amount">
+                </form>
+            </div>
+
+        </div>
+    </aside>
+    <!--sidebar widget end-->
+</div>
+
+
+<script>
+    setTimeout($(document).ready(function() {
+        var txt = "";
+        var sdt = "";
+        var email = "";
+        var logo = "";
+        $.ajax({
+            url: '/DbResultJson/GetCategorys',
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                $.each(data, function(i, result) {
+                    txt += `<li class="widget_sub_categories sub_categories2">
+                                             <a href="danh-muc-san-pham-${result.categoryURL}">${result.categoryName}</a>
+                                            </li>`
+                    $("#listCategory").html(txt)
+                });
+            }
+        });
+
+    }), 1000);
+
+</script>
+
+

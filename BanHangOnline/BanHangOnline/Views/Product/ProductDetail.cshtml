@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="breadcrumb_content">
                         <ul>
-                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="/home">Trang chủ</a></li>
                             <li>Chi tiết sản phẩm</li>
                         </ul>
                     </div>
@@ -28,10 +28,10 @@
                 <div class="col-lg-5 col-md-5">
                     <div class="product-details-tab">
                         <div id="img-1" class="zoomWrapper single-zoom">
-                            
-                                <a href="#">
-                                    <img id="zoom1" src="@Model.productImage.FilePath" data-zoom-image="@Model.productImage.FilePath" alt="@Model.productImage.FileName">
-                                </a>
+
+                            <a href="#">
+                                <img id="zoom1" src="@Model.productImage.FilePath" data-zoom-image="@Model.productImage.FilePath" alt="@Model.productImage.FileName">
+                            </a>
                         </div>
                         <div class="single-zoom-thumb">
                             <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
@@ -48,11 +48,13 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col-lg-7 col-md-7">
                     <div class="product_d_right">
-                        <form action="#">
+                        <form asp-route="addcart"  asp-route-id="@Model.Products.Id">
                             <div class="productd_title_nav">
-                                <h1><a href="#">@Model.Products.ProductName</a></h1>
+                                <h1 title="@Model.Products.ProductName">@Model.Products.ProductName</h1>
                             </div>
 
                             <div class=" product_ratting">
@@ -66,49 +68,74 @@
                                 </ul>
                             </div>
                             <div class="price_box">
-                                <span class="old_price">@Model.Products.RetailPrice</span>
-                                <span class="current_price">@Model.Products.SalePrice</span>
+                                <span class="old_price">@Model.Products.RetailPrice.ToString("n0") đ</span>
+                                <span class="current_price">@Model.Products.SalePrice.ToString("n0") đ</span>
                             </div>
                             <div class="product_desc">
                                 <p>@Model.Products.ShortDescription</p>
                             </div>
-                            <div class="product_variant color">
-                                <h3>Available Options</h3>
-                                <label>color</label>
-                                <ul>
-                                    <li class="color1"><a href="#"></a></li>
-                                    <li class="color2"><a href="#"></a></li>
-                                    <li class="color3"><a href="#"></a></li>
-                                    <li class="color4"><a href="#"></a></li>
-                                </ul>
-                            </div>
+                            @if (string.IsNullOrEmpty(Model.Products.Color) == false)
+                            {
+                                var ColorList = Model.Products.Color.Split(",");
+                                <div class="product_variant size">
+                                    <label>Color</label>
+                                    <select class="select_option" id="color2" name="Color">
+
+                                        @foreach (var item in ColorList)
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                            @if (string.IsNullOrEmpty(Model.Products.Size) == false)
+                            {
+                                var SizeList = Model.Products.Size.Split(",");
+
+                                <div class="product_variant size">
+                                    <label>Size</label>
+                                    <select class="select_option" id="color2" name="Size">
+                                        @foreach (var item in SizeList)
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+
                             <div class="product_variant quantity">
                                 <label>quantity</label>
-                                <input min="1" max="100" value="1" type="number">
-                                <button asp-route="addcart" asp-route-id="@Model.Products.Id" class="button" type="submit">Đặt Hàng</button>
+                                <input min="1" max="100" value="1" type="number" name="Quantity">
+                                <button class="button"  title="Đặt Hàng" type="submit">Đặt Hàng</button>
 
                             </div>
-                            <div class=" product_d_action">
-                                <ul>
-                                    <li><a href="#" title="Add to wishlist">+ Yêu thích</a></li>
-                                    <li><a href="#" title="Add to wishlist">+ Compare</a></li>
-                                </ul>
-                            </div>
-                            <div class="product_meta">
-                                <span>Category: <a href="#">Clothing</a></span>
-                            </div>
+                            @*<div class=" product_d_action">
+                            <ul>
+                            <li><a href="#" title="Add to wishlist">+ Add to Wishlist</a></li>
+                            <li><a href="#" title="Add to wishlist">+ Compare</a></li>
+                            </ul>
+                            </div>*@
 
                         </form>
-                        <div class="priduct_social">
-                            <ul>
-                                <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> Like</a></li>
-                                <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> tweet</a></li>
-                                <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> save</a></li>
-                                <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> share</a></li>
-                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> linked</a></li>
-                            </ul>
-                        </div>
 
+                        @* <div class="product_d_meta">
+                        <span>SKU: N/A</span>
+                        <span>Category: <a href="#">Clothings</a></span>
+                        <span>
+                        Tags:
+                        <a href="#">Creams</a>
+                        <a href="#">Lotions</a>
+                        </span>
+                        </div>
+                        <div class="priduct_social">
+                        <ul>
+                        <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> Like</a></li>
+                        <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> tweet</a></li>
+                        <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> save</a></li>
+                        <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> share</a></li>
+                        <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> linked</a></li>
+                        </ul>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -122,7 +149,7 @@
                         <div class="product_info_button">
                             <ul class="nav" role="tablist">
                                 <li>
-                                    <a class="active" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
+                                    <a class="active" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Mô tả chi tiết</a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a>
@@ -135,8 +162,7 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="info" role="tabpanel">
                                 <div class="product_info_content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-                                    <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>
+                               <p>@Model.Products.Description</p>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="sheet" role="tabpanel">
@@ -250,7 +276,7 @@
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">
-                                            <a class="primary_img" href="@item.ProductTitleURL"><img src="@itemImages.FilePath" alt="@item.ProductName"></a>
+                                            <a class="primary_img" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL"><img src="@itemImages.FilePath" alt="@item.ProductName"></a>
                                             @if (item.OwenSale == true)
                                             {
                                                 <div class="label_product">
@@ -259,13 +285,12 @@
                                             }
                                             <div class="action_links">
                                                 <ul>
-                                                    <li class="quick_button"><a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="fa fa-eye" aria-hidden="true"></i></a></li>
-                                                    <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                                    <li class="wishlist"><a title="sản phẩm yêu thích" onclick="wishProduct(@item.Id)"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <figcaption class="product_content">
-                                            <h4 class="product_name"><a title="@item.ProductTitleURL" href="@item.ProductTitleURL">@item.ProductName</a></h4>
+                                            <h4 class="product_name"><a title="@item.ProductTitleURL" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL">@item.ProductName</a></h4>
                                             <div class="product_rating">
                                                 <ul>
                                                     <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
@@ -276,11 +301,11 @@
                                                 </ul>
                                             </div>
                                             <div class="price_box">
-                                                <span class="old_price">@item.RetailPrice</span>
-                                                <span class="current_price">@item.SalePrice</span>
+                                                <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
+                                                <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
                                             </div>
                                             <div class="add_to_cart">
-                                                <a href="#" title="Add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</a>
+                                                <a asp-route="addcart" asp-route-id="@Model.Products.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
                                             </div>
                                         </figcaption>
                                     </figure>
@@ -294,3 +319,26 @@
         <!--product area end-->
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+        function wishProduct(id) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("WishList","Product")",
+                data: {
+                    productid: id
+                },
+                success: function(result) {
+
+                }
+            });
+        }
+
+        function PagerClick(index) {
+            document.getElementById("hfCurrentPageIndex").value = index;
+            document.getElementById('theForm').submit();
+        }
+    </script>
+}

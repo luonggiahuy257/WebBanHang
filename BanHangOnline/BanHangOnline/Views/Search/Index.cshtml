@@ -1,9 +1,10 @@
-﻿@*@model IEnumerable<BanHangOnline.Models.SearchProduct>*@
+﻿@using BanHangOnline.ViewModels
+@model dynamic
 
 @{
     ViewData["Title"] = "tìm kiếm";
+     var productCount = @Model.Products.Count;
 }
-
 
 <!--section bg area-->
 <div class="section_bg">
@@ -13,10 +14,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumb_content">
-                        <h3>shop</h3>
+                        <h3>Tìm kiếm</h3>
                         <ul>
-                            <li><a href="index.html">home</a></li>
-                            <li>shop fullwidth</li>
+                            <li><a href="?Home">Trang chủ</a></li>
+                            <li>tìm kiếm sản phẩm</li>
                         </ul>
                     </div>
                 </div>
@@ -35,142 +36,126 @@
                             <button data-role="grid_3" type="button" class=" btn-grid-3" data-bs-toggle="tooltip" title="3"></button>
                             <button data-role="grid_list" type="button" class="btn-list" data-bs-toggle="tooltip" title="List"></button>
                         </div>
-                        <div class=" niceselect_option">
-                            <form class="select_option" action="#">
-                                <select name="orderby" id="short">
-
-                                    <option selected value="1">Sort by average rating</option>
-                                    <option value="2">Sort by popularity</option>
-                                    <option value="3">Sort by newness</option>
-                                    <option value="4">Sort by price: low to high</option>
-                                    <option value="5">Sort by price: high to low</option>
-                                    <option value="6">Product Name: Z</option>
-                                </select>
-                            </form>
-                        </div>
+                       
                         <div class="page_amount">
-                            <p>Showing 1–12 of 21 results</p>
+                            <p>Có @productCount sản phẩm</p>
                         </div>
                     </div>
                     <!--shop toolbar end-->
                     <div class="row shop_wrapper">
-                   @*     @foreach (var item in Model)
+                        @foreach (ProductViewModel item in Model.ListPagination.Products)
                         {
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 ">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                            <a class="primary_img" href="@item.ProductSearch.ProductTitleURL"><img src="@item.ProductImageSearch.FilePath" alt="@item.ProductSearch.ProductName"></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="quick_button"><a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="fa fa-eye" aria-hidden="true"></i></a></li>
-                                                <li class="wishlist"><a href="#" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                            </ul>
+                            @foreach (ProductImageViewModel itemImages in Model.productImages)
+                            {
+                                if (item.Id == itemImages.ProductId)
+                                {
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 ">
+                                        <div class="single_product">
+                                            <div class="product_thumb">
+                                                <a class="primary_img" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL"><img src="@itemImages.FilePath" alt="@item.ProductName"></a>
+                                                @if (item.OwenSale == true)
+                                                {
+                                                    <div class="label_product">
+                                                        <span class="label_sale">Sale</span>
+                                                    </div>
+                                                }
+                                                <div class="action_links">
+                                                    <ul>
+                                                        <li class="wishlist"><a class="WishProduct" title="sản phẩm yêu thích" onclick="wishProduct(@item.Id)"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="product_content grid_content">
+                                                <h4 class="product_name"><a asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL">@item.ProductName</a></h4>
+                                                <div class="product_rating">
+                                                    <ul>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price_box">
+                                                    <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
+                                                    <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                </div>
+                                                <div class="add_to_cart">
+                                                    <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
+                                                </div>
+                                            </div>
+                                            <div class="product_content list_content">
+                                                <h4 class="product_name" title="@item.ProductName"><a title="@item.ProductName" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL">@item.ProductName</a></h4>
+                                                <div class="price_box">
+                                                    <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
+                                                    <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                </div>
+                                                <div class="product_rating">
+                                                    <ul>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="product_desc">
+                                                    <p>@item.ShortDescription</p>
+                                                </div>
+                                                <div class="add_to_cart shop_list_cart">
+                                                    <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="product_content grid_content">
-                                        <h4 class="product_name"><a href="#">@item.ProductSearch.ProductName</a></h4>
-                                        <div class="product_rating">
-                                            <ul>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price_box">
-                                            <span class="old_price">@item.ProductSearch.RetailPrice</span>
-                                            <span class="current_price">@item.ProductSearch.SalePrice</span>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="#" title="Add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content list_content">
-                                        <h4 class="product_name" title="@item.ProductSearch.ProductName"><a title="@item.ProductSearch.ProductName" href="@item.ProductSearch.ProductTitleURL">@item.ProductSearch.ProductName</a></h4>
-                                        <div class="price_box">
-                                           <span class="old_price">@item.ProductSearch.RetailPrice</span>
-                                            <span class="current_price">@item.ProductSearch.SalePrice</span>
-                                        </div>
-                                        <div class="product_rating">
-                                            <ul>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product_desc">
-                                            <p>@item.ProductSearch.ShortDescription</p>
-                                        </div>
-                                        <div class="add_to_cart shop_list_cart">
-                                            <a href="#">Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }*@
-
+                                }
+                            }
+                        }
                     </div>
                     <div class="shop_toolbar t_bottom">
                         <div class="pagination">
                             <ul>
-                                <li class="current">1</li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li class="next"><a href="#">next</a></li>
-                                <li><a href="#">>></a></li>
+                                @for (int i = 1; i <= Model.ListPagination.PageCount; i++)
+                                {
+                                    @if (i != Model.ListPagination.CurrentPageIndex)
+                                    {
+                                        <li><a onclick="PagerClickSearch(@i)">@i</a></li>
+                                    }
+                                }
                             </ul>
                         </div>
                     </div>
+                    <form asp-action="SearchForm" asp-controller="Search" method="post" id="theForm">
+                        <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
+                        <input type="hidden" id="searchStr" name="SearchString" />
+                    </form>
                     <!--shop toolbar end-->
                     <!--shop wrapper end-->
                 </div>
             </div>
         </div>
         <!--shop  area end-->
-        <!--brand area start-->
-        <div class="brand_area">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section_title">
-                        <h2>Brand</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="brand_container owl-carousel ">
-                        <div class="single_brand">
-                            <a href="#"><img src="assets/img/brand/brand1.jpg" alt=""></a>
-                        </div>
-                        <div class="single_brand">
-                            <a href="#"><img src="assets/img/brand/brand2.jpg" alt=""></a>
-                        </div>
-                        <div class="single_brand">
-                            <a href="#"><img src="assets/img/brand/brand3.jpg" alt=""></a>
-                        </div>
-                        <div class="single_brand">
-                            <a href="#"><img src="assets/img/brand/brand4.jpg" alt=""></a>
-                        </div>
-                        <div class="single_brand">
-                            <a href="#"><img src="assets/img/brand/brand1.jpg" alt=""></a>
-                        </div>
-                        <div class="single_brand">
-                            <a href="#"><img src="assets/img/brand/brand2.jpg" alt=""></a>
-                        </div>
-                        <div class="single_brand">
-                            <a href="#"><img src="assets/img/brand/brand3.jpg" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--brand area end-->
     </div>
 </div>
 <!--section bg area end-->
+@section Scripts {
+    <script>
+        function wishProduct(id) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("WishList","Product")",
+                data: {
+                    productid: id
+                },
+                success: function(result) {
+
+                }
+            });
+        }
+
+        function PagerClickSearch(index) {
+            document.getElementById("hfCurrentPageIndex").value = index;
+            document.getElementById('theForm').submit();
+        }
+    </script>
+}

@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
     "use strict";
 
     new WOW().init();  
@@ -369,14 +369,13 @@
     $( "#slider-range" ).slider({
         range: true,
         min: 0,
-        max: 500,
-        values: [ 0, 500 ],
+        max: 1000000,
+        values: [0, 1000000 ],
         slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            $("#amount").val(ui.values[0] + " đ - " + ui.values[1] + " đ");
        }
     });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-       " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    $( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) + " đ -" + $( "#slider-range" ).slider( "values", 1 ) + " đ");
     
     /*---elevateZoom---*/
     $("#zoom1").elevateZoom({

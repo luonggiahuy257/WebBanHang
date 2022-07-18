@@ -4,7 +4,7 @@
       ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@*
 <h1>Register</h1>
 <hr />
 <div class="row">
@@ -31,7 +31,107 @@
             </div>
         </form>
     </div>
-</div>
+</div>*@
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area breadcrumbs_bg">
+        <div class="container">   
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <h3>Đăng Ký</h3>
+                        <ul>
+                            <li><a href="?home">Trang chủ</a></li>
+                            <li>Đăng ký tài khoản</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>         
+    </div>
+    <!--breadcrumbs area end-->
+    
+    <!-- customer login start -->
+    <div class="customer_login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                </div>
+
+                <!--register area start-->
+                <div class="col-lg-6 col-md-6">
+                    <div class="account_form register">
+                        <h2>Đăng ký</h2>
+                      
+                           
+                        @if (@ViewData.ModelState.Count() > 0)
+                        {  
+                            <div class="alert alert-danger" role="alert">
+                            @Html.ValidationSummary(true)
+                            </div>
+                        }
+
+                        <form asp-action="Register" asp-controller="Account">
+                            <p>   
+                                 <label asp-for="Email"></label>
+                                <input asp-for="Email" placeholder="Email"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                             </p>
+                             <p>
+                               <label asp-for="Password"></label>
+                               <input asp-for="Password" placeholder="Password" />
+                               <span asp-validation-for="Password" class="text-danger"></span>
+                             </p>
+                             <p>
+                               <label asp-for="ConfirmPassword"></label>
+                               <input asp-for="ConfirmPassword" placeholder="Password" />
+                               <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                             </p>
+
+                              <p>
+                               <label asp-for="LastName"></label>
+                               <input asp-for="LastName" placeholder="Tên hiển thị" />
+                               <span asp-validation-for="LastName" class="text-danger"></span>
+                             </p>
+
+                            
+                             <p>
+                               <label asp-for="PhoneNumber"></label>
+                               <input asp-for="PhoneNumber" placeholder="Số điện thoại" />
+                               <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                             </p>
+                             <p>
+                               <label asp-for="Address"></label>
+                               <input asp-for="Address" placeholder="Địa chỉ" />
+                               <span asp-validation-for="Address" class="text-danger"></span>
+                             </p>
+                             <p>
+                               <label asp-for="GenderId"></label>
+                              <select class="form-select" name="GenderId" aria-label="Mặc định chọn giới tính">
+                              <option selected>Chọn giới tính</option>
+                              <option value="1">Nam</option>
+                              <option value="2">Nữ</option>
+                              <option value="3">Khác</option>
+                            </select>
+                               <span asp-validation-for="GenderId" class="text-danger"></span>
+                             </p>
+
+                            <div class="login_submit">
+                                <button type="submit">Đăng ký</button>
+                            </div>
+                        </form>
+                    </div>    
+                </div>
+                <!--register area end-->
+
+                <div class="col-lg-3 col-md-3">
+                </div>
+            </div>
+        </div>    
+    </div>
+    <!-- customer login end -->
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

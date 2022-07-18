@@ -6,7 +6,8 @@
 @{
     ViewData["Title"] = "Giỏ hàng";
     decimal total = 0;
-    decimal totalAll = 30000;
+    var phivanchuyen = 0;
+    var totalAll = 0;
 }
 
 <!--breadcrumbs area start-->
@@ -51,19 +52,18 @@
                                         int stt = 1;
                                         @foreach (CartViewModel item in Model)
                                         {
-                                            var thanhtien = item.quantity * item.product.SalePrice;
+                                            var thanhtien = item.Quantity * item.product.SalePrice;
                                             total += thanhtien;
                                             <tr>
                                                 <td class="product_remove">@(stt++)</td>
                                                 <td class="product_name"><a href="#">@item.product.ProductName</a></td>
-                                                <td class="product-price">@(item.product.SalePrice.ToString("n0"))</td>
-                                                <td class="product_quantity"><input asp-for="@item.quantity" id="@($"quantity-{item.product.Id}")"/></td>
-                                                <td class="product_quantity"><button  data-productid="@item.product.Id" class="btn btn-success updatecartitem" style="margin-right:10px">Cập nhập</button><button asp-route="removecart" asp-route-id="@item.product.Id" class="btn btn-danger">Xóa</button></td>
-                                                <td class="product_total">@(thanhtien.ToString("n0"))</td>
+                                                <td class="product-price">@(item.product.SalePrice.ToString("n0")) đ</td>
+                                                <td class="product_quantity"><input asp-for="@item.Quantity" id="@($"quantity-{item.product.Id}")" /></td>
+                                                <td class="product_quantity"><button data-productid="@item.product.Id" class="btn btn-success updatecartitem" style="margin-right:10px">Cập nhập</button><button asp-route="removecart" asp-route-id="@item.product.Id" class="btn btn-danger">Xóa</button></td>
+                                                <td class="product_total">@(thanhtien.ToString("n0")) đ</td>
                                             </tr>
                                         }
                                     }
-
                                 </tbody>
                             </table>
                         </div>
@@ -77,11 +77,11 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="coupon_code left">
-                            <h3>Coupon</h3>
+                            <h3>Giảm giá</h3>
                             <div class="coupon_inner">
-                                <p>Enter your coupon code if you have one.</p>
-                                <input placeholder="Coupon code" type="text">
-                                <button type="submit">Apply coupon</button>
+                                <p>Nhập mã giảm giá</p>
+                                <input placeholder="Mã giảm giá" type="text">
+                                <button type="submit">Sử dụng mã</button>
                             </div>
                         </div>
                     </div>
@@ -91,15 +91,15 @@
                             <div class="coupon_inner">
                                 <div class="cart_subtotal">
                                     <p>Tổng sản phẩm</p>
-                                    <p class="cart_amount">@(total.ToString("n0"))</p>
+                                    <p class="cart_amount" id="amount-all-product">@(total.ToString("n0")) đ</p>
                                 </div>
                                 <div class="cart_subtotal ">
                                     <p>Phí vận chuyển</p>
-                                    <p class="cart_amount"> 30.000(VND)</p>
+                                    <p class="cart_amount" id="phivanchuyen"></p>
                                 </div>
                                 <div class="cart_subtotal">
                                     <p>Total</p>
-                                    <p class="cart_amount">@(totalAll.ToString("n0"))</p>
+                                    <p class="cart_amount" id="phivanchuyenToatal"></p>
                                 </div>
                                 <div class="checkout_btn">
                                     <a href="#">Kiểm tra thanh toán</a>
@@ -133,6 +133,19 @@
                     }
                 });
             });
+
+            $.ajax({
+                url: '@Url.Action("Getuser","DbResultJson")',
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    phivanchuyen = data.so1;
+                    $("#phivanchuyen").html(phivanchuyen.toLocaleString(undefined, { minimumFractionDigits: 0 }) + ' đ');
+                    $("#phivanchuyenToatal").html((phivanchuyen + @total).toLocaleString(undefined, { minimumFractionDigits: 0 }) + ' đ');
+                }
+            });
         });
     </script>
 }
+
+

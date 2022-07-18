@@ -24,7 +24,25 @@ namespace BanHangOnline.Areas.Managers.Controllers
         // GET: Managers/WebBannerGroup
         public async Task<IActionResult> Index()
         {
-              return View(await _context.WebBannerGroup.ToListAsync());
+            try
+            {
+                var aasas = _context.WebBannerGroup.Where(item => item.BannerGroupID == 8).ToList();
+
+
+                return View(await _context.WebBannerGroup.ToListAsync());
+            }
+            catch (ApplicationException ex)
+            {
+                var aaa = ex.Message;
+
+                throw;
+            }
+
+          
+
+
+
+            
         }
 
         // GET: Managers/WebBannerGroup/Details/5

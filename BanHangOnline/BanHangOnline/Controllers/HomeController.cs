@@ -28,7 +28,7 @@ namespace BanHangOnline.Controllers
         public IActionResult Index()
         {
             List<WebBannerViewModel> webanners = _context.WebBanner.Where(item => item.BannerEnable == true).ToList();
-            List<ProductViewModel> Products = _context.Product.Where(item => item.Published == true && item.ShowOnHomePage == true).ToList();
+            List<ProductViewModel> Products = _context.Product.Where(item => item.Published == true && item.ShowOnHomePage == true).OrderByDescending(item => item.Id).ToList();
             List<CategoryViewModel> Categorys = _context.category.Where(item => item.CategoryEnable == true && item.CategoryShowHome == true).ToList();
             CategoryViewModel Category = _context.category.Where(item => item.CategoryEnable == true && item.CategoryShowHome == true).FirstOrDefault();
             List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
@@ -97,13 +97,60 @@ namespace BanHangOnline.Controllers
             return View(listCategory);
         }
 
+        public IActionResult ErrorPage()
+        {
+
+            return View();
+        }
+
         //public IActionResult HeaderHome()
         //{
         //    WebInfoViewModels webinfo = _context.WebInfo.Where(item => item.Id == 1).FirstOrDefault();
         //    return View(webinfo);
         //}
 
-  
+        [Route("Error/{statusCode}")]
+        public IActionResult HttpStatusCodeHandler(int statusCode)
+        {
+            switch (statusCode)
+            {
+                case 404:
+                    ViewBag.ErrorMessage = "Uh oh, this page could not be found";
+                    ViewBag.ErrorNumber = "404";
+                    break;
+                case 405:
+                    ViewBag.ErrorMessage = "Method not allowed. Contact administrator";
+                    ViewBag.ErrorNumber = "405";
+                    break;
+                case 401:
+                    ViewBag.ErrorMessage = "You do not have acccess to this page. Please make sure you are logged in, or contact your administrator.";
+                    ViewBag.ErrorNumber = "401";
+                    break;
+                case 500:
+                    ViewBag.ErrorMessage = "Internal Server Error. Please contact administrator.";
+                    ViewBag.ErrorNumber = "500";
+                    break;
+                case 403:
+                    ViewBag.ErrorMessage = "Forbidden. Please contact administrator.";
+                    ViewBag.ErrorNumber = "403";
+                    break;
+                case 503:
+                    ViewBag.ErrorMessage = "Service unavailable. Please contact administrator";
+                    ViewBag.ErrorNumber = "503";
+                    break;
+                case 504:
+                    ViewBag.ErrorMessage = "Gateway Timeout. Please contact administrator";
+                    ViewBag.ErrorNumber = "504";
+                    break;
+                case 001:
+                    ViewBag.ErrorMessage = "This link has expired.";
+                    ViewBag.ErrorNumber = "Oh no!";
+                    break;
+
+            }
+            return View("NotFound");
+
+        }
         public JsonResult GetCategorys()
         {
             try
@@ -112,11 +159,13 @@ namespace BanHangOnline.Controllers
 
                 return new JsonResult(new { data = categorys });
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
 
                 throw;
             }
         }
+
+
     }
 }

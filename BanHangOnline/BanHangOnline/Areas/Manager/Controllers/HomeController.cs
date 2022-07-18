@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BanHangOnline.Areas.Manager.Controllers
 {
-    [Area("Managers")]
+    [Area("Manager")]
     //[Authorize(Roles = ("Admin"))]
     public class HomeController : Controller
     {

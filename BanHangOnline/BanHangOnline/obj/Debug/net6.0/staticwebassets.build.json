@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "elRiqj5Iq+aVR8sGh2h3xAeP9CZWRa/DdNXa9l6ROYo=",
+  "Hash": "wOY9AdAw6iYZcUdbdlPS0EfFWlTAW1PccmopohRT0ME=",
   "Source": "BanHangOnline",
   "BasePath": "_content/BanHangOnline",
   "Mode": "Default",
@@ -8651,6 +8651,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\WebBanner\\slider12.jpg"
+    },
+    {
+      "Identity": "D:\\SICVN\\WebBanHang\\BanHangOnline\\BanHangOnline\\wwwroot\\uploads\\Webinfo\\logo.png",
+      "SourceId": "BanHangOnline",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SICVN\\WebBanHang\\BanHangOnline\\BanHangOnline\\wwwroot\\",
+      "BasePath": "_content/BanHangOnline",
+      "RelativePath": "uploads/Webinfo/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Webinfo\\logo.png"
     }
   ]
 }

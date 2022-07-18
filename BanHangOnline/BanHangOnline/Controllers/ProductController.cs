@@ -9,18 +9,22 @@ using System.Dynamic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BanHangOnline.Controllers
 {
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly DataContext _context;
 
-        public ProductController(ILogger<ProductController> logger, DataContext context)
+        public ProductController(ILogger<ProductController> logger, DataContext context, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -28,27 +32,34 @@ namespace BanHangOnline.Controllers
             return View();
         }
 
-     
+
         [Route("chi-tiet-san-pham/{ProductDetailUrl}")]
         public IActionResult ProductDetail(string ProductDetailUrl)
         {
-            List<ProductViewModel> ProductLists = _context.Product.Where(item => item.Published == true && item.ShowOnHomePage).ToList();
+            List<ProductViewModel> ProductLists = _context.Product
+                .Where(item => item.Published == true && item.ShowOnHomePage)
+                .OrderByDescending(item => item.CreatedAt)
+                .ToList();
             ProductViewModel Product = _context.Product.Where(item => item.ProductTitleURL == ProductDetailUrl).FirstOrDefault();
+            if (Product != null)
+            {
+                ProductImageViewModel image = _context.ProductImage.Where(item => item.ProductId == Product.Id).First();
+                List<ProductImageViewModel> images = _context.ProductImage.Where(item => item.ProductId == Product.Id).ToList();
 
-            ProductImageViewModel image = _context.ProductImage.Where(item => item.ProductId == Product.Id).First();
-            List<ProductImageViewModel> images = _context.ProductImage.Where(item => item.ProductId == Product.Id).ToList();
-
-            dynamic mymodel = new ExpandoObject();
-            mymodel.ProductLists = ProductLists;
-            mymodel.Products = Product;
-            mymodel.productImages = images;
-            mymodel.productImage = image;
-            return View(mymodel);
+                dynamic mymodel = new ExpandoObject();
+                mymodel.ProductLists = ProductLists;
+                mymodel.Products = Product;
+                mymodel.productImages = images;
+                mymodel.productImage = image;
+                return View(mymodel);
+            }
+            return View();
         }
         public IActionResult ProductCategory()
         {
-           
-            List<ProductViewModel> Products = _context.Product.Where(item => item.Published == true && item.ShowOnHomePage).ToList();
+            List<ProductViewModel> Products = _context.Product.Where(item => item.Published == true && item.ShowOnHomePage)
+                .OrderByDescending(item => item.CreatedAt)
+                .ToList();
             List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
 
             foreach (ProductViewModel product in Products)
@@ -62,15 +73,18 @@ namespace BanHangOnline.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Products = Products;
             mymodel.productImages = productImages;
-            mymodel.ListPagination = this.GetProduct(1);
+            mymodel.ListPagination = this.GetProduct(1, Products.Count());
 
             return View(mymodel);
         }
 
-        [HttpPost("/danh-muc-san-pham/{currentPageIndex:int?}/")]
+        [HttpPost("/danh-muc-san-pham")]
         public IActionResult ProductCategory(int currentPageIndex)
         {
-            List<ProductViewModel> Products = _context.Product.Where(item => item.Published == true && item.ShowOnHomePage).ToList();
+            List<ProductViewModel> Products = _context.Product
+                .Where(item => item.Published == true && item.ShowOnHomePage)
+                .OrderByDescending(item => item.CreatedAt)
+                .ToList();
             List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
 
             foreach (ProductViewModel product in Products)
@@ -84,95 +98,220 @@ namespace BanHangOnline.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Products = Products;
             mymodel.productImages = productImages;
-            mymodel.ListPagination = this.GetProduct(currentPageIndex);
+            mymodel.ListPagination = this.GetProduct(currentPageIndex, Products.Count());
 
             return View(mymodel);
         }
 
-        public IActionResult ProductList()
+        [Route("/danh-muc-san-pham-{categoryUrl}")]
+        public IActionResult ProductList(string categoryUrl, int? currentPageIndex)
         {
+            ViewBag.categoryUrl = categoryUrl;
+            int currentIndex = 0;
+            if (currentPageIndex == null)
+            {
+                currentIndex = 1;
+            }
+            else
+            {
+                currentIndex = (int)currentPageIndex;
+            }
+            CategoryViewModel Category = _context.category.Where(item => item.CategoryURL == categoryUrl).FirstOrDefault();
+            
+            if (Category != null)
+            {
+                List<ProductViewModel> products = _context.Product
+                    .Where(item => item.CategoryId == Category.Id)
+                    .OrderByDescending(item => item.CreatedAt).ToList();
+                List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
+                foreach (ProductViewModel product in products)
+                {
+                    ProductImageViewModel productImage = new ProductImageViewModel();
+                    ProductImageViewModel images = _context.ProductImage.Where(item => item.ProductId == product.Id).First();
+                    productImage = images;
+                    productImages.Add(productImage);
+                }
+
+                dynamic mymodel = new ExpandoObject();
+                mymodel.Products = products;
+                mymodel.productImages = productImages;
+                mymodel.ListPagination = this.GetProductCategory(currentIndex, Category.Id, products.Count);
+
+                return View(mymodel);
+            }
             return View();
         }
 
+        [Route("Gio-hang")]
+        [Authorize]
         public IActionResult Cart()
         {
             return View(GetCartItems());
         }
+
+        [Authorize]
+        [Route("/san-pham-yeu-thich")]
         public IActionResult WishList()
         {
-            List<ProductViewModel> Products = _context.Product.Where(item => item.IsWish == true).ToList();
-            List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
-
-            foreach (ProductViewModel product in Products)
+            string userId = _userManager.GetUserId(User);
+            List<WishProductViewModel> WishProduct = _context.WishProduct
+                .Where(item => item.IdUser == userId)
+                .OrderByDescending(item => item.Id)
+                .ToList();
+          
+            List<ProductViewModel> Products = new List<ProductViewModel>();
+            dynamic mymodel = new ExpandoObject();
+            foreach (var itemWishProduct in WishProduct)
             {
-                ProductImageViewModel productImage = new ProductImageViewModel();
-                ProductImageViewModel images = _context.ProductImage.Where(item => item.ProductId == product.Id).First();
-                productImage = images;
-                productImages.Add(productImage);
+                ProductViewModel Product = _context.Product.Where(item => item.Id == itemWishProduct.IdProduct).First();
+                Products.Add(Product);
             }
 
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Products = Products;
+            List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
+
+            if (Products != null)
+            {
+                foreach (ProductViewModel product in Products)
+                {
+                    ProductImageViewModel productImage = new ProductImageViewModel();
+                    ProductImageViewModel images = _context.ProductImage.Where(item => item.ProductId == product.Id).First();
+                    productImage = images;
+                    productImages.Add(productImage);
+                }
+             
+                mymodel.Products = Products;
+                mymodel.productImages = productImages;
+
+                return View(mymodel);
+            }
+
+            mymodel.Products =new List<ProductViewModel>();
             mymodel.productImages = productImages;
-            
             return View(mymodel);
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult WishList(int productid)
         {
-            ProductViewModel Products = _context.Product.Where(item => item.Id == productid).FirstOrDefault();
-            ProductViewModel Product = null;
-            if (Product != null)
+            string userId = _userManager.GetUserId(User);
+            List<WishProductViewModel> WishProductFind = _context.WishProduct
+                .Where(item => item.IdUser == userId && item.IdProduct == productid)
+                .OrderByDescending(item => item.Id)
+                .ToList();
+
+            if (WishProductFind.Count > 0)
             {
-                Product.IsWish = true;
+                return NotFound();
+            }
+            WishProductViewModel WishProduct = new WishProductViewModel();
+
+
+
+            if (userId != null)
+            {
+                WishProduct.IdProduct = productid;
+                WishProduct.IdUser = userId;
+                WishProduct.IsEnable = true;
+                _context.WishProduct.Add(WishProduct);
                 _context.SaveChanges();
             }
             else
             {
                 return PartialView("Error");
             }
-            
+
             return Ok();
         }
 
-        [HttpPost]
-        public IActionResult RemoveWishList(int productid)
+        [Authorize]
+        public IActionResult RemoveWishList(int id)
         {
-            ProductViewModel Products = _context.Product.Where(item => item.Id == productid).FirstOrDefault();
-            ProductViewModel Product = null;
+            string userId = _userManager.GetUserId(User);
+
+            WishProductViewModel Product = _context.WishProduct.Where(item => item.IdProduct == id && item.IdUser == userId).FirstOrDefault();
+     
             if (Product != null)
             {
-                Product.IsWish = false;
-                _context.SaveChanges();
+                _context.WishProduct.Remove(Product);
+                _context.SaveChangesAsync();
             }
             else
             {
                 return NotFound();
             }
 
-            return View(nameof(WishList));
+            return RedirectToAction(nameof(WishList));
         }
 
-
+        [Authorize]
         public IActionResult CheckOut()
         {
             return View();
         }
 
-        private PaginationModel GetProduct(int currentPage)
+        public IActionResult SalePage()
+        {
+            List<ProductViewModel> Products = _context.Product
+                .Where(item => item.Published == true && item.ShowOnHomePage == true && item.ShowOnSalePage == true && item.OwenSale == true)
+                .OrderByDescending(item => item.CreatedAt)
+                .ToList();
+            List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
+
+            foreach (ProductViewModel product in Products)
+            {
+                ProductImageViewModel productImage = new ProductImageViewModel();
+                ProductImageViewModel images = _context.ProductImage.Where(item => item.ProductId == product.Id).First();
+                productImage = images;
+                productImages.Add(productImage);
+            }
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Products = Products;
+            mymodel.productImages = productImages;
+            mymodel.ListPagination = this.GetProductSalePage(1, Products.Count);
+
+            return View(mymodel);
+        }
+
+        [HttpPost("/san-pham-khuyen-mai")]
+        public IActionResult SalePage(int currentPageIndex)
+        {
+            List<ProductViewModel> Products = _context.Product
+                .Where(item => item.Published == true && item.ShowOnHomePage == true && item.ShowOnSalePage == true && item.OwenSale == true)
+                .OrderByDescending(item => item.CreatedAt)
+                .ToList();
+            List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
+
+            foreach (ProductViewModel product in Products)
+            {
+                ProductImageViewModel productImage = new ProductImageViewModel();
+                ProductImageViewModel images = _context.ProductImage.Where(item => item.ProductId == product.Id).First();
+                productImage = images;
+                productImages.Add(productImage);
+            }
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Products = Products;
+            mymodel.productImages = productImages;
+            mymodel.ListPagination = this.GetProduct(currentPageIndex, Products.Count());
+
+            return View(mymodel);
+        }
+
+        #region PhanTrang
+        private PaginationModel GetProduct(int currentPage, int productCount)
         {
             int maxRows = 4;
-
             PaginationModel productList = new PaginationModel();
             productList.Products = (from customer in this._context.Product
                                     select customer)
                     .Where(item => item.Published == true && item.ShowOnHomePage)
-                    .OrderBy(customer => customer.Id)
+                    .OrderByDescending(customer => customer.CreatedAt)
                     .Skip((currentPage - 1) * maxRows)
                     .Take(maxRows).ToList();
 
-            double pageCount = (double)((decimal)this._context.Product.Count() / Convert.ToDecimal(maxRows));
+            double pageCount = (double)((decimal)productCount / Convert.ToDecimal(maxRows));
             productList.PageCount = (int)Math.Ceiling(pageCount);
 
             productList.CurrentPageIndex = currentPage;
@@ -180,10 +319,60 @@ namespace BanHangOnline.Controllers
             return productList;
         }
 
-        /// Thêm sản phẩm vào cart
-        [Route("addcart/{productid:int}", Name = "addcart")]
-        public IActionResult AddToCart([FromRoute] int productid)
+        private PaginationModel GetProductSalePage(int currentPage, int productCount)
         {
+            int maxRows = 4;
+            PaginationModel productList = new PaginationModel();
+            productList.Products = (from customer in this._context.Product
+                                    select customer)
+                    .Where(item => item.Published == true && item.ShowOnHomePage == true && item.ShowOnSalePage == true && item.OwenSale == true)
+                    .OrderByDescending(customer => customer.CreatedAt)
+                    .Skip((currentPage - 1) * maxRows)
+                    .Take(maxRows).ToList();
+
+            double pageCount = (double)((decimal) productCount / Convert.ToDecimal(maxRows));
+            productList.PageCount = (int)Math.Ceiling(pageCount);
+
+            productList.CurrentPageIndex = currentPage;
+
+            return productList;
+        }
+
+        private PaginationModel GetProductCategory(int currentPage, int id, int productCount)
+        {
+            int maxRows = 4;
+
+            PaginationModel productList = new PaginationModel();
+            productList.Products = (from customer in this._context.Product
+                                    select customer)
+                    .Where(item => item.CategoryId == id).ToList()
+                    .OrderByDescending(customer => customer.CreatedAt)
+                    .Skip((currentPage - 1) * maxRows)
+                    .Take(maxRows).ToList();
+
+            double pageCount = (double)((decimal)productCount / Convert.ToDecimal(maxRows));
+            productList.PageCount = (int)Math.Ceiling(pageCount);
+
+            productList.CurrentPageIndex = currentPage;
+
+            return productList;
+        }
+        #endregion
+
+
+        #region secsion
+        /// Thêm sản phẩm vào cart
+        [Route("gio-hang/{productid:int}", Name = "addcart")]
+        [Authorize]
+        public IActionResult AddToCart([FromRoute] int productid, int? Quantity)
+        {
+
+            int quantity = 1;
+            if (Quantity != null)
+            {
+                quantity = (int)Quantity;
+            }
+
 
             var product = _context.Product
                 .Where(p => p.Id == productid)
@@ -197,12 +386,12 @@ namespace BanHangOnline.Controllers
             if (cartitem != null)
             {
                 // Đã tồn tại, tăng thêm 1
-                cartitem.quantity++;
+                cartitem.Quantity++;
             }
             else
             {
                 //  Thêm mới
-                cart.Add(new CartViewModel() { quantity = 1, product = product });
+                cart.Add(new CartViewModel() { Quantity = quantity, product = product });
             }
 
             // Lưu cart vào Session
@@ -212,7 +401,8 @@ namespace BanHangOnline.Controllers
         }
 
         /// xóa item trong cart
-        [Route("/removecart/{productid:int}", Name = "removecart")]
+        [Route("/xoa-san-pham/{productid:int}", Name = "removecart")]
+        [Authorize]
         public IActionResult RemoveCart([FromRoute] int productid)
         {
             var cart = GetCartItems();
@@ -228,7 +418,8 @@ namespace BanHangOnline.Controllers
         }
 
         /// Cập nhật
-        [Route("/updatecart", Name = "updatecart")]
+        [Route("/sua-san-pham", Name = "updatecart")]
+        [Authorize]
         [HttpPost]
         public IActionResult UpdateCart([FromForm] int productid, [FromForm] int quantity)
         {
@@ -238,7 +429,7 @@ namespace BanHangOnline.Controllers
             if (cartitem != null)
             {
                 // Đã tồn tại, tăng thêm 1
-                cartitem.quantity = quantity;
+                cartitem.Quantity = quantity;
             }
             SaveCartSession(cart);
             // Trả về mã thành công (không có nội dung gì - chỉ để Ajax gọi)
@@ -277,5 +468,6 @@ namespace BanHangOnline.Controllers
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
         }
+        #endregion
     }
 }

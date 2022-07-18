@@ -1,24 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@using System.Security.Claims;
 
-<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" href='@Url.Page("/Home/Index", new { area = "Managers" })' title="Manage">Hello @User.Identity.Name!</a>
+   var userId = this.User.FindFirst(ClaimTypes.NameIdentifier);
+    @*<li class="nav-item">
+        <a class="nav-link text-dark" href='@Url.Page("/Home/Index", new { area = "Manager" })' title="Manage">Hello @User.Identity.Name!</a>
     </li>
     <li class="nav-item">
         <a class="nav-link btn btn-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Logout</a>
-    </li>
+    </li>*@
+        <li><a href='@Url.Page("/Home/Index", new { area = "Manager" })' title="tên user">@User.Identity.Name</a></li>
+        <li><a asp-controller="Account" asp-action="LogOut" title="log out">Đăng xuất</a></li>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-    </li>
+       <li><a asp-area="" asp-controller="Account" asp-action="Login">Đăng Nhập</a></li>
 }
-</ul>
+

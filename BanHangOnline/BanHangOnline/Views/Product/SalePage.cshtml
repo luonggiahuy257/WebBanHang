@@ -1,0 +1,162 @@
+﻿@using BanHangOnline.ViewModels
+@model dynamic
+
+@{
+    ViewData["Title"] = "Sản phẩm khuyến mãi";
+     var productCount = @Model.Products.Count;
+}
+
+<!--section bg area-->
+<div class="section_bg">
+    <div class="container">
+        <!--breadcrumbs area start-->
+        <div class="breadcrumbs_area">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <h3>Cửa hàng</h3>
+                        <ul>
+                            <li><a href="/Home">Trang chủ</a></li>
+                            <li>Sản phẩm khuyến mãi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--breadcrumbs area end-->
+        <!--shop  area start-->
+        <div class="shop_area shop_reverse">
+            <div class="row">
+                @await Html.PartialAsync("_SearchProduct")
+                <div class="col-lg-9 col-md-12">
+                    <!--shop wrapper start-->
+                    <!--shop toolbar start-->
+                    <div class="shop_toolbar_wrapper">
+                        <div class="shop_toolbar_btn">
+                            <button data-role="grid_4" type="button" class="  btn-grid-4" data-bs-toggle="tooltip" title="4"></button>
+                            <button data-role="grid_3" type="button" class=" btn-grid-3" data-bs-toggle="tooltip" title="3"></button>
+                            <button data-role="grid_list" type="button" class="active btn-list" data-bs-toggle="tooltip" title="List"></button>
+                        </div>
+                        <div class="page_amount">
+                            <p>Có @productCount sản phẩm</p>
+                        </div>
+                    </div>
+                    <!--shop toolbar end-->
+
+                    <div class="row shop_wrapper grid_list">
+
+                        @foreach (ProductViewModel item in Model.ListPagination.Products)
+                        {
+                            @foreach (ProductImageViewModel itemImages in Model.productImages)
+                            {
+                                if (item.Id == itemImages.ProductId)
+                                {
+                                    <div class="col-12 ">
+                                        <div class="single_product">
+                                            <div class="product_thumb">
+                                                <a class="primary_img" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL"><img src="@itemImages.FilePath" alt="@item.ProductName"></a>
+                                                @if (item.OwenSale == true)
+                                                {
+                                                    <div class="label_product">
+                                                        <span class="label_sale">Sale</span>
+                                                    </div>
+                                                }
+                                                <div class="action_links">
+                                                    <ul>
+                                                        <li class="wishlist"><a class="WishProduct" title="sản phẩm yêu thích" onclick="wishProduct(@item.Id)"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="product_content grid_content">
+                                                <h4 class="product_name"><a title="@item.ProductTitleURL" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL">@item.ProductName</a></h4>
+                                                <div class="product_rating">
+                                                    <ul>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price_box">
+                                                    <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
+                                                    <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                </div>
+                                                <div class="add_to_cart">
+                                                    <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
+                                                </div>
+                                            </div>
+                                            <div class="product_content list_content">
+                                                <h4 class="product_name"><a title="@item.ProductTitleURL" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL">@item.ProductName</a></h4>
+                                                <div class="price_box">
+                                                    <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
+                                                    <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                </div>
+                                                <div class="product_rating">
+                                                    <ul>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="product_desc">
+                                                    <p>@item.ShortDescription</p>
+                                                </div>
+                                                <div class="add_to_cart shop_list_cart">
+                                                    <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng">Đặt Hàng</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="shop_toolbar t_bottom">
+                        <div class="pagination">
+                            <ul>
+                                @for (int i = 1; i <= Model.ListPagination.PageCount; i++)
+                                {
+                                    @if (i != Model.ListPagination.CurrentPageIndex)
+                                    {
+                                        <li><a href="javascript:PagerClick(@i);">@i</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <form asp-action="ProductCategory" asp-controller="Product" method="post" id="theForm">
+                        <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
+                    </form>
+                    <!--shop toolbar end-->
+                    <!--shop wrapper end-->
+                </div>
+            </div>
+        </div>
+        <!--shop  area end-->
+    </div>
+</div>
+<!--section bg area end-->
+@section Scripts {
+    <script>
+        function wishProduct(id) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("WishList","Product")",
+                data: {
+                    productid: id
+                },
+                success: function(result) {
+                    
+                }
+            });
+        }
+
+        function PagerClick(index) {
+            document.getElementById("hfCurrentPageIndex").value = index;
+            document.getElementById('theForm').submit();
+        }
+    </script>
+}
