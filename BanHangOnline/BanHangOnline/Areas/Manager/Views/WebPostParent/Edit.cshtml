@@ -1,0 +1,66 @@
+﻿@model BanHangOnline.ViewModels.WebPostParentViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sửa nhóm banner</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <form asp-action="Edit" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="PostParentID" />
+                                <h6 class="h-0 m-0">&nbsp;</h6>
+                                <div class="row gutters">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+
+                                            <input asp-for="PostParentTitle" class="form-control" />
+                                            <span asp-validation-for="PostParentTitle" class="text-danger"></span>
+                                            <div class="field-placeholder">Tên nhóm tin tức</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+
+                                            <input asp-for="PostParentLowerTitle" class="form-control" />
+                                            <span asp-validation-for="PostParentLowerTitle" class="text-danger"></span>
+                                            <div class="field-placeholder">mô tả ngắn</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper text-start">
+                                            <input style=" width:20px;margin-left:12px" asp-for="PostParentEnable" />
+                                            <span asp-validation-for="PostParentEnable" class="text-danger"></span>
+                                            <div class="field-placeholder">Trạng thái hoạt động</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-start">
+                                        <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <input type="submit" value="Hoàn Tất" class="btn btn-primary mt-3 mr-2" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+        </div>
+        <!-- Content wrapper end -->
+    </div>
+</div>

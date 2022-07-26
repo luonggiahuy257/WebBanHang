@@ -45,15 +45,16 @@ namespace BanHangOnline.ViewModels
         public int TaxRateId { get; set; }
 
         [DisplayName("Giá bán")]
-        public decimal SalePrice { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập giá bán")]
+        public decimal? SalePrice { get; set; } = null;
 
         [DisplayName("Giá bán lẽ")]
-        public decimal RetailPrice { get; set; }
+        public decimal? RetailPrice { get; set; }
 
         [DisplayName("Điểm")]
-        public decimal Point { get; set; }
+        public decimal? Point { get; set; }
         [DisplayName("Sản phẩm yêu thích")]
-        public bool IsWish { get; set; }
+        public bool? IsWish { get; set; }
 
         [DisplayName("Hiển thị ở trang chủ")]
         public bool ShowOnHomePage { get; set; }
@@ -62,28 +63,28 @@ namespace BanHangOnline.ViewModels
         public bool ShowOnSalePage { get; set; }
 
         [DisplayName("Id kho hàng")]
-        public int WarehouseId { get; set; }
+        public int? WarehouseId { get; set; }
 
         [DisplayName("Loại sản phẩm")]
-        public int ProductTypeId { get; set; }
+        public int? ProductTypeId { get; set; }
 
         [DisplayName("Thuộc nhóm sản phẩm đặt biệt")]
-        public bool IsGroup { get; set; }
+        public bool? IsGroup { get; set; }
 
         [DisplayName("Giảm giá")]
         public bool OwenSale { get; set; }
 
         [DisplayName("Số lượng sản phẩm trong kho")]
-        public int QuantityInStock { get; set; }
+        public int? QuantityInStock { get; set; }
 
         [DisplayName("Thứ tự hiển thị")]
-        public int DisplayOrder { get; set; }
+        public int? DisplayOrder { get; set; }
 
         [DisplayName("Sản phẩm được bán tiếp tục")]
         public bool Published { get; set; }
 
         [DisplayName("Trạng thái delete sản phẩm")]
-        public bool Deleted { get; set; }
+        public bool? Deleted { get; set; }
 
         [DisplayName("Đường đẫn url sản phẩm")]
         public string ProductTitleURL{ get; set; }

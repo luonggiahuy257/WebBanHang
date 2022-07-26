@@ -10,8 +10,8 @@ namespace BanHangOnline.ViewModels
         public int ProductId { get; set; }
         public int CartId { get; set; }
         public string SKU { get; set; }
-        public int Price { get; set; }
-        public float Discount { get; set; }
+        public double Price { get; set; }
+        public double? Discount { get; set; }
         public string Contents { get; set; }
         public int Quantity { get; set; }
         public bool Active { get; set; }

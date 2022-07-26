@@ -125,7 +125,7 @@
                                                             </div>
                                                         </div>
                                                         <figcaption class="product_content">
-                                                           <h4 class="product_name"><a title="@itemProduct.ProductName" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@itemProduct.ProductTitleURL">@itemProduct.ProductName</a></h4>
+                                                            <h4 class="product_name"><a title="@itemProduct.ProductName" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@itemProduct.ProductTitleURL">@itemProduct.ProductName</a></h4>
                                                             <div class="product_rating">
                                                                 <ul>
                                                                     <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
@@ -136,8 +136,14 @@
                                                                 </ul>
                                                             </div>
                                                             <div class="price_box">
-                                                                <span class="old_price">@itemProduct.RetailPrice.ToString("n0") đ</span>
-                                                                <span class="current_price">@itemProduct.SalePrice.ToString("n0") đ</span>
+                                                                @if (itemProduct.RetailPrice != null)
+                                                                {
+                                                                    <span class="old_price">@itemProduct.RetailPrice?.ToString("n0") đ</span>
+                                                                }
+                                                                @if (itemProduct.SalePrice != null)
+                                                                {
+                                                                    <span class="current_price">@itemProduct.SalePrice?.ToString("n0") đ</span>
+                                                                }
                                                             </div>
                                                             <div class="add_to_cart">
                                                                 <a asp-route="addcart" asp-route-id="@itemProduct.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
@@ -194,8 +200,14 @@
                                                                         </ul>
                                                                     </div>
                                                                     <div class="price_box">
-                                                                        <span class="old_price">@itemProduct.RetailPrice.ToString("n0") đ</span>
-                                                                        <span class="current_price">@itemProduct.SalePrice.ToString("n0") đ</span>
+                                                                        @if (itemProduct.RetailPrice != null)
+                                                                        {
+                                                                            <span class="old_price">@itemProduct.RetailPrice?.ToString("n0") đ</span>
+                                                                        }
+                                                                        @if (itemProduct.SalePrice != null)
+                                                                        {
+                                                                            <span class="current_price">@itemProduct.SalePrice?.ToString("n0") đ</span>
+                                                                        }
                                                                     </div>
                                                                     <div class="add_to_cart">
                                                                         <a asp-route="addcart" asp-route-id="@itemProduct.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
@@ -263,8 +275,14 @@
                                                                 </ul>
                                                             </div>
                                                             <div class="price_box">
-                                                                <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
-                                                                <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                                @if (item.RetailPrice != null)
+                                                                {
+                                                                    <span class="old_price">@item.RetailPrice?.ToString("n0") đ</span>
+                                                                }
+                                                                @if (item.SalePrice != null)
+                                                                {
+                                                                    <span class="current_price">@item.SalePrice?.ToString("n0") đ</span>
+                                                                }
                                                             </div>
                                                             <div class="add_to_cart">
                                                                 <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
@@ -323,8 +341,14 @@
                                                                 </ul>
                                                             </div>
                                                             <div class="price_box">
-                                                                <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
-                                                                <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                                @if (item.RetailPrice != null)
+                                                                {
+                                                                    <span class="old_price">@item.RetailPrice?.ToString("n0") đ</span>
+                                                                }
+                                                                @if (item.SalePrice != null)
+                                                                {
+                                                                    <span class="current_price">@item.SalePrice?.ToString("n0") đ</span>
+                                                                }
                                                             </div>
                                                             <div class="add_to_cart">
                                                                 <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
@@ -418,7 +442,7 @@
                                     <article class="single_product">
                                         <figure>
                                             <div class="product_thumb">
-                                                <a class="primary_img" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL"><img src="@itemImages.FilePath" alt="@item.ProductName"></a>
+                                                <a class="primary_img" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL"><img class="images-product" src="@itemImages.FilePath" alt="@item.ProductName"></a>
                                                 @if (item.OwenSale == true)
 
                                                 {
@@ -444,8 +468,14 @@
                                                     </ul>
                                                 </div>
                                                 <div class="price_box">
-                                                    <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
-                                                    <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                    @if (item.RetailPrice != null)
+                                                    {
+                                                        <span class="old_price">@item.RetailPrice?.ToString("n0") đ</span>
+                                                    }
+                                                    @if (item.SalePrice != null)
+                                                    {
+                                                        <span class="current_price">@item.SalePrice?.ToString("n0") đ</span>
+                                                    }
                                                 </div>
                                                 <div class="add_to_cart">
                                                     <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>

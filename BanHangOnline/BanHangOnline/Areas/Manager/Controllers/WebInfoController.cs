@@ -7,23 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BanHangOnline.Database;
 using BanHangOnline.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using static BanHangOnline.Common.WebConst;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BanHangOnline.Areas.Managers.Controllers
 {
     [Area("Manager")]
+    [Authorize(Roles = ("Admin"))]
     public class WebInfoController : Controller
     {
         private readonly DataContext _context;
-
-        public WebInfoController(DataContext context)
+        private IWebHostEnvironment Environment;
+        public WebInfoController(DataContext context, IWebHostEnvironment _environment)
         {
             _context = context;
+            Environment = _environment;
         }
 
         // GET: Managers/WebInfo
         public async Task<IActionResult> Index()
         {
-              return View(await _context.WebInfo.ToListAsync());
+              return View(await _context.WebInfo.OrderByDescending(item => item.Id).ToListAsync());
         }
 
         // GET: Managers/WebInfo/Details/5
@@ -55,10 +62,61 @@ namespace BanHangOnline.Areas.Managers.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ImageLogo,TitleLogo,Slogone,CompanyTitle,ShortDescription,Description,Address,PhoneNumber,Hotline,Hotline2,Email,Website,TitleWeb,MainKeywordH1,Seokeyword,Seodescription,SeoGooglesiteverification,SeoAuthor,SeoRevisitafter,Seorobots,Seogeoregion,Seogeoplacename,Seogeoposition,SeoICBM,Seomsvalidate01,Seocontentlanguage,SeoCOPYRIGHT,Seogoogleanalytics,Fax,Facebook,Twitter,Googleplus,Telegram,Skype,BaiViet1,BaiViet2,So1,So2")] WebInfoViewModels webInfoViewModels)
+        public async Task<IActionResult> Create([Bind("Id,ImageLogo,TitleLogo,Slogone,CompanyTitle,ShortDescription,Description,Address,PhoneNumber,Hotline,Hotline2,Email,Website,TitleWeb,MainKeywordH1,Seokeyword,Seodescription,SeoGooglesiteverification,SeoAuthor,SeoRevisitafter,Seorobots,Seogeoregion,Seogeoplacename,Seogeoposition,SeoICBM,Seomsvalidate01,Seocontentlanguage,SeoCOPYRIGHT,Seogoogleanalytics,Fax,Facebook,Twitter,Googleplus,Telegram,Skype,BaiViet1,BaiViet2,So1,So2")] WebInfoViewModels webInfoViewModels, List<IFormFile> postedFiles, List<IFormFile> postedFilesAbout)
         {
             if (ModelState.IsValid)
             {
+                if (postedFiles.Count == 0 || postedFilesAbout == null)
+                {
+                    return View(new WebInfoViewModels());
+                }
+
+                char[] charsToTrim = { ' ' };
+                char[] charsToTrimg = { '-' };
+                string wwwPath = this.Environment.WebRootPath;
+                string contentPath = this.Environment.ContentRootPath;
+                string path = Path.Combine(this.Environment.WebRootPath, FileSave.PathSaveWebInfo);
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                List<string> uploadedFiles = new List<string>();
+                foreach (IFormFile postedFile in postedFiles)
+                {
+                    if (postedFile.Length > 2097152)
+                    {
+                        return View(new WebInfoViewModels());
+                    }
+
+                    string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+                    string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+                    using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+                    {
+                        postedFile.CopyTo(stream);
+                        uploadedFiles.Add(flname);
+                        webInfoViewModels.ImageLogo = FileSave.PathWebInfo + flname;
+                    }
+                }
+
+                foreach (IFormFile postedFile in postedFilesAbout)
+                {
+                    if (postedFile.Length > 2097152)
+                    {
+                        return View(new WebInfoViewModels());
+                    }
+
+                    string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+                    string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+                    using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+                    {
+                        postedFile.CopyTo(stream);
+                        uploadedFiles.Add(flname);
+                        webInfoViewModels.BaiViet1 = FileSave.PathWebInfo + flname;
+                    }
+                }
+
                 _context.Add(webInfoViewModels);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -87,7 +145,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ImageLogo,TitleLogo,Slogone,CompanyTitle,ShortDescription,Description,Address,PhoneNumber,Hotline,Hotline2,Email,Website,TitleWeb,MainKeywordH1,Seokeyword,Seodescription,SeoGooglesiteverification,SeoAuthor,SeoRevisitafter,Seorobots,Seogeoregion,Seogeoplacename,Seogeoposition,SeoICBM,Seomsvalidate01,Seocontentlanguage,SeoCOPYRIGHT,Seogoogleanalytics,Fax,Facebook,Twitter,Googleplus,Telegram,Skype,BaiViet1,BaiViet2,So1,So2")] WebInfoViewModels webInfoViewModels)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ImageLogo,TitleLogo,Slogone,CompanyTitle,ShortDescription,Description,Address,PhoneNumber,Hotline,Hotline2,Email,Website,TitleWeb,MainKeywordH1,Seokeyword,Seodescription,SeoGooglesiteverification,SeoAuthor,SeoRevisitafter,Seorobots,Seogeoregion,Seogeoplacename,Seogeoposition,SeoICBM,Seomsvalidate01,Seocontentlanguage,SeoCOPYRIGHT,Seogoogleanalytics,Fax,Facebook,Twitter,Googleplus,Telegram,Skype,BaiViet1,BaiViet2,So1,So2")] WebInfoViewModels webInfoViewModels, List<IFormFile> postedFiles, List<IFormFile> postedFilesAbout)
         {
             if (id != webInfoViewModels.Id)
             {
@@ -98,6 +156,52 @@ namespace BanHangOnline.Areas.Managers.Controllers
             {
                 try
                 {
+                    char[] charsToTrim = { ' ' };
+                    char[] charsToTrimg = { '-' };
+                    string wwwPath = this.Environment.WebRootPath;
+                    string contentPath = this.Environment.ContentRootPath;
+                    string path = Path.Combine(this.Environment.WebRootPath, FileSave.PathSaveWebInfo);
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    List<string> uploadedFiles = new List<string>();
+                    foreach (IFormFile postedFile in postedFiles)
+                    {
+                        if (postedFile.Length > 2097152)
+                        {
+                            return View(new WebInfoViewModels());
+                        }
+
+                        string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+                        string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+                        using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+                        {
+                            postedFile.CopyTo(stream);
+                            uploadedFiles.Add(flname);
+                            webInfoViewModels.ImageLogo = FileSave.PathWebInfo + flname;
+                        }
+                    }
+
+                    foreach (IFormFile postedFile in postedFilesAbout)
+                    {
+                        if (postedFile.Length > 2097152)
+                        {
+                            return View(new WebInfoViewModels());
+                        }
+
+                        string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+                        string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+                        using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+                        {
+                            postedFile.CopyTo(stream);
+                            uploadedFiles.Add(flname);
+                            webInfoViewModels.BaiViet1 = FileSave.PathWebInfo + flname;
+                        }
+                    }
+
                     _context.Update(webInfoViewModels);
                     await _context.SaveChangesAsync();
                 }

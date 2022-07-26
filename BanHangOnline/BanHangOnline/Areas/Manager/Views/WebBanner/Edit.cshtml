@@ -1,4 +1,4 @@
-﻿@model BanHangOnline.ViewModels.WebBannerViewModel
+﻿@model BanHangOnline.Areas.Manager.Models.WebBannerGropDropdown
 
 @{
     ViewData["Title"] = "Edit";
@@ -24,10 +24,29 @@
                                 <div class="row gutters">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
-                                            <input type="file" class="filetype" style="margin-bottom:40px" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
-                                            <div class="field-placeholder">Chọn hình ảnh<span class="text-danger">*</span></div>
+                                            <input type="file" class="filetype" onchange="loadFile(event)" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
+                                            <div id="img-preview"></div>
+                                            <div class="field-placeholder">Chọn hình ảnh <span class="text-danger">*</span></div>
+                                            @Html.HiddenFor(model => model.BannerImage)
+                                            @if (@Model.BannerImage != null)
+                                            {
+                                                <div class="media-box">
+                                                    <img id="output" src="@Model.BannerImage" class="media-avatar" style="max-width:100px; max-height:100px; margin-top:10px">
+                                                </div>
+                                            }
                                         </div>
                                     </div>
+                                      @if (Model.WebBannerGroup != null)
+                                    {
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <select id="drpEmpList" class="select-single js-states" asp-for="BannerGroupId" asp-items="@(new SelectList(Model.WebBannerGroup, "BannerGroupID", "BannerGroupName"))">
+                                                    <option value="">--Select--</option>
+                                                </select>
+                                                <div class="field-placeholder">Chọn nhóm banner</div>
+                                            </div>
+                                        </div>
+                                    }
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
                                             <input asp-for="BannerTitle" class="form-control" />
@@ -42,24 +61,6 @@
                                             <div class="field-placeholder">Mô tả banner</div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                        <div class="field-wrapper">
-                                            <input asp-for="BannerURL" class="form-control" />
-                                            <span asp-validation-for="BannerURL" class="text-danger"></span>
-                                            <div class="field-placeholder">Đường dẫn Link</div>
-                                        </div>
-                                    </div>
-                                    @if (Model.WebBannerGroup != null)
-                                    {
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="field-wrapper">
-                                                <select id="drpEmpList" class="select-single js-states" asp-for="BannerGroupId" asp-items="@(new SelectList(Model.WebBannerGroup, "BannerGroupID", "BannerGroupName"))">
-                                                    <option value="">--Select--</option>
-                                                </select>
-                                                <div class="field-placeholder">Chọn nhóm banner</div>
-                                            </div>
-                                        </div>
-                                    }
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper text-start">
                                             <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="BannerEnable" checked />
@@ -85,3 +86,13 @@
         <!-- Content wrapper end -->
     </div>
 </div>
+                    
+<script>
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+</script>

@@ -21,7 +21,7 @@
                             <table id="copy-print-csv" class="table v-middle">
                                 <thead>
                                     <tr>
-                                        <th>@Html.DisplayNameFor(model => model.CategoryImages)</th>
+                                     @*   <th>@Html.DisplayNameFor(model => model.CategoryImages)</th>*@
                                         <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
                                         <th>@Html.DisplayNameFor(model => model.CategoryURL)</th>
                                         <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
@@ -32,11 +32,11 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>
+                                          @*  <td>
                                                 <div class="media-box">
                                                     <img src="@item.CategoryImages" class="media-avatar" alt="@item.CategoryName">
                                                 </div>
-                                            </td>
+                                            </td>*@
                                             <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
                                             <td>@Html.DisplayFor(modelItem => item.CategoryURL)</td>
                                             <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>

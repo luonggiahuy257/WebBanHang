@@ -24,45 +24,40 @@
                                 <div class="row gutters">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
-                                            <input asp-for="Name" class="form-control" />
-                                            <span asp-validation-for="Name" class="text-danger"></span>
-                                            <div class="field-placeholder">Tên người liên hệ</div>
+                                            <input asp-for="FullName" class="form-control" readonly/>
+                                            <span asp-validation-for="FullName" class="text-danger" readonly></span>
+                                            <div class="field-placeholder">Tên đầy đủ</div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
-                                            <input asp-for="FullName" class="form-control" />
-                                            <span asp-validation-for="FullName" class="text-danger"></span>
-                                            <div class="field-placeholder">Tên đầy đủ</div>
+                                            <input asp-for="Email" class="form-control" readonly/>
+                                            <span asp-validation-for="Email" class="text-danger" ></span>
+                                            <div class="field-placeholder">Email</div>
+                                        </div>
+                                    </div>
+                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="PhoneNumber" class="form-control" readonly/>
+                                            <span asp-validation-for="PhoneNumber" class="text-danger" ></span>
+                                            <div class="field-placeholder">Số điện thoại</div>
                                         </div>
                                     </div>
 
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                                         <div class="field-wrapper text-start">
-                                            <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="ContactEnable" checked />
-                                            <div class="field-placeholder">Trạng thái hoạt động</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                                        <div class="field-wrapper text-start">
                                             <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="IsGroup" />
-                                            <div class="field-placeholder">Trạng thái chờ</div>
+                                            <div class="field-placeholder">Đã xem</div>
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="field-wrapper">
-                                            <textarea asp-for="ShortContent" class="form-control" />
-                                            <span asp-validation-for="ShortContent" class="text-danger"></span>
+                                          <textarea asp-for="Contents" class="form-control" style="height:150px" readonly></textarea>
                                             <div class="field-placeholder">Thông tin ngắn</div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <div class="field-wrapper">
-                                            <textarea asp-for="Contents" class="form-control" />
-                                            <span asp-validation-for="Contents" class="text-danger"></span>
-                                            <div class="field-placeholder">Thông tin ngắn</div>
-                                        </div>
-                                    </div>
+
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 text-start">

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using BanHangOnline.Common;
 
 namespace BanHangOnline.Controllers
 {
@@ -116,8 +117,8 @@ namespace BanHangOnline.Controllers
             {
                 currentIndex = (int)currentPageIndex;
             }
-            CategoryViewModel Category = _context.category.Where(item => item.CategoryURL == categoryUrl).FirstOrDefault();
-            
+
+            CategoryViewModel Category = _context.Category.Where(item => item.CategoryURL == categoryUrl).FirstOrDefault();
             if (Category != null)
             {
                 List<ProductViewModel> products = _context.Product
@@ -139,7 +140,7 @@ namespace BanHangOnline.Controllers
 
                 return View(mymodel);
             }
-            return View();
+            return View(new ExpandoObject());
         }
 
         [Route("Gio-hang")]
@@ -158,7 +159,7 @@ namespace BanHangOnline.Controllers
                 .Where(item => item.IdUser == userId)
                 .OrderByDescending(item => item.Id)
                 .ToList();
-          
+
             List<ProductViewModel> Products = new List<ProductViewModel>();
             dynamic mymodel = new ExpandoObject();
             foreach (var itemWishProduct in WishProduct)
@@ -178,14 +179,14 @@ namespace BanHangOnline.Controllers
                     productImage = images;
                     productImages.Add(productImage);
                 }
-             
+
                 mymodel.Products = Products;
                 mymodel.productImages = productImages;
 
                 return View(mymodel);
             }
 
-            mymodel.Products =new List<ProductViewModel>();
+            mymodel.Products = new List<ProductViewModel>();
             mymodel.productImages = productImages;
             return View(mymodel);
         }
@@ -230,7 +231,7 @@ namespace BanHangOnline.Controllers
             string userId = _userManager.GetUserId(User);
 
             WishProductViewModel Product = _context.WishProduct.Where(item => item.IdProduct == id && item.IdUser == userId).FirstOrDefault();
-     
+
             if (Product != null)
             {
                 _context.WishProduct.Remove(Product);
@@ -246,6 +247,64 @@ namespace BanHangOnline.Controllers
 
         [Authorize]
         public IActionResult CheckOut()
+        {
+            return View(GetCartItems());
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult CheckOut(string LastName, string Address, string PhoneNumber, string Email,string Contents, float total)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        DateTime now = DateTime.Now;
+                        List<CartViewModel> CartItemViewModel = GetCartItems();
+                        CartViewModelCheckOut cartViewModel = new CartViewModelCheckOut();
+                        cartViewModel.Id = func.GetIdProduct();
+                        cartViewModel.LastName = LastName;
+                        cartViewModel.Address = Address;
+                        cartViewModel.Status = true;
+                        cartViewModel.OrderStatusId = 1;
+                        cartViewModel.PhoneNumber = PhoneNumber;
+                        cartViewModel.Quantity = 999;
+                        cartViewModel.Email = Email;
+                        cartViewModel.Contents = Contents;
+                        cartViewModel.CreatedAt = now;
+                        cartViewModel.UpdatedAt = now;
+                        _context.Cart.Add(cartViewModel);
+                      
+                        foreach (CartViewModel item in CartItemViewModel)
+                        {
+                            CartItemsViewModel cartItems = new CartItemsViewModel();
+                            cartItems.ProductId = item.product.Id;
+                            cartItems.CartId = cartViewModel.Id;
+                            cartItems.Quantity = item.Quantity;
+                            cartItems.Price = total;
+                            cartItems.Active = false;
+                            cartItems.CreatedAt = now;
+                            cartItems.UpdatedAt = now;
+
+                            _context.CartItems.Add(cartItems);
+                        }
+                        _context.SaveChanges();
+                        transaction.Commit();
+                        ClearCart();
+                        return View(nameof(SuccessCheckOut));
+                    }
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+                return View(GetCartItems());
+            }
+        }
+        [Authorize]
+        public IActionResult SuccessCheckOut()
         {
             return View();
         }
@@ -330,7 +389,7 @@ namespace BanHangOnline.Controllers
                     .Skip((currentPage - 1) * maxRows)
                     .Take(maxRows).ToList();
 
-            double pageCount = (double)((decimal) productCount / Convert.ToDecimal(maxRows));
+            double pageCount = (double)((decimal)productCount / Convert.ToDecimal(maxRows));
             productList.PageCount = (int)Math.Ceiling(pageCount);
 
             productList.CurrentPageIndex = currentPage;

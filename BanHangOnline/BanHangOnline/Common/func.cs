@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace BanHangOnline.Common
 {
@@ -46,6 +50,41 @@ namespace BanHangOnline.Common
 			}
 		}
 
+		public static string saveImage(IWebHostEnvironment Environment, List<IFormFile> postedFiles, string pathSaveStr, string pathStr)
+		{
+			var str = "";
+
+			char[] charsToTrim = { ' ' };
+			char[] charsToTrimg = { '-' };
+			string wwwPath = Environment.WebRootPath;
+			string contentPath = Environment.ContentRootPath;
+			string path = Path.Combine(Environment.WebRootPath, pathSaveStr);
+
+			if (!Directory.Exists(path))
+			{
+				Directory.CreateDirectory(path);
+			}
+
+			List<string> uploadedFiles = new List<string>();
+			foreach (IFormFile postedFile in postedFiles)
+			{
+				if (postedFile.Length > 2097152)
+				{
+					return WebConst.FileSave.MaxLengImg;
+				}
+
+				string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+				string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+				using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+				{
+					postedFile.CopyTo(stream);
+					uploadedFiles.Add(flname);
+					str = pathStr + flname;
+				}
+			}
+
+			return str;
+		}
 
 		private static readonly string[] VietnameseSigns = new string[]
 		{
@@ -67,3 +106,6 @@ namespace BanHangOnline.Common
 		};
 	}
 }
+
+
+

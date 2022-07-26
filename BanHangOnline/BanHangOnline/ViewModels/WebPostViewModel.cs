@@ -7,8 +7,8 @@ namespace BanHangOnline.ViewModels
     {
         [Key]
         public int PostID { get; set; }
-        public int PostParentID { get; set; }
-        public int PostTypeID { get; set; }
+        public int? PostParentID { get; set; }
+        public int? PostTypeID { get; set; }
         public string PostTitle { get; set; }
         public string PostLowerTitle { get; set; }
         public string PostReadmore { get; set; }

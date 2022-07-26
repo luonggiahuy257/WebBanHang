@@ -13,12 +13,17 @@ namespace BanHangOnline.Database
         public DbSet<WebInfoViewModels> WebInfo { get; set; }
         public DbSet<WebBannerViewModel> WebBanner { get; set; }
         public DbSet<WebBannerGroupViewModel> WebBannerGroup { get; set; }
-        public DbSet<CategoryViewModel> category { get; set; }
+        public DbSet<CategoryViewModel> Category { get; set; }
         public DbSet<ProductViewModel> Product { get; set; }
         public DbSet<ProductImageViewModel> ProductImage { get; set; }
         public DbSet<ProductCategoryViewModel> ProductCategory { get; set; }
+        public DbSet<WebPostParentViewModel> WebPostParent { get; set; }
+        public DbSet<WebPostViewModel> WebPost { get; set; }
         public DbSet<ContactViewModel> Contact { get; set; }
         public DbSet<WishProductViewModel> WishProduct { get; set; }
+        public DbSet<CartViewModelCheckOut> Cart { get; set; }
+        public DbSet<CartItemsViewModel> CartItems { get; set; }
+        public DbSet<StatusOrderViewModel> StatusOrder { get; set; }
         public DataContext(DbContextOptions<DataContext> options)
            : base(options)
         {

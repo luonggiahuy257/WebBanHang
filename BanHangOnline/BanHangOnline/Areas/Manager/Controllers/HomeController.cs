@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace BanHangOnline.Areas.Manager.Controllers
 {
     [Area("Manager")]
-    //[Authorize(Roles = ("Admin"))]
+    [Authorize(Roles = ("Admin"))]
     public class HomeController : Controller
     {
 
@@ -17,6 +17,10 @@ namespace BanHangOnline.Areas.Manager.Controllers
             return View();
         }
         public IActionResult Abount()
+        {
+            return View();
+        }
+        public ActionResult ContactSuccess()
         {
             return View();
         }

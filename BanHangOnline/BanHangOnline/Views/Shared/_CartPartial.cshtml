@@ -6,7 +6,7 @@
 @{
     var session = HttpContextAccessor.HttpContext.Session;
     string jsoncart = session.GetString(BanHangOnline.Controllers.ProductController.CARTKEY);
-    decimal total = 0;
+    decimal? total = 0;
 
     if (jsoncart != null)
     {
@@ -39,7 +39,7 @@
                     <div class="cart_item">
                         <div class="cart_info">
                             <a href="#">@item.product.ProductName</a>
-                            <p>@item.Quantity x <span>@(thanhtien.ToString("n0")) đ</span></p>
+                            <p>@item.Quantity x <span>@(thanhtien?.ToString("n0")) đ</span></p>
                         </div>
                         <div class="cart_remove">
                             <a asp-route="removecart" asp-route-id="@item.product.Id"><i class="ion-ios-close-outline"></i></a>
@@ -64,7 +64,7 @@
                 <div class="cart_table_border">
                     <div class="cart_total mt-10">
                         <span>Thành tiền:</span>
-                        <span class="price">@(total.ToString("n0")) đ</span>
+                        <span class="price">@(total?.ToString("n0")) đ</span>
                     </div>
                 </div>
             </div>

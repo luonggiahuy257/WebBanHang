@@ -1,0 +1,152 @@
+﻿@model BanHangOnline.Areas.Manager.Models.CartAreaModels
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Đơn đặt hàng</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <h6 class="h-0 m-0">&nbsp;</h6>
+                                <div class="row gutters">
+                                    @* <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="field-wrapper">
+                                    <input type="file" class="filetype" onchange="loadFile(event)" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
+                                    <div id="img-preview"></div>
+                                    <div class="field-placeholder">Chọn hình ảnh <span class="text-danger">*</span></div>
+                                    @Html.HiddenFor(model => model.CategoryImages)
+                                    @if (@Model.CategoryImages != null)
+                                    {
+                                    <div class="media-box">
+                                    <img id="output" src="@Model.CategoryImages" class="media-avatar" style="max-width:100px; max-height:100px; margin-top:10px">
+                                    </div>
+                                    }
+                                    </div>
+                                    </div>*@
+                                    @if (Model.StatusOrders != null)
+                                    {
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <select id="drpEmpList" class="select-single js-states" asp-for="OrderStatusId" asp-items="@(new SelectList(Model.StatusOrders, "Id", "Name"))">
+                                                    <option value="">--Select--</option>
+                                                </select>
+                                                <div class="field-placeholder">Thay đổi trạng thái đơn hàng</div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="LastName" class="form-control" readonly />
+                                            <span asp-validation-for="LastName" class="text-danger"></span>
+                                            <div class="field-placeholder">Tên người mua hàng</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Email" class="form-control" readonly />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                            <div class="field-placeholder">Email người mua hàng</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="PhoneNumber" class="form-control" readonly />
+                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                            <div class="field-placeholder">Số điện thoại người mua hàng</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input asp-for="Address" class="form-control" readonly />
+                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                            <div class="field-placeholder">Địa chỉ người mua hàng</div>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="field-wrapper">
+                                    <input asp-for="CategoryURL" class="form-control" />
+                                    <span asp-validation-for="CategoryURL" class="text-danger"></span>
+                                    <div class="field-placeholder">Đường dẫn Link</div>
+                                    </div>
+                                    </div>*@
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        
+                                                <div class="table-responsive">
+                                                    <table class="table v-middle">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Id sản phẩm
+                                                                </th>
+                                                                <th>
+                                                                    Tên sản phẩm
+                                                                </th>
+                                                                <th>
+                                                                    Giá của sản phẩm
+                                                                </th>
+                                                                <th>
+                                                                    Trạng thái sản phẩm
+                                                                </th>
+                                                                <th>
+                                                                    Ngày tạo
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in Model.Products)
+                                                            {
+                                                                <tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.SalePrice)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.Published)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                                                                    
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                           
+                                    </div>
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <textarea asp-for="Contents" class="form-control" style="height:150px" readonly></textarea>
+                                            <span asp-validation-for="Contents" class="text-danger"></span>
+                                            <div class="field-placeholder">Thông tin mô tả</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-start">
+                                        <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <input type="submit" value="Hoàn Tất" class="btn btn-primary mt-3 mr-2" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+        </div>
+        <!-- Content wrapper end -->
+    </div>
+</div>

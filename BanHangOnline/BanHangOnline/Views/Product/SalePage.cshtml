@@ -79,8 +79,14 @@
                                                     </ul>
                                                 </div>
                                                 <div class="price_box">
-                                                    <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
-                                                    <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                               @if (item.RetailPrice != null)
+                                                    {
+                                                        <span class="old_price">@item.RetailPrice?.ToString("n0") đ</span>
+                                                    }
+                                                    @if (item.SalePrice != null)
+                                                    {
+                                                        <span class="current_price">@item.SalePrice?.ToString("n0") đ</span>
+                                                    }
                                                 </div>
                                                 <div class="add_to_cart">
                                                     <a asp-route="addcart" asp-route-id="@item.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
@@ -89,8 +95,14 @@
                                             <div class="product_content list_content">
                                                 <h4 class="product_name"><a title="@item.ProductTitleURL" asp-action="ProductDetail" asp-controller="Product" asp-route-ProductDetailUrl="@item.ProductTitleURL">@item.ProductName</a></h4>
                                                 <div class="price_box">
-                                                    <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
-                                                    <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                  @if (item.RetailPrice != null)
+                                                    {
+                                                        <span class="old_price">@item.RetailPrice?.ToString("n0") đ</span>
+                                                    }
+                                                    @if (item.SalePrice != null)
+                                                    {
+                                                        <span class="current_price">@item.SalePrice?.ToString("n0") đ</span>
+                                                    }
                                                 </div>
                                                 <div class="product_rating">
                                                     <ul>
@@ -122,6 +134,10 @@
                                     @if (i != Model.ListPagination.CurrentPageIndex)
                                     {
                                         <li><a href="javascript:PagerClick(@i);">@i</a></li>
+                                    }
+                                    else
+                                    {
+                                         <li><a>@i</a></li>
                                     }
                                 }
                             </ul>

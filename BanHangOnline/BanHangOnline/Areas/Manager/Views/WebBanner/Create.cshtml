@@ -1,5 +1,4 @@
-﻿@model BanHangOnline.ViewModels.WebBannerViewModel
-
+﻿@model BanHangOnline.Areas.Manager.Models.WebBannerGropDropdown
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
@@ -18,7 +17,7 @@
                     <div class="card-body">
                         <div class="card-body">
                             <div>
-                                <form enctype="multipart/form-data" asp-action="Create">
+                                <form enctype="multipart/form-data" asp-controller="WebBanner" asp-action="Create">
                                     <h6 class="h-0 m-0">&nbsp;</h6>
                                     <div class="row gutters">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -27,7 +26,19 @@
                                                 <div class="field-placeholder">Chọn hình ảnh <span class="text-danger">*</span></div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                       
+                                        @if (Model.WebBannerGroup != null)
+                                        {
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                <div class="field-wrapper">
+                                                    <select id="drpEmpList" class="select-single js-states" asp-for="BannerGroupId" asp-items="@(new SelectList(Model.WebBannerGroup, "BannerGroupID", "BannerGroupName"))">
+                                                        <option value="">--Select--</option>
+                                                    </select>
+                                                    <div class="field-placeholder">Chọn nhóm banner</div>
+                                                </div>
+                                            </div>
+                                        }
+                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                             <div class="field-wrapper">
                                                 <input asp-for="BannerTitle" class="form-control" />
                                                 <span asp-validation-for="BannerTitle" class="text-danger"></span>
@@ -42,24 +53,6 @@
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="field-wrapper">
-                                                <input asp-for="BannerURL" class="form-control" />
-                                                <span asp-validation-for="BannerURL" class="text-danger"></span>
-                                                <div class="field-placeholder">Đường dẫn Link</div>
-                                            </div>
-                                        </div>
-                                        @if (Model.WebBannerGroup != null)
-                                        {
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                                <div class="field-wrapper">
-                                                    <select id="drpEmpList" class="select-single js-states" asp-for="BannerGroupId" asp-items="@(new SelectList(Model.WebBannerGroup, "BannerGroupID", "BannerGroupName"))">
-                                                        <option value="">--Select--</option>
-                                                    </select>
-                                                    <div class="field-placeholder">Chọn nhóm banner</div>
-                                                </div>
-                                            </div>
-                                        }
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                             <div class="field-wrapper text-start">
                                                 <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="BannerEnable" checked />
                                                 <div class="field-placeholder">Trạng thái hoạt động</div>
@@ -70,7 +63,6 @@
                                         <div class="col-md-6 text-start">
                                             <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
                                         </div>
-
                                         <div class="col-md-6 text-end">
                                             <input type="submit" value="Create" class="btn btn-primary mt-3 mr-2" />
                                         </div>

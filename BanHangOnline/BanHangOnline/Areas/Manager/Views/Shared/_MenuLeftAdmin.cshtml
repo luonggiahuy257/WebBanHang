@@ -7,7 +7,7 @@
 					<!-- Tabs nav start -->
 					<div class="nav" role="tablist" aria-orientation="vertical">
 						<a href="#" class="logo">
-							<img src="~/Content/Admin/img/logo.svg" alt="Uni Pro Admin">
+							<img src="~/Content/Admin/img/logo.svg" alt="">
 						</a>
 						<a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#tab-home" role="tab" aria-controls="tab-home" aria-selected="true">
 							<i class="icon-home2"></i>
@@ -70,7 +70,7 @@
 											<a href="#" class="current-page">Dashboard</a>
 										</li>
 										<li>
-											<a href="#" class="current-page">Profile</a>
+											<a href="#" class="current-page">Thông tin cá nhân</a>
 										</li>
 									</ul>
 								</div>
@@ -92,7 +92,11 @@
 								<div class="sidebar-menu">
 									<ul>
 										<li> 
+											<a asp-area="Manager" asp-controller="Category" asp-action="index">Danh mục sản phẩm</a>
 											<a asp-area="Manager" asp-controller="WebBannerGroup" asp-action="index">Danh mục hình ảnh banner (parent)</a>
+											<a asp-area="Manager" asp-controller="WebPostParent" asp-action="index">Danh mục tin tức (parent)</a>
+											<a asp-area="Manager" asp-controller="Contact" asp-action="index">Thông tin liên hệ</a>
+											<a asp-area="Manager" asp-controller="WebInfo" asp-action="index">Thông tin website</a>
 										</li>
 									</ul>
 								</div>
@@ -108,15 +112,11 @@
 							<!-- Sidebar actions ends -->
 						</div>
 
-
-
-
-
 						<div class="tab-pane fade" id="tab-product" role="tabpanel" aria-labelledby="product-tab">
 							
 							<!-- Tab content header start -->
 							<div class="tab-pane-header">
-								Product
+								Danh mục con
 							</div>
 							<!-- Tab content header end -->
 
@@ -125,7 +125,9 @@
 								<div class="sidebar-menu">
 									<ul>
 										<li>
-											<a href="#">sản phẩm</a>
+											<a asp-area="Manager" asp-controller="Product" asp-action="index">Danh mục sản phẩm</a>
+											<a asp-area="Manager" asp-controller="WebPost" asp-action="index">Danh mục tin tức</a>
+											<a asp-area="Manager" asp-controller="WebBanner" asp-action="index">Danh mục hình ảnh banner</a>
 										</li>
 									</ul>
 								</div>
@@ -147,7 +149,7 @@
 
 							<!-- Tab content header start -->
 							<div class="tab-pane-header">
-								Forms
+								Đơn hàng
 							</div>
 							<!-- Tab content header end -->
 
@@ -155,42 +157,9 @@
 							<div class="sidebarMenuScroll">
 								<div class="sidebar-menu">
 									<ul>
-										<li class="list-heading">Form Layouts</li>
-										<li>
-											<a href="forms-layout-one.html">Default Layout</a>
-										</li>
-										<li>
-											<a href="forms-layout-two.html">Layout Sections</a>
-										</li>
-										<li>
-											<a href="forms-layout-three.html">Simple Form Layout</a>
-										</li>
-										<li>
-											<a href="forms-layout-four.html">Select 2 Tags and Mask</a>
-										</li>
-										<li>
-											<a href="forms-layout-five.html">Horizontal Form Layout</a>
-										</li>
-										<li>
-											<a href="forms-layout-six.html">Layout Six with Tabs</a>
-										</li>
+											<a asp-area="Manager" asp-controller="Cart" asp-action="index" class="list-heading">Đơn đặt hàng</a>
 									</ul>									
-									<ul>
-										<li class="list-heading">Form Fields</li>
-										<li>
-											<a href="forms-inputs.html">Form Inputs</a>
-										</li>
-										<li>
-											<a href="forms-input-groups.html">Input Groups</a>
-										</li>
-										<li>
-											<a href="forms-checkbox-radio.html">Checkbox &amp; Radios</a>
-										</li>
-										<li>
-											<a href="forms-validation.html">Form Validation</a>
-										</li>
-									</ul>									
-									
+								
 								</div>
 							</div>
 							<!-- Sidebar menu ends -->
@@ -255,7 +224,7 @@
 							<!-- Sidebar actions starts -->
 							<div class="sidebar-actions">
 								<div class="support-tile blue">
-									<a href="pricing.html" class="btn btn-light m-auto">Upgrade Account</a>
+									<a href="#" class="btn btn-light m-auto">Upgrade Account</a>
 								</div>
 							</div>
 							<!-- Sidebar actions ends -->
@@ -263,7 +232,7 @@
 						</div>
 						
 						<!-- Settings tab -->
-						<div class="tab-pane fade" id="tab-settings" role="tabpanel" aria-labelledby="settings-tab">
+						@*<div class="tab-pane fade" id="tab-settings" role="tabpanel" aria-labelledby="settings-tab">
 							
 							<!-- Tab content header start -->
 							<div class="tab-pane-header">
@@ -381,11 +350,11 @@
 							<!-- Sidebar actions starts -->
 							<div class="sidebar-actions">
 								<div class="support-tile blue">
-									<a href="account-settings.html" class="btn btn-light m-auto">Advance Settings</a>
+									<a href="#" class="btn btn-light m-auto">Advance Settings</a>
 								</div>
 							</div>
 							<!-- Sidebar actions ends -->
-						</div>
+						</div>*@
 
 					</div>
 					<!-- Tabs content end -->

@@ -102,6 +102,13 @@ p:last-child {
   margin-bottom: 0;
 }
 
+.images-product {
+    max-width: 196px !important;
+    max-height: 196px !important;
+    min-width: 196px !important;
+    min-height: 196px !important;
+}
+
 a, button {
   color: inherit;
   line-height: inherit;
@@ -2991,13 +2998,17 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   padding-bottom: 50px;
 }
 .product_carousel .product_thumb a img {
-  width: 100%;
+    max-height:196px;
+    min-height:196px;
+    max-width:196px;
+    min-width:196px;
   margin: 0 auto;
+
 }
 @media only screen and (max-width: 767px) {
-  .product_carousel .product_thumb a img {
-    width: 100%;
-  }
+    .product_carousel .product_thumb a img {
+        max-width:100% !important;
+    }
 }
 .product_carousel .col-lg-3 {
   flex: 0 0 100%;
@@ -6726,13 +6737,12 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .order-notes textarea {
   border: 1px solid #e5e5e5;
   border-radius: 0;
-  height: 45px;
+  height: 130px;
   max-width: 100%;
   padding: 0 30px 0 20px;
   background: none;
   font-size: 13px;
   resize: none;
-  line-height: 45px;
   width: 100%;
   color: #232323;
 }
@@ -9987,6 +9997,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     margin-bottom: 12px;
   }
 }
+
+
 
 /*privacy policy css end*/
 

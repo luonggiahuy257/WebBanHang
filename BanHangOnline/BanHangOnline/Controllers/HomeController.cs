@@ -28,9 +28,9 @@ namespace BanHangOnline.Controllers
         public IActionResult Index()
         {
             List<WebBannerViewModel> webanners = _context.WebBanner.Where(item => item.BannerEnable == true).ToList();
-            List<ProductViewModel> Products = _context.Product.Where(item => item.Published == true && item.ShowOnHomePage == true).OrderByDescending(item => item.Id).ToList();
-            List<CategoryViewModel> Categorys = _context.category.Where(item => item.CategoryEnable == true && item.CategoryShowHome == true).ToList();
-            CategoryViewModel Category = _context.category.Where(item => item.CategoryEnable == true && item.CategoryShowHome == true).FirstOrDefault();
+            List<ProductViewModel> Products = _context.Product.Where(item => item.Published == true).OrderByDescending(item => item.Id).ToList();
+            List<CategoryViewModel> Categorys = _context.Category.Where(item => item.CategoryEnable == true && item.CategoryShowHome == true).ToList();
+            CategoryViewModel Category = _context.Category.Where(item => item.CategoryEnable == true && item.CategoryShowHome == true).FirstOrDefault();
             List<ProductImageViewModel> productImages = new List<ProductImageViewModel>();
 
             foreach (ProductViewModel product in Products)
@@ -56,6 +56,8 @@ namespace BanHangOnline.Controllers
             WebInfoViewModels webinfo = _context.WebInfo.Where(item => item.Id == 1).FirstOrDefault();
             return View(webinfo);
         }
+
+        [Route("lien-he")]
         public IActionResult Contact()
         {
             WebInfoViewModels webinfo = _context.WebInfo.Where(item => item.Id == 1).FirstOrDefault();
@@ -63,14 +65,25 @@ namespace BanHangOnline.Controllers
         }
 
         [HttpPost]
+        [Route("lien-he")]
         public ActionResult Contact([Bind("Id,Name,FullName,PhoneNumber,Email,Contents,ShortContent,ContactImages,ContactURL,IsGroup,ContactEnable,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] ContactViewModel contact)
         {
             if (ModelState.IsValid)
             {
+                DateTime now = System.DateTime.Now;
+                contact.CreatedAt = now;
+                contact.UpdatedAt = now;
+                contact.UpdatedBy = "khach";
+                contact.CreatedBy = "khach";
+                contact.IsGroup = false;
+                contact.ContactEnable = true;
+
                 _context.Contact.Add(contact);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction(nameof(ContactSuccess));
             }
+
             return RedirectToAction("Index");
         }
 
@@ -92,7 +105,7 @@ namespace BanHangOnline.Controllers
 
         public IActionResult HeaderHome()
         {
-            List<CategoryViewModel> listCategory = _context.category.Where(item => item.CategoryEnable == true).ToList();
+            List<CategoryViewModel> listCategory = _context.Category.Where(item => item.CategoryEnable == true).ToList();
 
             return View(listCategory);
         }
@@ -155,7 +168,7 @@ namespace BanHangOnline.Controllers
         {
             try
             {
-                var categorys = _context.category.Where(item => item.CategoryEnable == true).ToList();
+                var categorys = _context.Category.Where(item => item.CategoryEnable == true).ToList();
 
                 return new JsonResult(new { data = categorys });
             }
@@ -165,7 +178,10 @@ namespace BanHangOnline.Controllers
                 throw;
             }
         }
-
+        public ActionResult ContactSuccess()
+        {
+            return View();
+        }
 
     }
 }

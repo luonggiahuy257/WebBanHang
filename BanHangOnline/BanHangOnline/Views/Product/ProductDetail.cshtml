@@ -151,21 +151,21 @@
                                 <li>
                                     <a class="active" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Mô tả chi tiết</a>
                                 </li>
-                                <li>
+                               @* <li>
                                     <a data-bs-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (1)</a>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="info" role="tabpanel">
                                 <div class="product_info_content">
-                               <p>@Model.Products.Description</p>
+                               <p style="white-space:break-spaces;">@Model.Products.Description</p>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="sheet" role="tabpanel">
+                    @*        <div class="tab-pane fade" id="sheet" role="tabpanel">
                                 <div class="product_d_table">
                                     <form action="#">
                                         <table>
@@ -250,7 +250,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -301,8 +301,8 @@
                                                 </ul>
                                             </div>
                                             <div class="price_box">
-                                                <span class="old_price">@item.RetailPrice.ToString("n0") đ</span>
-                                                <span class="current_price">@item.SalePrice.ToString("n0") đ</span>
+                                                <span class="old_price">@item.RetailPrice?.ToString("n0") đ</span>
+                                                <span class="current_price">@item.SalePrice?.ToString("n0") đ</span>
                                             </div>
                                             <div class="add_to_cart">
                                                 <a asp-route="addcart" asp-route-id="@Model.Products.Id" title="Đặt Hàng"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Đặt Hàng</a>
@@ -319,7 +319,6 @@
         <!--product area end-->
     </div>
 </div>
-
 
 @section Scripts {
     <script>

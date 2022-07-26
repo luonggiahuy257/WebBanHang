@@ -13,6 +13,7 @@ namespace BanHangOnline.ViewModels
         public string SessionId { get; set; }
         public string Token{ get; set; }
         public bool Status { get; set; }
+        public int OrderStatusId { get; set; }
         public int Quantity { get; set; }
         public string Contents{ get; set; }
         public string FirstName{ get; set; }
@@ -22,11 +23,11 @@ namespace BanHangOnline.ViewModels
         public string Email { get; set; }
         public string Address { get; set; }
         public string AddressExt { get; set; }
-        public int CountryId { get; set; }
-        public int ProvinceId { get; set; }
-        public int CityId { get; set; }
-        public int TownId { get; set; }
-        public int GenderId { get; set; }
+        public int? CountryId { get; set; }
+        public int? ProvinceId { get; set; }
+        public int? CityId { get; set; }
+        public int? TownId { get; set; }
+        public int? GenderId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 

@@ -8,7 +8,6 @@ namespace BanHangOnline.ViewModels
     {
         [Key]
         public int BannerId { get; set; }
-        [Required]
         [DisplayName("Hình ảnh")]
         public string BannerImage { get; set; }
         [DisplayName("Tên hình ảnh")]
@@ -20,6 +19,5 @@ namespace BanHangOnline.ViewModels
         [DisplayName("Nhóm banner")]
         public int? BannerGroupId { get; set; }
         public int? PostParentId { get; set; }
-        public  List<WebBannerGroupViewModel> WebBannerGroup { get; set; }
     }
 }

@@ -1,0 +1,116 @@
+﻿@model BanHangOnline.Areas.Manager.Models.WebPostDropdown
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sửa nhóm banner</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="PostID" />
+                                <input type="hidden" asp-for="PostImage" />
+                                <h6 class="h-0 m-0">&nbsp;</h6>
+                                <div class="row gutters">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+                                            <input type="file" class="filetype" onchange="loadFile(event)" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
+                                            <div id="img-preview"></div>
+                                            <div class="field-placeholder">Chọn hình ảnh <span class="text-danger">*</span></div>
+                                            @Html.HiddenFor(model => model.PostImage)
+                                            @if (@Model.PostImage != null)
+                                            {
+                                                <div class="media-box">
+                                                    <img id="output" src="@Model.PostImage" class="media-avatar" style="max-width:100px; max-height:100px; margin-top:10px">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                        @if (Model.WebPostParent != null)
+                                        {
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                <div class="field-wrapper">
+                                                    <select id="drpEmpList" class="select-single js-states" asp-for="PostParentID" asp-items="@(new SelectList(Model.WebPostParent, "PostParentID", "PostParentTitle"))">
+                                                        <option value="">--Select--</option>
+                                                    </select>
+                                                    <div class="field-placeholder">Chọn nhóm tin tức</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+
+                                            <input asp-for="PostTitle" class="form-control" />
+                                            <span asp-validation-for="PostTitle" class="text-danger"></span>
+                                            <div class="field-placeholder">Tên tin tức</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="PostUserName" class="form-control" />
+                                                <span asp-validation-for="PostUserName" class="text-danger"></span>
+                                                <div class="field-placeholder">Tên người đăng tin</div>
+                                            </div>
+                                        </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper">
+
+                                            <input asp-for="PostReadmore" class="form-control" />
+                                            <span asp-validation-for="PostReadmore" class="text-danger"></span>
+                                            <div class="field-placeholder">Mô tả ngắn tin tức</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="field-wrapper text-start">
+                                            <input style=" width:20px;margin-left:12px" asp-for="PostEnable" />
+                                            <span asp-validation-for="PostEnable" class="text-danger"></span>
+                                            <div class="field-placeholder">Trạng thái hoạt động</div>
+                                        </div>
+                                    </div>
+                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <textarea asp-for="PostContent" class="form-control" style="height:130px"> </textarea>
+                                                <span asp-validation-for="PostContent" class="text-danger"></span>
+                                                <div class="field-placeholder">Nội dung tin tức</div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-start">
+                                        <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2"  asp-action="Index">
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <input type="submit" value="Hoàn Tất" class="btn btn-primary mt-3 mr-2" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+        </div>
+        <!-- Content wrapper end -->
+    </div>
+</div>
+
+<script>
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+</script>

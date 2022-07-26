@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<BanHangOnline.ViewModels.WebBannerGroupViewModel>
 
 @{
-    //ViewData["Title"] = "Index";
-    //Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
 }
 
 <!-- Content wrapper scroll start -->
@@ -10,10 +10,10 @@
     <!-- Content wrapper start -->
     <div class="content-wrapper">
 
-      @*  <div class="col-12 mb-2">
+     @*   <div class="col-12 mb-2">
             <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
-        </div>*@
-
+        </div>
+*@
         <!-- Row start -->
         <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -32,7 +32,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   @* @foreach (var item in Model)
+                                    @foreach (var item in Model)
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.BannerGroupID)</td>
@@ -46,13 +46,13 @@
                                                     <a href="@Url.Action("Details", new { id = @item.BannerGroupID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
                                                         <i class="icon-menu text-info"></i>
                                                     </a>
-                                                    <a href="@Url.Action("Delete", new { id = @item.BannerGroupID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                   @* <a href="@Url.Action("Delete", new { id = @item.BannerGroupID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                                         <i class="icon-x-circle text-danger"></i>
-                                                    </a>
+                                                    </a>*@
                                                 </div>
                                             </td>
                                         </tr>
-                                    }*@
+                                    }
                                 </tbody>
                             </table>
                         </div>

@@ -1,8 +1,18 @@
-﻿@model BanHangOnline.ViewModels.CategoryViewModel
+﻿@model BanHangOnline.Areas.Manager.Models.CategoryCreate
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+
+    
+    <style>
+        .ImgProduct {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+    </style>
 }
 
 <!-- Content wrapper scroll start -->
@@ -24,10 +34,22 @@
                                     <div class="row gutters">
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                             <div class="field-wrapper">
-                                                <input type="file" class="filetype" style="margin-bottom:40px" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
+                                                <input type="file" id="file-input" class="filetype" style="margin-bottom:40px" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" multiple />
                                                 <div class="field-placeholder">Chọn hình ảnh <span class="text-danger">*</span></div>
                                             </div>
                                         </div>
+
+                                        @if (Model.Categorys != null)
+                                        {
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                <div class="field-wrapper">
+                                                    <select id="drpEmpList" class="select-single js-states" asp-for="ParentId" asp-items="@(new SelectList(Model.Categorys, "Id", "CategoryName"))">
+                                                        <option value="">--Select--</option>
+                                                    </select>
+                                                    <div class="field-placeholder">Chọn danh mục cha</div>
+                                                </div>
+                                            </div>
+                                        }
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                             <div class="field-wrapper">
                                                 <input asp-for="CategoryName" class="form-control" />
@@ -35,20 +57,13 @@
                                                 <div class="field-placeholder">Tên danh mục</div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="field-wrapper">
-                                                <input asp-for="CategoryURL" class="form-control" />
-                                                <span asp-validation-for="CategoryURL" class="text-danger"></span>
-                                                <div class="field-placeholder">Đường dẫn Link</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    @*    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                             <div class="field-wrapper">
                                                 <input asp-for="CategoryOrder" class="form-control" />
                                                 <span asp-validation-for="CategoryOrder" class="text-danger"></span>
                                                 <div class="field-placeholder">Thứ tự sắp xếp</div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                             <div class="field-wrapper text-start">
                                                 <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="CategoryShowHome" checked />
@@ -63,8 +78,8 @@
                                         </div>
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div class="field-wrapper">
-                                                <textarea asp-for="ShortDescription" class="form-control" style="height:150px"></textarea>
-                                                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                                                <textarea asp-for="Description" class="form-control" style="height:150px"></textarea>
+                                                <span asp-validation-for="Description" class="text-danger"></span>
                                                 <div class="field-placeholder">Mô tả ngắn danh mục</div>
                                             </div>
                                         </div>
@@ -90,3 +105,42 @@
     </div>
 </div>
 <!-- Content wrapper scroll end -->
+
+
+
+<script>
+    document.querySelector('#file-input').addEventListener("change", previewImages);
+
+function previewImages() {
+
+  var preview = document.querySelector('#preview');
+  
+  if (this.files) {
+    [].forEach.call(this.files, readAndPreview);
+  }
+
+  function readAndPreview(file) {
+
+    // Make sure `file.name` matches our extensions criteria
+    if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+      return alert(file.name + " is not an image");
+    } // else...
+    
+    var reader = new FileReader();
+    
+    reader.addEventListener("load", function() {
+      var image = new Image();
+      image.max-height = 100;
+      image.max-width = 100;
+      image.margin-top = 10;
+      image.title  = file.name;
+      image.src    = this.result;
+      preview.appendChild(image);
+    });
+
+    reader.readAsDataURL(file);
+  }
+
+}
+</script>
+

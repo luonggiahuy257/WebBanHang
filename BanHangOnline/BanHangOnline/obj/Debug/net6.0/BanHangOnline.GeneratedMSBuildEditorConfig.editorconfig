@@ -15,6 +15,26 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\SICVN\WebBanHang\BanHangOnline\BanHangOnline
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Cart/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xDYXJ0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Cart/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xDYXJ0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Cart/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xDYXJ0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Cart/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xDYXJ0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Cart/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xDYXJ0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/category/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xjYXRlZ29yeVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -59,6 +79,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xIb21lXEFib3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Home/ContactSuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xIb21lXENvbnRhY3RTdWNjZXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xIb21lXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -101,26 +125,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/Shared/_MenuTopAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xTaGFyZWRcX01lbnVUb3BBZG1pbi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebBannerGroup2/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJCYW5uZXJHcm91cDJcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebBannerGroup2/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJCYW5uZXJHcm91cDJcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebBannerGroup2/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJCYW5uZXJHcm91cDJcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebBannerGroup2/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJCYW5uZXJHcm91cDJcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebBannerGroup2/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJCYW5uZXJHcm91cDJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebBannerGroup/Create.cshtml]
@@ -183,6 +187,46 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJJbmZvXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPostParent/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0UGFyZW50XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPostParent/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0UGFyZW50XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPostParent/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0UGFyZW50XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPostParent/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0UGFyZW50XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPostParent/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0UGFyZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPost/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPost/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPost/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPost/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/WebPost/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xXZWJQb3N0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Areas/Manager/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -221,6 +265,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Home/Contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Home/ContactSuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0U3VjY2Vzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Home/ErrorPage.cshtml]
@@ -267,6 +315,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxTYWxlUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Product/SuccessCheckOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxTdWNjZXNzQ2hlY2tPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Product/WishList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxXaXNoTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -277,6 +329,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Search/SearchProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoXFNlYXJjaFByb2R1Y3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Search/SearchWebPost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoXFNlYXJjaFdlYlBvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Shared/Error.cshtml]
@@ -309,6 +365,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Shared/_SearchProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TZWFyY2hQcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Shared/_SearchWebPost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TZWFyY2hXZWJQb3N0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Shared/_SuccessContact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdWNjZXNzQ29udGFjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SICVN/WebBanHang/BanHangOnline/BanHangOnline/Views/Shared/_ValidationScriptsPartial.cshtml]

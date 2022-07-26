@@ -1,0 +1,41 @@
+﻿<div class="col-lg-3 col-md-12">
+    <div class="blog_sidebar_widget">
+        <div class="widget_list widget_search">
+            <div class="widget_title">
+                <h3>Tìm kiếm</h3>
+            </div>
+            <form asp-action="SearchWebPost" asp-controller="Search">
+                <input placeholder="Tìm kiếm..." type="text" name="SearchString">
+                <button type="submit">search</button>
+            </form>
+        </div>
+        <div class="widget_list widget_categories">
+            <div class="widget_title">
+                <h3>Categories</h3>
+            </div>
+            <ul id="listCategoryWebPost">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout($(document).ready(function() {
+        var txt = "";
+        var sdt = "";
+        var email = "";
+        var logo = "";
+        $.ajax({
+            url: '/DbResultJson/GetCategorys',
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                $.each(data, function(i, result) {
+                    txt += `<li><a href="danh-muc-san-pham-${result.categoryURL}">${result.categoryName}</a></li>`;
+                    $("#listCategoryWebPost").html(txt);
+                });
+            }
+        });
+    }), 1000);
+
+</script>

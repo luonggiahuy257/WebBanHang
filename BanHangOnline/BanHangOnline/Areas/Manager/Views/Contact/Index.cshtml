@@ -5,113 +5,10 @@
     Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contents)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShortContent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactImages)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsGroup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactEnable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedBy)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contents)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ShortContent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactImages)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactURL)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsGroup)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactEnable)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedBy)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-
 <!-- Content wrapper scroll start -->
 <div class="content-wrapper-scroll">
     <!-- Content wrapper start -->
     <div class="content-wrapper">
-        <div class="col-12 mb-2">
-            <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
-        </div>
         <!-- Row start -->
         <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -122,16 +19,16 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Name)
+                                            @Html.DisplayNameFor(model => model.FullName)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.ShortContent)
+                                            @Html.DisplayNameFor(model => model.Email)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.ContactURL)
+                                            @Html.DisplayNameFor(model => model.PhoneNumber)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.ContactEnable)
+                                            @Html.DisplayNameFor(model => model.IsGroup)
                                         </th>
                                         <th>
                                             @Html.DisplayNameFor(model => model.CreatedAt)
@@ -143,19 +40,19 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                            <td>@Html.DisplayNameFor(model => model.ShortContent)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.ContactURL)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.ContactEnable)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                            <td>@Html.DisplayNameFor(model => model.Email)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.IsGroup)</td>
                                             <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
                                             <td>
                                                 <div class="actions">
                                                     <a href="@Url.Action("Edit", new { id = @item.Id})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                                                         <i class="icon-edit1 text-info"></i>
                                                     </a>
-                                                    <a href="@Url.Action("Details", new { id = @item.Id})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
+                                                   @* <a href="@Url.Action("Details", new { id = @item.Id})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
                                                         <i class="icon-menu text-info"></i>
-                                                    </a>
+                                                    </a>*@
                                                     <a href="@Url.Action("Delete", new { id = @item.Id})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                                         <i class="icon-x-circle text-danger"></i>
                                                     </a>

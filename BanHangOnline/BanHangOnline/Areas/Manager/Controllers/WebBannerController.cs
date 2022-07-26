@@ -1,5 +1,7 @@
-﻿using BanHangOnline.Database;
+﻿using BanHangOnline.Areas.Manager.Models;
+using BanHangOnline.Database;
 using BanHangOnline.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,7 @@ using static BanHangOnline.Common.WebConst;
 namespace BanHangOnline.Areas.Managers.Controllers
 {
     [Area("Manager")]
+    [Authorize(Roles = ("Admin"))]
     public class WebBannerController : Controller
     {
         private readonly DataContext _context;
@@ -28,7 +31,26 @@ namespace BanHangOnline.Areas.Managers.Controllers
         // GET: Managers/WebBannerViewModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.WebBanner.ToListAsync());
+            List<WebBannerGropDropdown> models = new List<WebBannerGropDropdown>();
+            List<WebBannerViewModel> webBannerViewModels = await _context.WebBanner.OrderByDescending(item => item.BannerId).ToListAsync();
+
+            foreach (WebBannerViewModel webBannerViewModel in webBannerViewModels)
+            {
+                WebBannerGropDropdown model = new WebBannerGropDropdown();
+                model.BannerId = webBannerViewModel.BannerId;
+                model.BannerImage = webBannerViewModel.BannerImage;
+                model.BannerTitle = webBannerViewModel.BannerTitle;
+                model.BannerDescription = webBannerViewModel.BannerDescription;
+                model.BannerAlt = webBannerViewModel.BannerAlt;
+                model.BannerURL = webBannerViewModel.BannerURL;
+                model.BannerEnable = webBannerViewModel.BannerEnable;
+                model.BannerGroupId = webBannerViewModel.BannerGroupId;
+                model.PostParentId = webBannerViewModel.PostParentId;
+
+                models.Add(model);
+            }
+            ViewBag.abc = MakeWebBanner();
+            return View(models);
         }
 
         // GET: Managers/WebBannerViewModels/Details/5
@@ -59,8 +81,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BannerId,BannerImage,BannerTitle,BannerDescription,BannerAlt,BannerURL,BannerEnable,BannerGroupId,PostParentId")] WebBannerViewModel webBannerViewModel, List<IFormFile> postedFiles)
+        public async Task<IActionResult> Create(WebBannerViewModel webBannerViewModel, List<IFormFile> postedFiles)
         {
             if (ModelState.IsValid)
             {
@@ -68,25 +89,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
                 {
                     return View(MakeWebBanner());
                 }
-                string[] VietNamChar = new string[]
-                {
-                    "aAeEoOuUiIdDyY",
-                    "áàạảãâấầậẩẫăắằặẳẵ",
-                    "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
-                    "éèẹẻẽêếềệểễ",
-                    "ÉÈẸẺẼÊẾỀỆỂỄ",
-                    "óòọỏõôốồộổỗơớờợởỡ",
-                    "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
-                    "úùụủũưứừựửữ",
-                    "ÚÙỤỦŨƯỨỪỰỬỮ",
-                    "íìịỉĩ",
-                    "ÍÌỊỈĨ",
-                    "đ",
-                    "Đ",
-                    "ýỳỵỷỹ",
-                    "ÝỲỴỶỸ"
-                };
-
+               
                 char[] charsToTrim = { ' ' };
                 char[] charsToTrimg = { '-' };
                 string wwwPath = this.Environment.WebRootPath;
@@ -119,7 +122,7 @@ namespace BanHangOnline.Areas.Managers.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
             return View(MakeWebBanner());
         }
 
@@ -131,20 +134,26 @@ namespace BanHangOnline.Areas.Managers.Controllers
                 return NotFound();
             }
 
+            WebBannerGropDropdown webBannerGropDropdown = MakeWebBanner();
             var webBannerViewModel = await _context.WebBanner.FindAsync(id);
             if (webBannerViewModel == null)
             {
                 return NotFound();
             }
-
-            List<WebBannerGroupViewModel> webBannerGroup = _context.WebBannerGroup.Select(x => new WebBannerGroupViewModel { BannerGroupID = x.BannerGroupID, BannerGroupName = x.BannerGroupName }).ToList();
-            WebBannerViewModel BannerViewModel = new WebBannerViewModel();
-            if (BannerViewModel != null)
+            else
             {
-                webBannerViewModel.WebBannerGroup = webBannerGroup;
+                webBannerGropDropdown.BannerId = webBannerViewModel.BannerId;
+                webBannerGropDropdown.BannerImage = webBannerViewModel.BannerImage;
+                webBannerGropDropdown.BannerTitle = webBannerViewModel.BannerTitle;
+                webBannerGropDropdown.BannerDescription = webBannerViewModel.BannerDescription;
+                webBannerGropDropdown.BannerAlt = webBannerViewModel.BannerAlt;
+                webBannerGropDropdown.BannerURL = webBannerViewModel.BannerURL;
+                webBannerGropDropdown.BannerEnable = webBannerViewModel.BannerEnable;
+                webBannerGropDropdown.BannerGroupId = webBannerViewModel.BannerGroupId;
+                webBannerGropDropdown.PostParentId = webBannerViewModel.PostParentId;
             }
 
-            return View(webBannerViewModel);
+            return View(webBannerGropDropdown);
         }
 
         // POST: Managers/WebBannerViewModels/Edit/5
@@ -165,6 +174,8 @@ namespace BanHangOnline.Areas.Managers.Controllers
                     {
                         return View(MakeWebBanner());
                     }
+
+
                     string[] VietNamChar = new string[]
                     {
                     "aAeEoOuUiIdDyY",
@@ -212,6 +223,20 @@ namespace BanHangOnline.Areas.Managers.Controllers
                             webBannerViewModel.BannerImage = FileSave.PathWebBanner + flname;
                         }
                     }
+
+                    var stringtitle = webBannerViewModel.BannerTitle;
+                    var charsToRemove = new string[] { "@", ",", ".", ";", "'", "/", "?" };
+                    foreach (var c in charsToRemove)
+                    {
+                        stringtitle = stringtitle.Replace(c, string.Empty);
+                    }
+                    for (int i = 1; i < VietNamChar.Length; i++)
+                    {
+                        for (int j = 0; j < VietNamChar[i].Length; j++)
+                            stringtitle = stringtitle.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
+                    }
+                    stringtitle = stringtitle.Replace(" ", "-");
+                    webBannerViewModel.BannerURL = stringtitle;
 
                     _context.Update(webBannerViewModel);
                     await _context.SaveChangesAsync();
@@ -275,10 +300,10 @@ namespace BanHangOnline.Areas.Managers.Controllers
             return _context.WebBanner.Any(e => e.BannerId == id);
         }
 
-        private WebBannerViewModel MakeWebBanner()
+        private WebBannerGropDropdown MakeWebBanner()
         {
-            List<WebBannerGroupViewModel> webBannerGroup = _context.WebBannerGroup.Select(x => new WebBannerGroupViewModel { BannerGroupID = x.BannerGroupID, BannerGroupName = x.BannerGroupName }).ToList();
-            WebBannerViewModel webBannerViewModel = new WebBannerViewModel();
+            List<WebBannerGroupViewModel> webBannerGroup = _context.WebBannerGroup.Where(item => item.BannerGroupEnable == true).Select(x => new WebBannerGroupViewModel { BannerGroupID = x.BannerGroupID, BannerGroupName = x.BannerGroupName }).ToList();
+            WebBannerGropDropdown webBannerViewModel = new WebBannerGropDropdown();
             if (webBannerGroup.Count != 0)
             {
                 webBannerViewModel.WebBannerGroup = webBannerGroup;

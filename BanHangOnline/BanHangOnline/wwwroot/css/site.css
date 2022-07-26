@@ -72,8 +72,8 @@ body {
 
 /*hình ảnh*/
 .images-product {
-    max-width: 196px;
-    max-height: 196px;
-    min-width: 196px;
-    min-height: 196px;
+    max-width: 196px !important;
+    max-height: 196px !important;
+    min-width: 196px !important;
+    min-height: 196px !important;
 }

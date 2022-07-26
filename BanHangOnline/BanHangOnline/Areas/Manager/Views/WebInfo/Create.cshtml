@@ -18,14 +18,19 @@
                     <div class="card-body">
                         <div class="card-body">
                             <div>
-                                <form asp-action="Create">
+                                <form  enctype="multipart/form-data" asp-action="Create">
                                     <h6 class="h-0 m-0">&nbsp;</h6>
                                     <div class="row gutters">
+                                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input type="file" class="filetype" style="margin-bottom:40px" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
+                                                <div class="field-placeholder">Chọn hình ảnh logo<span class="text-danger">*</span></div>
+                                            </div>
+                                        </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                             <div class="field-wrapper">
-                                                <input asp-for="TitleLogo" class="form-control" />
-                                                <span asp-validation-for="TitleLogo" class="text-danger"></span>
-                                                <div class="field-placeholder">Chọn logo</div>
+                                                <input type="file" class="filetype" style="margin-bottom:40px" data-iconname="glyphicon-inbox" name="postedFilesAbout" accept=".png,.jpg,.jpeg,.gif" />
+                                                <div class="field-placeholder">Chọn hình ảnh giới thiệu <span class="text-danger">*</span></div>
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -102,6 +107,13 @@
                                                 <input asp-for="TitleWeb" class="form-control" />
                                                 <span asp-validation-for="TitleWeb" class="text-danger"></span>
                                                 <div class="field-placeholder">Tiêu đề website</div>
+                                            </div>
+                                        </div>
+                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="field-wrapper">
+                                                <input asp-for="So1" class="form-control" />
+                                                <span asp-validation-for="So1" class="text-danger"></span>
+                                                <div class="field-placeholder">Nhập phí vận chuyển</div>
                                             </div>
                                         </div>
                                     </div>

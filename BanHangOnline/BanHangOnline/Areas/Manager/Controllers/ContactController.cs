@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BanHangOnline.Database;
 using BanHangOnline.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BanHangOnline.Areas.Manager.Controllers
 {
     [Area("Manager")]
+    [Authorize(Roles = ("Admin"))]
     public class ContactController : Controller
     {
         private readonly DataContext _context;
@@ -23,7 +25,7 @@ namespace BanHangOnline.Areas.Manager.Controllers
         // GET: Manager/Contact
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Contact.ToListAsync());
+              return View(await _context.Contact.OrderByDescending(item => item.Id).ToListAsync());
         }
 
         // GET: Manager/Contact/Details/5
@@ -98,6 +100,13 @@ namespace BanHangOnline.Areas.Manager.Controllers
             {
                 try
                 {
+                    DateTime now = System.DateTime.Now;
+                    contactViewModel.CreatedAt = now;
+                    contactViewModel.CreatedBy = "Khach";
+                    contactViewModel.UpdatedAt = now;
+                    contactViewModel.ContactEnable = true;
+                    contactViewModel.UpdatedBy = "quản trị viên";
+
                     _context.Update(contactViewModel);
                     await _context.SaveChangesAsync();
                 }

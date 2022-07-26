@@ -1,0 +1,171 @@
+﻿@model BanHangOnline.ViewModels.WebPostParentViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>WebPostParentViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentTitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentLowerTitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentLowerTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentReadmore)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentReadmore)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentContent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentContent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentImage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentImage)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentEnable)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentEnable)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentSeoKeyword)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentSeoKeyword)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentTitleURL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentTitleURL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentTitleGoogle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentTitleGoogle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentTitleImage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentTitleImage)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostParentTitleAlt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostParentTitleAlt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PostParentID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table id="copy-print-csv" class="table v-middle">
+                                <thead>
+                                    <tr>
+                                       <th>
+                                            @Html.DisplayNameFor(model => model.PostParentID)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PostParentTitle)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PostParentEnable)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CreatedAt)
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="col-sm-10">
+                                            @Html.DisplayFor(model => model.PostParentID)
+                                        </td>
+
+                                        <td class="col-sm-10">
+                                            @Html.DisplayFor(model => model.PostParentTitle)
+                                        </td>
+
+                                        <td class="col-sm-10">
+                                            @Html.DisplayFor(model => model.PostParentEnable)
+                                        </td>
+
+                                        <td class="col-sm-10">
+                                            @Html.DisplayFor(model => model.CreatedAt)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-start">
+                                <input value="Trở lại" type="submit" class="btn btn-primary mt-3 ml-2" asp-action="Index">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+
+</div>

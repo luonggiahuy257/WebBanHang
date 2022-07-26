@@ -1,4 +1,4 @@
-﻿@model BanHangOnline.ViewModels.CategoryViewModel
+﻿@model BanHangOnline.Areas.Manager.Models.CategoryCreate
 
 @{
     ViewData["Title"] = "Edit";
@@ -22,7 +22,7 @@
                                 <input type="hidden" asp-for="Id" />
                                 <h6 class="h-0 m-0">&nbsp;</h6>
                                 <div class="row gutters">
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                   @* <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
                                             <input type="file" class="filetype" onchange="loadFile(event)" data-iconname="glyphicon-inbox" name="postedFiles" accept=".png,.jpg,.jpeg,.gif" />
                                             <div id="img-preview"></div>
@@ -35,7 +35,19 @@
                                                 </div>
                                             }
                                         </div>
-                                    </div>
+                                    </div>*@
+                                    @if (Model.Categorys != null)
+                                        {
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                                <div class="field-wrapper">
+                                                    <select id="drpEmpList" class="select-single js-states" asp-for="ParentId" asp-items="@(new SelectList(Model.Categorys, "Id", "CategoryName"))">
+                                                        <option value="">--Select--</option>
+                                                    </select>
+                                                    <div class="field-placeholder">Chọn danh mục cha</div>
+                                                </div>
+                                            </div>
+                                        }
+
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
                                             <input asp-for="CategoryName" class="form-control" />
@@ -43,20 +55,21 @@
                                             <div class="field-placeholder">Tên danh mục</div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    @*<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
                                             <input asp-for="CategoryURL" class="form-control" />
                                             <span asp-validation-for="CategoryURL" class="text-danger"></span>
                                             <div class="field-placeholder">Đường dẫn Link</div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    </div>*@
+                                   
+                                    @*<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper">
                                             <input asp-for="CategoryOrder" class="form-control" />
                                             <span asp-validation-for="CategoryOrder" class="text-danger"></span>
                                             <div class="field-placeholder">Thứ tự sắp xếp</div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="field-wrapper text-start">
                                             <input type="checkbox" style=" width:20px;margin-left:12px" asp-for="CategoryShowHome" checked />
@@ -71,9 +84,9 @@
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="field-wrapper">
-                                            <textarea asp-for="ShortDescription" class="form-control" style="height:150px"></textarea>
-                                            <span asp-validation-for="ShortDescription" class="text-danger"></span>
-                                            <div class="field-placeholder">Mô tả ngắn danh mục</div>
+                                            <textarea asp-for="Description" class="form-control" style="height:150px"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                            <div class="field-placeholder">Mô tả</div>
                                         </div>
                                     </div>
                                 </div>

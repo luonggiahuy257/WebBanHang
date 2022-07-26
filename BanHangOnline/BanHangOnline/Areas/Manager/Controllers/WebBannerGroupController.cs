@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using BanHangOnline.Database;
 using BanHangOnline.ViewModels;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BanHangOnline.Areas.Managers.Controllers
 {
     [Area("Manager")]
+    [Authorize(Roles = ("Admin"))]
     public class WebBannerGroupController : Controller
     {
         private readonly DataContext _context;
@@ -26,23 +28,14 @@ namespace BanHangOnline.Areas.Managers.Controllers
         {
             try
             {
-                var aasas = _context.WebBannerGroup.Where(item => item.BannerGroupID == 8).ToList();
-
-
-                return View(await _context.WebBannerGroup.ToListAsync());
+                return View(await _context.WebBannerGroup.OrderByDescending(item => item.BannerGroupID).ToListAsync());
             }
             catch (ApplicationException ex)
             {
-                var aaa = ex.Message;
+                var message = ex.Message;
 
-                throw;
+                throw new ApplicationException(message);
             }
-
-          
-
-
-
-            
         }
 
         // GET: Managers/WebBannerGroup/Details/5

@@ -1,0 +1,59 @@
+﻿@using BanHangOnline.ViewModels
+@model List<WebPostViewModel>
+@{
+    ViewData["Title"] = "tìm kiếm tin tức";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area breadcrumbs_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/Home">Trang chủ</a></li>
+                        <li>Danh mục tin tức</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--blog area start-->
+<div class="blog_page_section blog_reverse">
+    <div class="container">
+        <div class="row">
+            @await Html.PartialAsync("_SearchWebPost")
+
+            <div class="col-lg-9 col-md-12">
+                <div class="blog_wrapper">
+                    @foreach (WebPostViewModel item in Model)
+                    {
+                        <div class="single_blog">
+                            <div class="blog_thumb">
+                                <a asp-action="BlogDetail" asp-controller="Blog" asp-route-BlogDetailUrl="@item.PostTitleURL"><img src="@item.PostImage" alt="@item.PostTitle"></a>
+                            </div>
+                            <div class="blog_content">
+                                <div class="post_date">
+                                    @if (@item.PostUserName != null)
+                                    {
+                                        <span>Đăng bởi:<a href="#">@item.PostUserName</a> / ngày:<a href="#">@item.CreatedAt</a></span>
+                                    }
+                                </div>
+                                <h4 class="post_title"><a asp-action="BlogDetail" asp-controller="Blog" asp-route-BlogDetailUrl="@item.PostTitleURL">@item.PostTitle</a></h4>
+                                <p>@item.PostReadmore</p>
+                                <footer class="blog_footer">
+                                    <a asp-action="BlogDetail" asp-controller="Blog" asp-route-BlogDetailUrl="@item.PostTitleURL">Xem chi tiết</a>
+                                </footer>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!--blog pagination area end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+

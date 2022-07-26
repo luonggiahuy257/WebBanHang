@@ -6,13 +6,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-
                 <div class="offcanvas_menu_wrapper">
                     <div class="canvas_close">
                         <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
                     </div>
                     <div class="header_search_box">
-                        <form asp-controller="Search" asp-action="Index" method="get">
+                        <form asp-controller="Search" asp-action="Index">
                             <input placeholder="Tìm kiếm" name="SearchString" type="text">
                             <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
@@ -64,22 +63,29 @@
                             </ul>
                             </li>*@
                             <li class="menu-item-has-children">
-                                <a href="/danh-muc-san-pham">Danh mục sản phẩm</a>
+                                <a>Danh mục sản phẩm<i class="fa fa-angle-down"></i></a>
                                 <ul class="sub-menu" id="listCategoryHeader1">
                                 </ul>
                             </li>
                             <li class="menu-item-has-children">
                                 <a asp-controller="Home" asp-action="SalePage">Khuyến mãi</a>
                             </li>
-
                             <li class="menu-item-has-children">
                                 <a asp-controller="Home" asp-action="About">Giới Thiệu</a>
                             </li>
                             <li class="menu-item-has-children">
                                 <a asp-controller="Home" asp-action="Contact">Liên hệ</a>
                             </li>
+                            
                             <li class="menu-item-has-children">
-                                <a href="#">Tài Khoản</a>
+                                <a>Tài Khoản<i class="fa fa-angle-down"></i></a>
+                                <ul class="sub_menu">
+                                    <li><a href="/dang-nhap">Đăng nhập</a></li>
+                                    <li><a href="/dang-ky">Đăng ký</a></li>
+                                    <li><a href="/san-pham-yeu-thich">Sản phẩm yên thích</a></li>
+                                    <li><a href="#">Thông tin đăng nhập</a></li>
+                                    <li><a asp-controller="Account" asp-action="LogOut">Đăng xuất</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -111,7 +117,6 @@
                             <ul>
                                 <li><a href="/san-pham-yeu-thich">Yêu Thích</a></li>
                                 <li><a href="/thanh-toan">Thanh Toán</a></li>
-
                                 @await Html.PartialAsync("_LoginPartial")
                             </ul>
                         </div>
@@ -137,7 +142,6 @@
                             <form asp-controller="Search" asp-action="Index">
                                 <input placeholder="Tìm Kiếm" name="SearchString" type="text">
                                 <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-
                             </form>
                         </div>
                     </div>
@@ -248,7 +252,6 @@
     </div>
 </header>
 <!--header area end-->
-
 <script>
     setTimeout($(document).ready(function() {
         var txt = "";
@@ -261,11 +264,9 @@
             dataType: "json",
             success: function(data) {
                 $.each(data, function(i, result) {
-                  var url = myUrl.replace('_start_', result.categoryURL);
                     txt += `<li><a href="danh-muc-san-pham-${result.categoryURL}">${result.categoryName}</a></li>`;
-
-                    $("#listCategoryHeader").html(txt)
-                    $("#listCategoryHeader1").html(txt)
+                    $("#listCategoryHeader").html(txt);
+                    $("#listCategoryHeader1").html(txt);
                 });
             }
         });
@@ -285,15 +286,13 @@
             }
         });
     }), 1000);
-
 </script>
-
 
 @*
 @section Scripts {
     <script>
         setTimeout($(document).ready(function() {
-          
+
 
             $.ajax({
                 url: '@Url.Action("Getuser","DbResultJson")',

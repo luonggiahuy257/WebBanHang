@@ -12,10 +12,13 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using static BanHangOnline.Common.WebConst;
 using BanHangOnline.Common;
+using BanHangOnline.Areas.Manager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BanHangOnline.Areas.Manager.Controllers
 {
     [Area("Manager")]
+    [Authorize(Roles = ("Admin"))]
     public class ProductController : Controller
     {
         private readonly DataContext _context;
@@ -29,7 +32,7 @@ namespace BanHangOnline.Areas.Manager.Controllers
         // GET: Manager/Product
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            return View(await _context.Product.OrderByDescending(item => item.CreatedAt).ToListAsync());
         }
 
         // GET: Manager/Product/Details/5
@@ -54,7 +57,7 @@ namespace BanHangOnline.Areas.Manager.Controllers
         public IActionResult Create()
         {
 
-            return View();
+            return View(MakeCategoryEdit());
         }
 
         // POST: Manager/Product/Create
@@ -62,7 +65,7 @@ namespace BanHangOnline.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Create([Bind("Id,ProductName,SKU,ShortDescription,Description,ProductSeoKeywords,ManufacturerId,UnitTypeId,TaxRateId,SalePrice,RetailPrice,Point,IsWish,ShowOnHomePage,ShowOnSalePage,WarehouseId,ProductTypeId,IsGroup,OwenSale,QuantityInStock,DisplayOrder,Published,Deleted,ProductTitleURL,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] ProductViewModel productViewModel, List<IFormFile> postedFiles)
+        public  IActionResult Create(ProductViewModel productViewModel, List<IFormFile> postedFiles)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
@@ -76,6 +79,187 @@ namespace BanHangOnline.Areas.Manager.Controllers
                         if (postedFiles.Count == 0)
                         {
                             return View();
+                        }
+                        //string[] VietNamChar = new string[]
+                        //{
+                        //    "aAeEoOuUiIdDyY",
+                        //    "áàạảãâấầậẩẫăắằặẳẵ",
+                        //    "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                        //    "éèẹẻẽêếềệểễ",
+                        //    "ÉÈẸẺẼÊẾỀỆỂỄ",
+                        //    "óòọỏõôốồộổỗơớờợởỡ",
+                        //    "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                        //    "úùụủũưứừựửữ",
+                        //    "ÚÙỤỦŨƯỨỪỰỬỮ",
+                        //    "íìịỉĩ",
+                        //    "ÍÌỊỈĨ",
+                        //    "đ",
+                        //    "Đ",
+                        //    "ýỳỵỷỹ",
+                        //    "ÝỲỴỶỸ"
+                        //};
+
+                        char[] charsToTrim = { ' ' };
+                        char[] charsToTrimg = { '-' };
+                        string wwwPath = this.Environment.WebRootPath;
+                        string contentPath = this.Environment.ContentRootPath;
+                        string path = Path.Combine(this.Environment.WebRootPath, FileSave.PathSaveProduct);
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+
+                        List<string> uploadedFiles = new List<string>();
+                        List<ProductImageViewModel> productImageViewModel = new List<ProductImageViewModel>();
+                       
+                        productViewModel.Id = func.GetIdProduct();
+                        productViewModel.ProductTitleURL = func.GetUrlName(productViewModel.ProductName);
+                        productViewModel.CreatedAt = now;
+                        productViewModel.UpdatedAt = now;
+                        productViewModel.UpdatedBy = "admin";
+                        productViewModel.CreatedBy = "admin";
+                        productViewModel.TaxRateId = 1;
+
+                        foreach (IFormFile postedFile in postedFiles)
+                        {
+                            ProductImageViewModel productImage = new ProductImageViewModel();
+                            // File hình ảnh không được lớn hơn 2mb
+                            if (postedFile.Length > 2097152)
+                            {
+                                return View(productViewModel);
+                            }
+
+                            string nameext = Guid.NewGuid().ToString("N").Trim(charsToTrimg).ToLower().Substring(0, 12);
+                            string flname = nameext + Path.GetExtension(postedFile.FileName).ToLower();
+                            using (FileStream stream = new FileStream(Path.Combine(path, flname), FileMode.Create))
+                            {
+                                postedFile.CopyTo(stream);
+                                uploadedFiles.Add(flname);
+
+                                productImage.FilePath = FileSave.PathProduct + flname;
+                                productImage.FileName = flname;
+                                productImage.ImageName = productViewModel.ProductName;
+                                productImage.ProductId = productViewModel.Id;
+                                productImage.Published = true;
+                                productImageViewModel.Add(productImage);
+                            }
+                        }
+
+                        foreach (ProductImageViewModel productImage in productImageViewModel)
+                        {
+                            _context.ProductImage.Add(productImage);
+                        }
+
+                        //var stringtitle = productViewModel.ProductName;
+                        //var charsToRemove = new string[] { "@", ",", ".", ";", "'", "/", "?" };
+                        //foreach (var c in charsToRemove)
+                        //{
+                        //    stringtitle = stringtitle.Replace(c, string.Empty);
+                        //}
+                        //for (int i = 1; i < VietNamChar.Length; i++)
+                        //{
+                        //    for (int j = 0; j < VietNamChar[i].Length; j++)
+                        //        stringtitle = stringtitle.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
+                        //}
+                        //stringtitle = stringtitle.Replace(" ", "-");
+                        //productViewModel.ProductTitleURL = stringtitle;
+
+                        _context.Product.Add(productViewModel);
+                        _context.SaveChanges();
+                        transaction.Commit();
+
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    var exxx = ex.Message;
+                    transaction.Rollback();
+                }
+            }
+            return View(productViewModel);
+        }
+
+        // GET: Manager/Product/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Product == null)
+            {
+                return NotFound();
+            }
+            CategoryDropdown categoryDropdown = MakeCategoryEdit();
+            var productViewModel = await _context.Product.FindAsync(id);
+            List<ProductImageViewModel> productImages = await _context.ProductImage.Where(item => item.ProductId == id).ToListAsync();
+            if (productImages != null)
+            {
+                categoryDropdown.ProductImages = productImages;
+            }
+           
+            if (productViewModel == null)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                categoryDropdown.ProductName = productViewModel.ProductName;
+                categoryDropdown.SKU = productViewModel.SKU;
+                categoryDropdown.ShortDescription = productViewModel.ShortDescription;
+                categoryDropdown.Description = productViewModel.Description;
+                categoryDropdown.ProductSeoKeywords = productViewModel.ProductSeoKeywords;
+                categoryDropdown.ManufacturerId = productViewModel.ManufacturerId;
+                categoryDropdown.Color = productViewModel.Color;
+                categoryDropdown.Size = productViewModel.Size;
+                categoryDropdown.UnitTypeId = productViewModel.UnitTypeId;
+                categoryDropdown.TaxRateId = productViewModel.TaxRateId;
+                categoryDropdown.SalePrice = productViewModel.SalePrice;
+                categoryDropdown.RetailPrice = productViewModel.RetailPrice;
+                categoryDropdown.Point = productViewModel.Point;
+                categoryDropdown.IsWish = productViewModel.IsWish;
+                categoryDropdown.ShowOnHomePage = productViewModel.ShowOnHomePage;
+                categoryDropdown.ShowOnSalePage = productViewModel.ShowOnSalePage;
+                categoryDropdown.WarehouseId = productViewModel.WarehouseId;
+                categoryDropdown.ProductTypeId = productViewModel.ProductTypeId;
+                categoryDropdown.IsGroup = productViewModel.IsGroup;
+                categoryDropdown.OwenSale = productViewModel.OwenSale;
+                categoryDropdown.QuantityInStock = productViewModel.QuantityInStock;
+                categoryDropdown.DisplayOrder = productViewModel.DisplayOrder;
+                categoryDropdown.Published = productViewModel.Published;
+                categoryDropdown.Deleted = productViewModel.Deleted;
+                categoryDropdown.ProductTitleURL = productViewModel.ProductTitleURL;
+                categoryDropdown.CreatedAt = productViewModel.CreatedAt;
+                categoryDropdown.CreatedBy = productViewModel.CreatedBy;
+                categoryDropdown.UpdatedAt = productViewModel.UpdatedAt;
+                categoryDropdown.UpdatedBy = productViewModel.UpdatedBy;
+                categoryDropdown.CategoryId = productViewModel.CategoryId;
+            }
+            return View(categoryDropdown);
+        }
+
+        // POST: Manager/Product/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, ProductViewModel productViewModel, List<IFormFile> postedFiles)
+        {
+            if (id != productViewModel.Id)
+            {
+                return NotFound();
+            }
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        DateTime now = System.DateTime.Now;
+
+                        if (postedFiles.Count == 0)
+                        {
+                            return View(new ProductViewModel());
                         }
                         string[] VietNamChar = new string[]
                         {
@@ -108,13 +292,14 @@ namespace BanHangOnline.Areas.Manager.Controllers
 
                         List<string> uploadedFiles = new List<string>();
                         List<ProductImageViewModel> productImageViewModel = new List<ProductImageViewModel>();
-                       
-                        productViewModel.Id = func.GetIdProduct();
+
+                        productViewModel.Id = id;
                         productViewModel.ProductTitleURL = func.GetUrlName(productViewModel.ProductName);
                         productViewModel.CreatedAt = now;
                         productViewModel.UpdatedAt = now;
                         productViewModel.UpdatedBy = "admin";
                         productViewModel.CreatedBy = "admin";
+                        productViewModel.TaxRateId = 1;
 
                         foreach (IFormFile postedFile in postedFiles)
                         {
@@ -141,76 +326,58 @@ namespace BanHangOnline.Areas.Manager.Controllers
                             }
                         }
 
+                        List<ProductImageViewModel> productImageListRemoves = await _context.ProductImage.Where(m => m.ProductId == id).ToListAsync();
+                        if (productImageListRemoves != null)
+                        {
+                            foreach (var item in productImageListRemoves)
+                            {
+                                _context.ProductImage.Remove(item);
+                            }
+
+                        }
                         foreach (ProductImageViewModel productImage in productImageViewModel)
                         {
                             _context.ProductImage.Add(productImage);
                         }
 
-                        _context.Product.Add(productViewModel);
-                        _context.SaveChanges();
+                        var stringtitle = productViewModel.ProductName;
+                        var charsToRemove = new string[] { "@", ",", ".", ";", "'", "/", "?" };
+                        foreach (var c in charsToRemove)
+                        {
+                            stringtitle = stringtitle.Replace(c, string.Empty);
+                        }
+                        for (int i = 1; i < VietNamChar.Length; i++)
+                        {
+                            for (int j = 0; j < VietNamChar[i].Length; j++)
+                                stringtitle = stringtitle.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
+                        }
+                        stringtitle = stringtitle.Replace(" ", "-");
+                        productViewModel.ProductTitleURL = stringtitle;
+
+                        _context.Update(productViewModel);
+                        await _context.SaveChangesAsync();
                         transaction.Commit();
-
-                        return RedirectToAction(nameof(Index));
                     }
-
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
-            }
-            return View(productViewModel);
-        }
-
-        // GET: Manager/Product/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Product == null)
-            {
-                return NotFound();
-            }
-
-            var productViewModel = await _context.Product.FindAsync(id);
-            if (productViewModel == null)
-            {
-                return NotFound();
-            }
-            return View(productViewModel);
-        }
-
-        // POST: Manager/Product/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,SKU,ShortDescription,Description,ProductSeoKeywords,ManufacturerId,UnitTypeId,TaxRateId,SalePrice,RetailPrice,Point,IsWish,ShowOnHomePage,ShowOnSalePage,WarehouseId,ProductTypeId,IsGroup,OwenSale,QuantityInStock,DisplayOrder,Published,Deleted,ProductTitleURL,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] ProductViewModel productViewModel)
-        {
-            if (id != productViewModel.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(productViewModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductViewModelExists(productViewModel.Id))
+                    catch (DbUpdateConcurrencyException ex)
                     {
-                        return NotFound();
+                        if (!ProductViewModelExists(productViewModel.Id))
+                        {
+                            transaction.Rollback();
+                            return NotFound();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            var Message = ex.Message;
+                            throw;
+                        }
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(productViewModel);
+
+               
+            return View(new ProductViewModel());
         }
 
         // GET: Manager/Product/Delete/5
@@ -253,6 +420,19 @@ namespace BanHangOnline.Areas.Manager.Controllers
         private bool ProductViewModelExists(int id)
         {
             return _context.Product.Any(e => e.Id == id);
+        }
+
+        private CategoryDropdown MakeCategoryEdit()
+        {
+
+            List<CategoryViewModel> catergory = _context.Category.Where(item => item.ParentId != null && item.CategoryEnable == true).Select(x => new CategoryViewModel { Id = x.Id, CategoryName = x.CategoryName }).ToList();
+            CategoryDropdown webCategory = new CategoryDropdown();
+            if (catergory.Count != 0)
+            {
+                webCategory.Categorys = catergory;
+            }
+
+            return webCategory;
         }
     }
 }

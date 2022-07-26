@@ -83,9 +83,25 @@ namespace BanHangOnline.Controllers
             }
         }
 
+
+        [HttpPost("/tim-kiem-tin-tuc")]
+        public IActionResult SearchWebPost(string SearchString)
+        {
+            try
+            {
+                List<WebPostViewModel> webPostViewModels = _context.WebPost.Where(item => item.PostTitle.ToUpper().Contains(SearchString.ToUpper())).ToList();
+                
+                return View(nameof(SearchWebPost), webPostViewModels);
+            }
+            catch (Exception)
+            {
+                return View(new List<WebPostViewModel>());
+            }
+        }
+
         public IActionResult SearchProduct()
         {
-            List<CategoryViewModel> Category = _context.category.Where(item => item.CategoryEnable == true).ToList();
+            List<CategoryViewModel> Category = _context.Category.Where(item => item.CategoryEnable == true).ToList();
 
             dynamic mymodel = new ExpandoObject();
             mymodel.Categorys = Category;
@@ -149,9 +165,8 @@ namespace BanHangOnline.Controllers
 
                 return View();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-
                 return null;
             }
         }

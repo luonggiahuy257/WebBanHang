@@ -1,0 +1,77 @@
+﻿@model IEnumerable<BanHangOnline.ViewModels.CartViewModelCheckOut>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Content wrapper scroll start -->
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <div class="col-12 mb-2">
+            <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
+        </div>
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="copy-print-csv" class="table v-middle">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LastName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Quantity)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                                        </th>
+                                          <th>
+                                            @Html.DisplayNameFor(model => model.Address)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OrderStatusId)
+                                        </th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.OrderStatusId)</td>
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="@Url.Action("Edit", new { id = @item.Id})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                        <i class="icon-edit1 text-info"></i>
+                                                    </a>
+                                                   @* <a href="@Url.Action("Details", new { id = @item.Id})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
+                                                        <i class="icon-menu text-info"></i>
+                                                    </a>*@
+                                                    <a href="@Url.Action("Delete", new { id = @item.Id})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                        <i class="icon-x-circle text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+</div>
+<!-- Content wrapper scroll end -->

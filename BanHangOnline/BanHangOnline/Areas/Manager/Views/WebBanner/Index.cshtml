@@ -1,8 +1,10 @@
-﻿@model IEnumerable<BanHangOnline.ViewModels.WebBannerViewModel>
+﻿@using BanHangOnline.Areas.Manager.Models
+@model List<WebBannerGropDropdown>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+    WebBannerGropDropdown abc = ViewBag.abc;
 }
 
 <!-- Content wrapper scroll start -->
@@ -21,10 +23,10 @@
                             <table id="copy-print-csv" class="table v-middle">
                                 <thead>
                                     <tr>
-                                        <th>@Html.DisplayNameFor(model => model.BannerImage)</th>
-                                        <th>@Html.DisplayNameFor(model => model.BannerTitle)</th>
-                                        <th>@Html.DisplayNameFor(model => model.BannerGroupId)</th>
-                                        <th>Actions</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Tên hình ảnh</th>
+                                        <th>Nhóm hình ảnh</th>
+                                        <th>Lựa chọn</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,13 +40,18 @@
                                             </td>
                                             <td>@Html.DisplayFor(modelItem => item.BannerTitle)</td>
 
-                                            @if(item.WebBannerGroup != null){
-                                                @foreach (var bannergroup in item.WebBannerGroup)
+                                            @if(abc != null){
+                                                @foreach (var bannergroup in abc.WebBannerGroup)
                                                 {
-                                                    <td>@Html.DisplayFor(modelItem => bannergroup.BannerGroupName)</td>
+                                                    if (bannergroup.BannerGroupID == item.BannerGroupId)
+                                                    {
+                                                       <td>@Html.DisplayFor(modelItem => bannergroup.BannerGroupName)</td>
+                                                    }
                                                 }
-                                            }else{
-                                                 <td>@Html.DisplayFor(modelItem => item.BannerGroupId)</td>
+                                            }
+                                            else
+                                            {
+                                                 <td></td>
                                             }
                                             <td>
                                                 <div class="actions">

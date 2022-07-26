@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BanHangOnline.ViewModels.WebPostViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <div class="col-12 mb-2">
+            <a class="btn btn-primary" href="@Url.Action("Create")">Create New</a>
+        </div>
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="copy-print-csv" class="table v-middle">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PostID)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PostImage)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PostTitle)
+                                        </th>
+                                        
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PostEnable)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CreatedAt)
+                                        </th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.PostID)</td>
+                                             <td>
+                                                <div class="media-box">
+                                                    <img src="@item.PostImage" class="media-avatar" alt="@item.PostTitle">
+                                                </div>
+                                            </td>
+                                            <td>@Html.DisplayFor(modelItem => item.PostTitle)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.PostEnable)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="@Url.Action("Edit", new { id = @item.PostID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                        <i class="icon-edit1 text-info"></i>
+                                                    </a>
+                                                    <a href="@Url.Action("Details", new { id = @item.PostID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail">
+                                                        <i class="icon-menu text-info"></i>
+                                                    </a>
+                                                    <a href="@Url.Action("Delete", new { id = @item.PostID})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                        <i class="icon-x-circle text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+</div>

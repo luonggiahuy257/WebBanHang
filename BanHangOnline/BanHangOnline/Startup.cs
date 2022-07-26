@@ -127,11 +127,16 @@ namespace BanHangOnline
                     pattern: "error",
                     defaults: new { controller = "Home", action = "Error" });
 
+                endpoints.MapControllerRoute(
+                    name: "error",
+                    pattern: "error",
+                    defaults: new { controller = "Home", action = "Error" });
+
                 // Router Lỗi
                 endpoints.MapControllerRoute(
-                    name: "NotFound",
-                    pattern: "NotFound",
-                    defaults: new { controller = "Home", action = "NotFound" });
+                    name: "Contact",
+                    pattern: "lien-he",
+                    defaults: new { controller = "Home", action = "Contact" });
 
                 // Router danh mục sản phẩm
                 endpoints.MapControllerRoute(
@@ -140,10 +145,15 @@ namespace BanHangOnline
 
                 // Router danh mục sản phẩm
                 endpoints.MapControllerRoute(
-                    name: "CategoryProduct",
-                    pattern: "danh-muc-san-pham",
-                    defaults: new { controller = "Product", action = "ProductCategory" });
-                
+                    name: "BlogList",
+                    pattern: "danh-muc-tin-tuc",
+                    defaults: new { controller = "Blog", action = "BlogList" });
+
+                endpoints.MapControllerRoute(
+                 name: "CategoryProduct",
+                 pattern: "danh-muc-san-pham",
+                 defaults: new { controller = "Product", action = "ProductCategory" });
+
                 endpoints.MapControllerRoute(
                     name: "SalePage",
                     pattern: "san-pham-khuyen-mai",
@@ -163,11 +173,21 @@ namespace BanHangOnline
                     pattern: "tim-kiem-san-pham/{currentPageIndex:int?}",
                     defaults: new { controller = "Search", action = "SearchForm" });
 
+                endpoints.MapControllerRoute(
+                    name: "SearchWebPost",
+                    pattern: "tim-kiem-tin-tuc",
+                    defaults: new { controller = "Search", action = "SearchWebPost" });
+
                 // Router chi tiết sản phẩm
                 endpoints.MapControllerRoute(
                     name: "ProductDetail",
                     pattern: "chi-tiet-san-pham/{ProductDetailUrl?}",
                     defaults: new { controller = "Product", action = "ProductDetail" });
+
+                endpoints.MapControllerRoute(
+                    name: "BlogDetail",
+                    pattern: "chi-tiet-{BlogDetailUrl}",
+                    defaults: new { controller = "Blog", action = "BlogDetail" });
 
                 endpoints.MapControllerRoute(
                   name: "ProductList",

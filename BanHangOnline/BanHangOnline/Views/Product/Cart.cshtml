@@ -5,9 +5,7 @@
 
 @{
     ViewData["Title"] = "Giỏ hàng";
-    decimal total = 0;
-    var phivanchuyen = 0;
-    var totalAll = 0;
+    decimal? total = 0;
 }
 
 <!--breadcrumbs area start-->
@@ -57,10 +55,17 @@
                                             <tr>
                                                 <td class="product_remove">@(stt++)</td>
                                                 <td class="product_name"><a href="#">@item.product.ProductName</a></td>
-                                                <td class="product-price">@(item.product.SalePrice.ToString("n0")) đ</td>
+
+                                                @if(item.product.SalePrice != null)
+                                                {
+                                                <td class="product-price">@(item.product.SalePrice?.ToString("n0")) đ</td>
+                                                }else{
+                                                <td class="product-price">0 đ</td>
+                                                }
+                                                
                                                 <td class="product_quantity"><input asp-for="@item.Quantity" id="@($"quantity-{item.product.Id}")" /></td>
                                                 <td class="product_quantity"><button data-productid="@item.product.Id" class="btn btn-success updatecartitem" style="margin-right:10px">Cập nhập</button><button asp-route="removecart" asp-route-id="@item.product.Id" class="btn btn-danger">Xóa</button></td>
-                                                <td class="product_total">@(thanhtien.ToString("n0")) đ</td>
+                                                <td class="product_total">@(thanhtien?.ToString("n0")) đ</td>
                                             </tr>
                                         }
                                     }
@@ -91,7 +96,7 @@
                             <div class="coupon_inner">
                                 <div class="cart_subtotal">
                                     <p>Tổng sản phẩm</p>
-                                    <p class="cart_amount" id="amount-all-product">@(total.ToString("n0")) đ</p>
+                                    <p class="cart_amount" id="amount-all-product">@(total?.ToString("n0")) đ</p>
                                 </div>
                                 <div class="cart_subtotal ">
                                     <p>Phí vận chuyển</p>
@@ -102,7 +107,7 @@
                                     <p class="cart_amount" id="phivanchuyenToatal"></p>
                                 </div>
                                 <div class="checkout_btn">
-                                    <a href="#">Kiểm tra thanh toán</a>
+                                    <a asp-action="CheckOut" asp-controller="Product">Kiểm tra thanh toán</a>
                                 </div>
                             </div>
                         </div>

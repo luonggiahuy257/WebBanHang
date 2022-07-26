@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -24,9 +25,9 @@ namespace BanHangOnline.ViewModels
         [DisplayName("KeywordSeo")]
         public string CategorySeoKeywords { get; set; }
         [DisplayName("Hiển thị ở trang chủ")]
-        public bool? CategoryShowHome { get; set; }
+        public bool CategoryShowHome { get; set; }
         [DisplayName("Trạng thái danh mục")]
-        public bool? CategoryEnable { get; set; }
+        public bool CategoryEnable { get; set; }
         [DisplayName("Thứ tự sắp xếp")]
         public int? CategoryOrder { get; set; }
         [DisplayName("Ngày tạo")]

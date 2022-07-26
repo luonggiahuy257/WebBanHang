@@ -4,11 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BanHangOnline</title>
-
-        <!-- Favicon -->
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="~/Content/Shop/assets/img/favicon.ico">
-    
-    <!-- CSS 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Chuyên bán các mặt hàng về công nghệ, sản phẩm làm đẹp, đồ điện tử, minh tây làm đẹp" />
+    <meta property="og:image" content="~/Content/Shop/assets/img/web.png" />
+    <meta property="Shop:full_image" content="~/Content/Shop/assets/img/web.png" />
+    <link rel="image_src" href="~/Content/Shop/assets/img/web.png" />
+    <meta charset="UTF-8" />
+    <meta name="google-site-verification" content="" />
+    <meta name="robots" content="NOODP,index,follow" />
+    <meta name="author" content="Minh Tây Shop" />
+    <meta name="keywords" content="MinhTayShop, Shoptay, đồ công nghệ, sản phẩm làm đẹp, minh tây điện tử, " />
+    <meta name="geo.region" content="VN" />
+    <meta name="geo.placename" content="3" />
+    <meta name="COPYRIGHT" content="Minh Tây Shop" />
+    <meta property="og:type" content="Minh Tây Shop" />
+    <meta property="og:description" content="Chuyên bán các mặt hàng về công nghệ, sản phẩm làm đẹp, đồ điện tử..." />
+    <link rel="shortcut icon" title="SELFHTML Icon" type="image/x-icon" href="~/Content/Shop/assets/img/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- CSS
     ========================= -->
     <!--bootstrap min css-->
     <link rel="stylesheet" href="~/Content/Shop/assets/css/bootstrap.min.css">
@@ -30,12 +47,22 @@
     <link rel="stylesheet" href="~/Content/Shop/assets/css/jquery-ui.min.css">
     <!--plugins css-->
     <link rel="stylesheet" href="~/Content/Shop/assets/css/plugins.css">
-    
+
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="~/Content/Shop/assets/css/style.css">
-     <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
     <!--modernizr min js here-->
     <script src="~/Content/Shop/assets/js/vendor/modernizr-3.7.1.min.js"></script>
+
+    <style>
+       /* .product_carousel .product_thumb a img {
+            max-height: 196px;
+            min-height: 196px;
+            max-width: 196px;
+            min-width: 196px;
+            margin: 0 auto;
+        }*/
+    </style>
 </head>
 <body>
     @await Html.PartialAsync("_header")
@@ -69,7 +96,7 @@
 
     <!-- Main JS -->
     <script src="~/Content/Shop/assets/js/main.js"></script>
-       
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
